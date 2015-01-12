@@ -1,0 +1,65 @@
+doctype
+//if lt IE 7
+	<html class="no-js lt-ie9 lt-ie8 lt-ie7">
+//if IE 7
+	<html class="no-js lt-ie9 lt-ie8">
+//if IE 8
+	<html class="no-js lt-ie9">
+//[if gt IE 8]><!
+html.no-js
+	//<![endif]
+	head
+		block variables 
+			- var title = '';
+			- var page = '';
+
+		block meta
+			meta(charset='utf-8')
+			meta(http-equiv='X-UA-Compatible', content='IE=edge')
+			meta(name='description', content='')
+		
+		block title
+			title Portfolio of Craig Michael Thompson - a Front-end Developer / Consultant
+				if title
+					| - #{title}
+			
+		block stylesheets
+			link(rel='stylesheet', href='css/vendor.css')
+			link(rel='stylesheet', href='css/app.css')
+
+		block scripts_head
+		
+		//if lt IE 9
+			link(rel='stylesheet', href='css/ie.css')
+
+	body(id='page-'+page, class='page-'+page)
+		block container
+			main#container
+				header#header: .container
+					block header
+				
+				#content
+					block content
+
+				footer#footer: .container
+					block footer
+						.copyright.text-center
+							| © 
+							a(href='http://craigsworks.com') Craig Thompson 
+							| 2014 — Graphics, logos and designs are released under the 
+							a(href='http://creativecommons.org/licenses/by/3.0/') CC Attribution 3.0 license
+							| .
+
+			block scripts
+				script(src='js/vendor.js')
+				script(src='js/app.js')
+
+			block analytics
+				//- Google Analytics: change UA-XXXXX-X to be your site's ID.
+				script.
+					(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+					function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+					e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+					e.src='//www.google-analytics.com/analytics.js';
+					r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+					ga('create','UA-XXXXX-X');ga('send','pageview');

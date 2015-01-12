@@ -1,0 +1,25 @@
+{
+  "name": "craigsworks-portfolio",
+  "version": "1.0.0",
+  "authors": [
+    "Craig Michael Thompson <craig@craigsworks.com>"
+  ],
+  "main": "public/index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~1.10.0",
+    "bootstrap": "~3.3.1",
+    "fontawesome": "~4.2.0",
+    "html5shiv": "~3.7.2",
+    "respond": "~1.4.2",
+    "matchmedia": "~0.2.0"
+  }
+}

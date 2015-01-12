@@ -1,0 +1,46 @@
+@carousel-height: 500px;
+
+@import "../../vendor/styles/bootstrap/_carousel";
+
+// Global icon fix
+.carousel{
+	.fa-chevron-left{
+		.carousel-control .glyphicon-chevron-left;
+	}
+	.fa-chevron-right{
+		.carousel-control .glyphicon-chevron-right;
+	}
+
+	.carousel-title{
+		position: relative;
+		text-align: center;
+		z-index: 2;
+	}
+}
+
+// Home carousel
+#carousel{
+	height: @carousel-height;
+	overflow: hidden;
+}
+
+#testemonials{
+	overflow: hidden;
+
+	background: transparent url(/images/home/slide3.jpg) no-repeat 50% 50%;
+	background-size: cover;
+
+	.item{
+		height: 200px;
+	}
+
+	blockquote{
+		border: 0;
+		
+		color: #111;
+		text-shadow: none;
+		font-size: 1.3em;
+
+		background-color: fade(white, 50%);
+	}
+}

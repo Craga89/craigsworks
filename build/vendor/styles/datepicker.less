@@ -1,0 +1,55 @@
+@import '../../bower_components/bootstrap-datepicker/less/datepicker3';
+
+// Pull in our reference variables etc. last for overrides
+@import (reference) '../../bower_components/bootstrap/less/bootstrap';
+@import (reference) '../../app/less/_reference';
+
+.datepicker{
+	min-width: 285px;
+	height: 285px;
+	
+	cursor: default;
+}
+
+.datepicker > div{
+	display: block;
+
+	background-color: darken(@brand-primary, 8%);
+}
+
+.datepicker table{
+	width: 100%;
+}
+
+.datepicker thead tr:first-child{
+	background-color: darken(@brand-primary, 12%);
+	border-radius: @border-radius-base;
+
+	th{
+		border-radius: 0;
+
+		&:hover{
+			background-color: transparent;
+		}
+	}
+}
+
+.datepicker table,
+.datepicker > div,
+.datepicker-inline,
+.datepicker-years,
+.datepicker-months,
+.datepicker-days{
+	height: 100%;
+}
+
+.datepicker-years tr .year:hover,
+.datepicker-months tr .month:hover,
+.datepicker-days tr .day:hover{
+	background-color: white;
+	color: @brand-primary;
+}
+
+.datepicker .active{
+	background-color: darken(@brand-primary, 16%) !important;
+}

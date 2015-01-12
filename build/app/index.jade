@@ -1,0 +1,258 @@
+extends templates/layouts/default
+
+append variables
+	- var title = ''
+	- var page = 'home';
+
+block header
+	.fixed
+		a.logo(href='#', title='Back to top'): img.img-circle(src='/images/logo.png', alt='Craig Michael Thompson', width=60, height=60)
+
+	.static.text-center
+		img.logo.img-circle(src='/images/logo.png', alt='Craig Michael Thompson', width=120, height=120)
+
+		h1 Craig Michael Thompson
+			small Newcastle Upon Tyne, United Kingdom
+
+		h2 a Front-end Developer / Consultant
+
+
+block content
+	section#about: .container
+		header: h3 
+			a.fa.fa-newspaper-o.fa-fw(href='#about')
+			|  About 
+			small me
+
+		p.
+			Front-end Web Developer primarily interested in jQuery/JavaScript development with HTML5/CSS3 and emerging W3C standards. 
+			Proficient in Node.JS and SPA development, with good knowledge of several other key web languages and frameworks (PHP, Python, MySQL, Mongo etc).
+		
+		.btn-toolbar
+			.btn-group
+				a.btn.btn-default.btn-sm(href='http://blog.craigsworks.com', target='_blank', title='Blog')
+					span.fa.fa-globe
+					|  
+					span.hidden-xs Blog
+
+				a.btn.btn-default.btn-sm(href='http://linkedin.com/in/craigmichaelthompson', target='_blank', title='LinkedIn')
+					span.fa.fa-linkedin
+					|  
+					span.hidden-xs LinkedIn
+
+				a.btn.btn-default.btn-sm(href='http://github.com/Craga89/', target='_blank', title='Github')
+					span.fa.fa-github
+					|  
+					span.hidden-xs Github
+
+				a.btn.btn-default.btn-sm(href='http://twitter.com/craigsworks', target='_blank', title='Twitter')
+					span.fa.fa-twitter
+					|  
+					span.hidden-xs Twitter
+
+			.btn-group
+				a.btn.btn-success.btn-sm(href='/cv.pdf')
+					span.fa.fa-cloud-download
+					|  Download CV
+
+
+	section#skills: .container
+		header: h3 
+			a.fa.fa-pie-chart.fa-fw(href='#skills')
+			|  Skills 
+	
+		.row
+			.col-sm-6
+				article
+					header: h4 JavaScript 
+						small &amp; Libraries
+
+					ul.cloud.list-inline
+						li.label ES3
+						li.label ES5
+						li.label ES6
+						li.label Node.js
+						li.label jQuery (+UI)
+						li.label RequireJS
+						li.label Bootstrap
+						li.label Durandal
+						li.label Vue.js
+						li.label Knockout.js
+						li.label Backbone.js (+Marionette)
+						li.label Raphael
+						li.label D3.js
+			
+			.col-sm-6
+				article
+					header: h4 Markup 
+						small &amp; Styling
+
+					ul.cloud.list-inline
+						li.label HTML5
+						li.label CSS3
+						li.label LESS
+						li.label XML
+						li.label JSON
+						li.label Jade
+						li.label Markdown
+						li.label Handlebars
+						li.label Mustache
+						li.label Bootstrap
+						li.label FontAwesome
+						li.label Foundation
+		
+		.row
+			.col-sm-6
+				article
+					header: h4 Development  
+						small &amp; Build tools
+
+					ul.cloud.list-inline
+						li.label Grunt
+						li.label Gulp
+						li.label Brunch.io
+						li.label Webpack
+						li.label NPM
+						li.label Bower
+						li.label JSPM
+						li.label Karma
+						li.label QUnit
+						li.label Git
+						li.label SVN
+						li.label TFS
+						li.label MySQL
+						li.label MongoDB
+						li.label Redis
+						li.label Apache
+						li.label IIS
+
+			.col-sm-6
+				article
+					header: h4 Languages  
+						small &amp; Other tools
+
+					ul.cloud.list-inline
+						li.label TypeScript
+						li.label CoffeeScript
+						li.label PHP
+						li.label Python
+						li.label C#
+						li.label Java
+						li.label Photoshop
+						li.label Illustrator
+						li.label Google APIs
+						li.label OpenLayers
+						li.label Selenium
+
+
+
+	section#plugins: .container
+		header: h3
+			a.fa.fa-plug.fa-fw(href='#plugins')
+			|  Plugins 
+			small JavaScript
+
+		.row
+			.col-sm-6
+				article
+					header: h4 qTip
+						sup 2 
+						small Pretty Powerful Tooltips
+
+					p qTip<sup>2</sup> is the second generation of the advanced qTip plugin for the ever popular jQuery framework.
+
+					footer.btn-group
+						a.btn.btn-default.btn-sm(href='http://qtip2.com')
+							span.fa.fa-globe
+							|  Website
+
+						a.btn.btn-default.btn-sm(href='http://github.com/qTip2/qTip2')
+							span.fa.fa-github
+							|  GitHub
+
+			.col-sm-6
+				article
+					header: h4 qTip 
+						small The jQuery tooltip plugin
+
+					p qTip is an advanced tooltip plugin for the ever popular jQuery JavaScript framework, allowing the creation of stylish tooltips.
+
+					footer.btn-group
+						a.btn.btn-default.btn-sm(href='http://qtip1.com')
+							span.fa.fa-globe
+							|  Website
+
+						a.btn.btn-default.btn-sm(href='http://github.com/craga89/qtip')
+							span.fa.fa-github
+							|  GitHub
+		.row
+			.col-sm-6
+				article
+					header: h4 ui.draggable.exclusive 
+						small jQuery UI
+					
+					p Adds exclusivity support to jQuery UI's <i>draggable</i> component, 
+						| ensuring only one droppable has its drop event fired.
+
+					footer.btn-group
+						a.btn.btn-default.btn-sm(href='http://craigsworks.com/projects/simpletip')
+							span.fa.fa-globe
+							|  Website
+						
+						a.btn.btn-default.btn-sm(href='http://github.com/craga89/simpletip')
+							span.fa.fa-github
+							|  GitHub
+
+			.col-sm-6
+				article
+					header: h4 gulp-watch-less 
+						small Gulp plugin
+
+					p A gulp plugin which watches .less files and their @imports using the gulp-watch endless stream task.
+
+					footer.btn-group
+						a.btn.btn-default.btn-sm(href='http://craigsworks.com/projects/simpletip')
+							span.fa.fa-globe
+							|  Website
+						
+						a.btn.btn-default.btn-sm(href='http://github.com/craga89/simpletip')
+							span.fa.fa-github
+							|  GitHub
+
+
+	section#who: .container
+		header: h3 
+			a.fa.fa-users.fa-fw(href='#who')
+			|  Who 
+			small has used my work?
+
+		p.row
+			img.mozilla(src='/images/who/mozilla.png', height=30)
+			img.asos(src='/images/who/asos.png', height=30)
+			img.urban(src='/images/who/urban.png', height=30)
+			img.skrill(src='/images/who/skrill.png', height=30)
+			img.lloyds(src='/images/who/lloyds.png', height=30)
+			img.models(src='/images/who/models.png', height=30)
+			img.desk(src='/images/who/desk.png', height=30)
+
+
+	section#contact: .container
+		header: h3
+			a.fa.fa-share-alt.fa-fw(href='#contact')
+			|  Contact 
+			small me
+	
+		.btn-group.btn-group-justified
+			a.btn.btn-default(href='mailto:craig@craigsworks.com', target='_blank')
+				span.fa.fa-envelope-o
+				|  Email 
+				small.text-muted.hidden-xs craig@craigsworks.com
+			
+			a.btn.btn-default(href='tel:+447878062458', target='_blank')
+				span.fa.fa-phone
+				|  Telephone
+				small.text-muted * 
+				small.text-muted.hidden-xs +(44) 7878 062 458
+		
+		p.text-muted
+			small * Available 09:00am - 18:00pm, Monday - Friday
