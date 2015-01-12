@@ -30,28 +30,28 @@ block content
 		
 		.btn-toolbar
 			.btn-group
-				a.btn.btn-default.btn-sm(href='http://blog.craigsworks.com', target='_blank', title='Blog')
+				a.btn.btn-default.btn-sm(href='http://blog.craigsworks.com', target='_blank', title='Blog', rel='blog')
 					span.fa.fa-globe
 					|  
 					span.hidden-xs Blog
 
-				a.btn.btn-default.btn-sm(href='http://linkedin.com/in/craigmichaelthompson', target='_blank', title='LinkedIn')
+				a.btn.btn-default.btn-sm(href='http://linkedin.com/in/craigmichaelthompson', target='_blank', title='LinkedIn', rel='linkedin')
 					span.fa.fa-linkedin
 					|  
 					span.hidden-xs LinkedIn
 
-				a.btn.btn-default.btn-sm(href='http://github.com/Craga89/', target='_blank', title='Github')
+				a.btn.btn-default.btn-sm(href='http://github.com/Craga89/', target='_blank', title='Github', rel='github')
 					span.fa.fa-github
 					|  
 					span.hidden-xs Github
 
-				a.btn.btn-default.btn-sm(href='http://twitter.com/craigsworks', target='_blank', title='Twitter')
+				a.btn.btn-default.btn-sm(href='http://twitter.com/craigsworks', target='_blank', title='Twitter', rel='twitter')
 					span.fa.fa-twitter
 					|  
 					span.hidden-xs Twitter
 
 			.btn-group
-				a.btn.btn-success.btn-sm(href='/cv.pdf')
+				a.btn.btn-success.btn-sm(href='/cv.pdf', rel='cv')
 					span.fa.fa-cloud-download
 					|  Download CV
 
@@ -162,11 +162,11 @@ block content
 					p qTip<sup>2</sup> is the second generation of the advanced qTip plugin for the ever popular jQuery framework.
 
 					footer.btn-group
-						a.btn.btn-default.btn-sm(href='http://qtip2.com')
+						a.btn.btn-default.btn-sm(href='http://qtip2.com', target='_blank')
 							span.fa.fa-globe
 							|  Website
 
-						a.btn.btn-default.btn-sm(href='http://github.com/qTip2/qTip2')
+						a.btn.btn-default.btn-sm(href='http://github.com/qTip2/qTip2', target='_blank')
 							span.fa.fa-github
 							|  GitHub
 
@@ -178,11 +178,11 @@ block content
 					p qTip is an advanced tooltip plugin for the ever popular jQuery JavaScript framework, allowing the creation of stylish tooltips.
 
 					footer.btn-group
-						a.btn.btn-default.btn-sm(href='http://qtip1.com')
+						a.btn.btn-default.btn-sm(href='http://qtip1.com', target='_blank')
 							span.fa.fa-globe
 							|  Website
 
-						a.btn.btn-default.btn-sm(href='http://github.com/craga89/qtip')
+						a.btn.btn-default.btn-sm(href='http://github.com/craga89/qtip', target='_blank')
 							span.fa.fa-github
 							|  GitHub
 		.row
@@ -195,11 +195,11 @@ block content
 						| ensuring only one droppable has its drop event fired.
 
 					footer.btn-group
-						a.btn.btn-default.btn-sm(href='http://craigsworks.com/projects/simpletip')
+						a.btn.btn-default.btn-sm(href='http://craga89.github.io/ui.draggable.exclusive', target='_blank')
 							span.fa.fa-globe
 							|  Website
 						
-						a.btn.btn-default.btn-sm(href='http://github.com/craga89/simpletip')
+						a.btn.btn-default.btn-sm(href='http://github.com/craga89/ui.draggable.exclusive', target='_blank')
 							span.fa.fa-github
 							|  GitHub
 
@@ -211,11 +211,7 @@ block content
 					p A gulp plugin which watches .less files and their @imports using the gulp-watch endless stream task.
 
 					footer.btn-group
-						a.btn.btn-default.btn-sm(href='http://craigsworks.com/projects/simpletip')
-							span.fa.fa-globe
-							|  Website
-						
-						a.btn.btn-default.btn-sm(href='http://github.com/craga89/simpletip')
+						a.btn.btn-default.btn-sm(href='http://github.com/craga89/gulp-watch-less', target='_blank')
 							span.fa.fa-github
 							|  GitHub
 
@@ -227,13 +223,13 @@ block content
 			small has used my work?
 
 		p.row
-			img.mozilla(src='/images/who/mozilla.png', height=30)
-			img.asos(src='/images/who/asos.png', height=30)
-			img.urban(src='/images/who/urban.png', height=30)
-			img.skrill(src='/images/who/skrill.png', height=30)
-			img.lloyds(src='/images/who/lloyds.png', height=30)
-			img.models(src='/images/who/models.png', height=30)
-			img.desk(src='/images/who/desk.png', height=30)
+			a(href='http://mozilla.org', target='_blank'): img.mozilla(src='/images/who/mozilla.png', height=30, title='Mozilla')
+			a(href='http://asos.com', target='_blank'): img.asos(src='/images/who/asos.png', height=30, title='ASOS')
+			a(href='http://urbandictionary.com', target='_blank'): img.urban(src='/images/who/urban.png', height=30, title='Urban Dictionary')
+			a(href='http://skrill.com', target='_blank'): img.skrill(src='/images/who/skrill.png', height=30, title='Skrill (Moneybookers)')
+			a(href='http://lloydstsb.com', target='_blank'): img.lloyds(src='/images/who/lloyds.png', height=30, title='Lloyds TSB')
+			a(href='http://models.com', target='_blank'): img.models(src='/images/who/models.png', height=30, title='models.com')
+			a(href='http://desk.com', target='_blank'): img.desk(src='/images/who/desk.png', height=30, title='desk.com')
 
 
 	section#contact: .container

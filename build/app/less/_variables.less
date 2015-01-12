@@ -1,38 +1,38 @@
-//== Typography
+// Colours
+@brand-primary: #0D60AE;
+@brand-success: #0C9928;
+@text-color: @gray;
 
+// Border radius
+@border-radius-base:        2px;
+@border-radius-large:       2px;
+@border-radius-small:       2px;
+
+// Typography
 @font-family-sans-serif: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-
 @line-height-base: 1.8;
 
-@text-color: @gray;
 @headings-font-family: "Roboto", inherit;
 @headings-font-weight: 300;
 @headings-color: @gray-darker;
 
-//== Container sizes
-//
-//## Define the maximum width of `.container` for different screen sizes.
-
-// Small screen / tablet
+// Container sizes
 @container-tablet:             (600px + @grid-gutter-width);
-//** For `@screen-sm-min` and up.
 @container-sm:                 @container-tablet;
 
-// Medium screen / desktop
 @container-desktop:            (700px + @grid-gutter-width);
-//** For `@screen-md-min` and up.
 @container-md:                 @container-desktop;
 
-// Large screen / wide desktop
 @container-large-desktop:      (800px + @grid-gutter-width);
-//** For `@screen-lg-min` and up.
 @container-lg:                 @container-large-desktop;
 
-
+// Screen sizes
 @screen-sm: 650px;
 
+// Grids
 @grid-float-breakpoint: @screen-xs;
 
+// Buttons
 @btn-primary-border:             @btn-primary-bg;
 @btn-success-border:             @btn-success-bg;
 @btn-info-border:                @btn-info-bg;
