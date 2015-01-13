@@ -8,6 +8,10 @@ block header
 	.fixed
 		a.logo(href='#', title='Back to top'): img.img-circle(src='/images/logo.png', alt='Craig Michael Thompson', width=60, height=60)
 
+		a.hire.btn.btn-default.btn-xs(href='mailto:craig@craigsworks.com?subject=Job+Proposal') 
+			span.fa.fa-check-circle.text-success
+			|  Hire me
+
 	.static.text-center
 		img.logo.img-circle(src='/images/logo.png', alt='Craig Michael Thompson', width=120, height=120)
 
@@ -33,34 +37,31 @@ block content
 			.btn-group
 				a.btn.btn-default.btn-sm(href='http://blog.craigsworks.com', target='_blank', title='Blog', rel='blog')
 					span.fa.fa-globe
-					|  
 					span.hidden-xs Blog
 
 				a.btn.btn-default.btn-sm(href='http://linkedin.com/in/craigmichaelthompson', target='_blank', title='LinkedIn', rel='linkedin')
 					span.fa.fa-linkedin
-					|  
 					span.hidden-xs LinkedIn
 
 				a.btn.btn-default.btn-sm(href='http://github.com/Craga89/', target='_blank', title='Github', rel='github')
 					span.fa.fa-github
-					|  
 					span.hidden-xs Github
 
 				a.btn.btn-default.btn-sm(href='http://twitter.com/craigsworks', target='_blank', title='Twitter', rel='twitter')
 					span.fa.fa-twitter
-					|  
 					span.hidden-xs Twitter
 
 			.btn-group
 				a.btn.btn-success.btn-sm(href='/cv.pdf', rel='cv')
 					span.fa.fa-cloud-download
-					|  Download CV
+					span Download CV
 
 
 	section#skills: .container
 		header: h3 
 			a.fa.fa-pie-chart.fa-fw(href='#skills')
 			|  Skills 
+			small &amp; Experience 
 	
 		.row
 			.col-sm-6
@@ -168,11 +169,11 @@ block content
 						.btn-group
 							a.btn.btn-default.btn-sm(href='http://qtip2.com', target='_blank')
 								span.fa.fa-globe
-								|  Website
+								span Website
 
 							a.btn.btn-default.btn-sm(href='http://github.com/qTip2/qTip2', target='_blank')
 								span.fa.fa-github
-								|  GitHub
+								span GitHub
 
 						iframe(src='http://ghbtns.com/github-btn.html?user=qTip2&repo=qTip2&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='110', height='20')
 
@@ -188,11 +189,11 @@ block content
 						.btn-group
 							a.btn.btn-default.btn-sm(href='http://qtip1.com', target='_blank')
 								span.fa.fa-globe
-								|  Website
+								span Website
 
 							a.btn.btn-default.btn-sm(href='http://github.com/craga89/qtip', target='_blank')
 								span.fa.fa-github
-								|  GitHub
+								span GitHub
 
 
 
@@ -210,11 +211,11 @@ block content
 						.btn-group
 							a.btn.btn-default.btn-sm(href='http://craga89.github.io/ui.draggable.exclusive', target='_blank')
 								span.fa.fa-globe
-								|  Website
+								span Website
 							
 							a.btn.btn-default.btn-sm(href='http://github.com/craga89/ui.draggable.exclusive', target='_blank')
 								span.fa.fa-github
-								|  GitHub
+								span GitHub
 
 
 			.col-sm-6
@@ -228,7 +229,7 @@ block content
 						.btn-group
 							a.btn.btn-default.btn-sm(href='http://github.com/craga89/gulp-watch-less', target='_blank')
 								span.fa.fa-github
-								|  GitHub
+								span GitHub
 
 
 	section#who: .container
@@ -238,14 +239,16 @@ block content
 			small has used my work?
 
 		p.row
-			a(href='http://mozilla.org', target='_blank'): img.mozilla(src='/images/who/mozilla.png', height=30, title='Mozilla')
-			a(href='http://asos.com', target='_blank'): img.asos(src='/images/who/asos.png', height=30, title='ASOS')
-			a(href='http://urbandictionary.com', target='_blank'): img.urban(src='/images/who/urban.png', height=30, title='Urban Dictionary')
-			a(href='http://skrill.com', target='_blank'): img.skrill(src='/images/who/skrill.png', height=30, title='Skrill (Moneybookers)')
+			a(href='http://mozilla.org', target='_blank'): img.mozilla(src='/images/who/mozilla.png', height=25, title='Mozilla')
+			a(href='http://salesforce.com', target='_blank'): img.salesforce(src='/images/who/salesforce.png', height=38, title='Salesforce')
 			a(href='http://lloydstsb.com', target='_blank'): img.lloyds(src='/images/who/lloyds.png', height=30, title='Lloyds TSB')
-			a(href='http://models.com', target='_blank'): img.models(src='/images/who/models.png', height=30, title='models.com')
-			a(href='http://desk.com', target='_blank'): img.desk(src='/images/who/desk.png', height=30, title='desk.com')
-
+			a(href='http://asos.com', target='_blank'): img.asos(src='/images/who/asos.png', height=22, title='ASOS')
+			a(href='http://syngenta.com', target='_blank'): img.syngenta(src='/images/who/syngenta.png', height=30, title='Syngenta')
+			a(href='http://urbandictionary.com', target='_blank'): img.urban(src='/images/who/urban.png', height=32, title='Urban Dictionary')
+			a(href='http://northumbria.ac.uk', target='_blank'): img.northumbria(src='/images/who/northumbria.png', height=30, title='Northumbria University')
+			a(href='http://skrill.com', target='_blank'): img.skrill(src='/images/who/skrill.png', height=30, title='Skrill (Moneybookers)')
+			a(href='http://models.com', target='_blank'): img.models(src='/images/who/models.png', height=25, title='models.com')
+			a(href='http://thinktag.ch', target='_blank'): img.thinktag(src='/images/who/thinktag.png', height=30, title='ThinkTag GmbH')
 
 	section#contact: .container
 		header: h3

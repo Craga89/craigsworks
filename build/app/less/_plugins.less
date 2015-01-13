@@ -1,5 +1,6 @@
 #plugins{
 	article{
+		padding-bottom: @grid-gutter-width;
 		margin-bottom: @grid-gutter-width;
 	
 		@media screen and (min-width: @screen-sm-min) {
@@ -7,6 +8,15 @@
 				min-height: 6em;
 			}
 		}
+
+		@media screen and (max-width: @screen-xs-max) {
+			border-bottom: 1px solid darken(@gray-lighter, 10%);
+		}
+	}
+	
+	.row:last-child > :last-child > :last-child{
+		border-bottom: 0;
+		padding-bottom: 0;
 	}
 
 	iframe{
