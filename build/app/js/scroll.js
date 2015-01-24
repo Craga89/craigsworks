@@ -3,8 +3,9 @@ var $body = $(document.body),
 	threshold = $logo.offset().top + $logo.height(),
 	hasClass = false;
 
-jQuery.request_scroll(function() {
-	var scrollTop = document.body.scrollTop,
+function scroll() {
+	var docElem = document.documentElement,
+		scrollTop = docElem && docElem.scrollTop || document.body.scrollTop,
 		state = scrollTop > threshold;
 
 	if(hasClass && !state) {
@@ -15,4 +16,7 @@ jQuery.request_scroll(function() {
 		$body.addClass('scrolled');
 		hasClass = true;
 	}
-});
+}
+
+jQuery.request_scroll(scroll);
+scroll();

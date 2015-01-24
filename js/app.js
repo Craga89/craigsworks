@@ -1,0 +1,3 @@
+function scroll(){var o=document.documentElement,s=o&&o.scrollTop||document.body.scrollTop,l=s>threshold;hasClass&&!l?($body.removeClass("scrolled"),hasClass=!1):!hasClass&&l&&($body.addClass("scrolled"),hasClass=!0)}var $body=$(document.body),$logo=$("#header .static .logo"),threshold=$logo.offset().top+$logo.height(),hasClass=!1;jQuery.request_scroll(scroll),scroll();
+//# sourceMappingURL=../js/app.js.map
+//# sourceMappingURL=app.js.map

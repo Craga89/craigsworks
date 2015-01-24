@@ -3,7 +3,21 @@
 		padding-bottom: @grid-gutter-width;
 		margin-bottom: @grid-gutter-width;
 	
-		@media screen and (min-width: @screen-sm-min) {
+		header h4{
+			&:before{
+				margin-right: 0.5em;
+
+				.icon('chevron-right');
+				color: @brand-primary;
+				font-size: 12px;
+			}
+		}
+
+		&:hover{
+			border-left-color: @brand-primary;
+		}
+	
+		@media screen and (min-width: @screen-xs-max) {
 			p{
 				min-height: 6em;
 			}
@@ -13,7 +27,7 @@
 			border-bottom: 1px solid darken(@gray-lighter, 10%);
 		}
 	}
-	
+
 	.row:last-child > :last-child > :last-child{
 		border-bottom: 0;
 		padding-bottom: 0;

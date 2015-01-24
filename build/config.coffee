@@ -29,7 +29,7 @@ exports.config =
 
 		# Jade
 		jade:
-			pretty: true
+			pretty: false
 
 		# LiveReload
 		autoReload:
@@ -49,7 +49,7 @@ exports.config =
 		definition: false
 
 	# Optimize outputs
-	optimize: false
+	optimize: true
 	minify: true
 
 	# `watch` server
