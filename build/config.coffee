@@ -6,7 +6,10 @@ exports.config =
 		javascripts:
 			joinTo:
 				'js/app.js': /^app/
-				'js/vendor.js': /^(vendor|bower_components)/
+				'js/vendor.js': (path) ->
+					/^(vendor|bower_components)/.test(path) && 
+						!/^bower_components\/bootstrap/.test(path) &&
+						!/^bower_components\/jquery/.test(path)
 
 		stylesheets:
 			defaultExtension: 'less'
@@ -49,7 +52,7 @@ exports.config =
 		definition: false
 
 	# Optimize outputs
-	optimize: true
+	optimize: false
 	minify: true
 
 	# `watch` server
