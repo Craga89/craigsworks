@@ -214,6 +214,9 @@ section header .fa {
 section:target header .fa {
   color: #0d60ae;
 }
+.label {
+  margin-right: 0.35em;
+}
 .btn .fa + * {
   margin-left: 0.5em;
 }
