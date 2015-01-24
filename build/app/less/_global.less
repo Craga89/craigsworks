@@ -1,73 +1,13 @@
+// Global container
 #container{
 	.clearfix;
 	border-bottom: 15px solid @gray-lighter;
 }
 
-#header{
-	display: table;
-	width: 100%;
-	height: 100vh;
-	max-height: 35em;
-	padding: 25px 0;
-	
-	@media screen and (orientation: portrait) and (max-width: @screen-xs-max) and (max-height: 700px) {
-		max-height: none;
-	}
+// Anchor offsets
+a[name]{ .sr-only; }
 
-	.container{
-		display: table-cell;
-		line-height: @line-height-base;
-		vertical-align: middle;
-	}
-
-	.fixed{
-		position: fixed;
-		top: 0; left: 0;
-		width: 100%;
-		height: 5px;
-		z-index: @zindex-navbar;
-
-		background-color: @gray-lighter;
-		transition: height 0.3s ease-out;
-
-		.logo{
-			float: left;
-			display: block;
-			opacity: 0;
-			margin-top: -4px;
-
-			img{
-				border: 10px solid @gray-lighter;
-			}
-		}
-
-		.hire{
-			float: right;
-			margin: 9px 9px 0 0;
-
-			.fa{ color: lighten(@brand-primary, 3%); }
-		}
-
-		.logo, .hire{
-			opacity: 0;
-			transform: translateY(-60px);
-
-			transition: opacity 0.3s ease-out,
-				transform 0.3s ease-out;
-		}
-
-		.scrolled &{
-			height: 40px;
-
-			.logo, .hire{
-				opacity: 1;
-				transform: translateY(0);
-			}
-		}
-	}
-}
-
-section[id]:before{
+section[id]:before, a[name]{
 	display: block;
 	height: 50px;
 	margin-top: -50px;
@@ -76,20 +16,7 @@ section[id]:before{
 	visibility: hidden;
 }
 
-h1{
-	color: @gray-darker;
-	font-weight: 600;
-	font-family: @font-family-sans-serif;
-
-	small{
-		display: block;
-		margin: 0.5em 0 0.75em;
-
-		font-size: 0.5em;
-		line-height: 1.5em;
-	}
-}
-
+// Sections
 section{
 	margin-bottom: @grid-gutter-width;
 
@@ -113,12 +40,9 @@ section{
 	}
 }
 
+// Button icons
 .btn{
 	.fa + * { margin-left: 0.5em; }
 
 	&.btn-default .fa{ color: @gray-darker; }
-}
-
-#footer{
-	margin: @grid-gutter-width * 2 0 @grid-gutter-width / 2;
 }
