@@ -1,3 +1,7 @@
+block variables 
+	- var title = '';
+	- var page = '';
+
 doctype
 //if lt IE 7
 	<html class="no-js lt-ie9 lt-ie8 lt-ie7">
@@ -6,13 +10,9 @@ doctype
 //if IE 8
 	<html class="no-js lt-ie9">
 //[if gt IE 8]><!
-html.no-js
+html(id='page-'+page, class='page-'+page).no-js
 	//<![endif]
 	head
-		block variables 
-			- var title = '';
-			- var page = '';
-
 		block meta
 			meta(http-equiv='X-UA-Compatible', content='IE=edge')
 			meta(http-equiv='content-type', content='text/html; charset=utf-8')
@@ -63,7 +63,7 @@ html.no-js
 		//if lt IE 9
 			link(rel='stylesheet', href='css/ie.css')
 
-	body(id='page-'+page, class='page-'+page)
+	body
 		block container
 			main#container
 				header#header: .container

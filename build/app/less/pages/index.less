@@ -1,0 +1,109 @@
+@import '_base';
+
+#page-home{
+	// Global container
+	main{
+		border-bottom: 15px solid @gray-lighter;
+	}
+
+	.about{
+		.btn-group{
+			margin-top: @grid-gutter-width / 4;
+		}
+	}
+
+	.skills{
+		ul{
+			margin-left: 0;
+		}
+
+		article{
+			margin-bottom: @grid-gutter-width;
+		}
+
+		.label{
+			font-size: 0.9em;
+			font-weight: 600;
+
+			.label-primary;
+		}
+	}
+
+
+	.plugins{
+		article{
+			padding-bottom: @grid-gutter-width;
+			margin-bottom: @grid-gutter-width;
+		
+			header h4{
+				&:before{
+					margin-right: 0.5em;
+
+					.icon('chevron-right');
+					color: @brand-primary;
+					font-size: 12px;
+				}
+			}
+
+			&:hover{
+				border-left-color: @brand-primary;
+			}
+		
+			@media screen and (min-width: @screen-xs-max) {
+				p{
+					min-height: 6em;
+				}
+			}
+
+			@media screen and (max-width: @screen-xs-max) {
+				border-bottom: 1px solid darken(@gray-lighter, 10%);
+			}
+		}
+
+		.row:last-child > :last-child > :last-child{
+			border-bottom: 0;
+			padding-bottom: 0;
+		}
+
+		iframe{
+			position: relative;
+
+			top: 5px;
+			left: 10px;
+		}
+	}
+
+	.who{
+		p {
+			text-align: center;
+			margin-top: @grid-gutter-width;
+		}
+
+		img{
+			position: relative;
+			display: inline-block;
+			vertical-align: middle;
+
+			margin: @grid-gutter-width / 2;
+		}
+
+		.lloyds{ top: 2px; }
+		.mozilla{ top: -3px; }
+		.urban{ top: -2px; }
+		.asos{ opacity: 0.8; }
+		.salesforce{ top: 4px; }
+	}
+
+	.contact{
+		header{
+			margin-bottom: 20px;
+		}
+
+		.row{ .make-row(10px); }
+
+		.column{
+			.make-sm-column(6, 10px);
+			margin-bottom: 10px;
+		}
+	}
+}
