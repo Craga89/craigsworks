@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteRule ^qtip2(\/?.*) http://qtip2.com/$1 [L,R=301,NC]
+RewriteRule ^qtip(\/?.*) http://qtip1.com/$1 [L,R=301,NC]
+RewriteRule ^\/?$ http://craigsworks.com/#plugins [L,R,NC,NE]
+</IfModule>
+
+<ifmodule mod_php4.c>
+php_value zlib.output_compression 16386
+</ifmodule>
