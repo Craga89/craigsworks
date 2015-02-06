@@ -1,8 +1,17 @@
-// Global container
-#container{
-	.clearfix;
-	border-bottom: 15px solid @gray-lighter;
+@import '_print';
+
+// Set root font size
+html {
+	font-size: @font-size-root;
 }
+ 
+// Change styling for elements that mix pixels and ems
+pre {
+	font-size: ( @font-size-base - (1 / @font-size-root) );
+}
+
+// Global container
+main{ .clearfix; }
 
 // Anchor offsets
 a[name]{ .sr-only; }
