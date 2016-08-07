@@ -1,15 +1,15 @@
 exports.config =
 	paths:
 		public: '../'
-		
+
 	files:
 		javascripts:
 			joinTo:
 				'js/app.js': /^app/
 				'js/vendor.js': (path) ->
-					/^(vendor|bower_components)/.test(path) && 
-						!/^bower_components\/bootstrap/.test(path) &&
-						!/^bower_components\/jquery/.test(path)
+					/^(vendor|bower_components)/.test(path) &&
+						!/^bower_components[\\\/]bootstrap[\\\/]/.test(path) &&
+						!/^bower_components[\\\/]jquery[\\\/]/.test(path)
 
 		stylesheets:
 			defaultExtension: 'less'
@@ -20,7 +20,7 @@ exports.config =
 				before: [
 					'vendor/styles/main.less'
 				]
-				
+
 		templates:
 			defaultExtension: 'jade'
 			joinTo:
@@ -40,7 +40,7 @@ exports.config =
 				css: on
 				js: on
 				assets: on
-		
+
 		# Auto Prefixer
 		autoprefixer:
 			browsers: ["last 2 versions", "ie 8", "ie 9"]
@@ -52,8 +52,8 @@ exports.config =
 		definition: false
 
 	# Optimize outputs
-	optimize: true
-	minify: true
+	optimize: false
+	minify: false
 
 	# `watch` server
 	server:

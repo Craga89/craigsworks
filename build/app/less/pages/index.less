@@ -32,7 +32,7 @@
 	}
 
 
-	.plugins{
+	.github{
 		header {
 			.github-button,
 			iframe{
@@ -41,6 +41,38 @@
 				vertical-align: top;
 
 				font-size: @font-size-small;
+			}
+		}
+
+		.activity {
+			position: relative;
+			display: block;
+			margin: @grid-gutter-width 0;
+
+			&:before{
+				position: absolute;
+				top: 14px;
+				left: 14px;
+				right: -1px;
+				height: 100%;
+
+				content: ' ';
+
+				background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAIAAAD9iXMrAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAJUlEQVQokWN89+4dA14gKCjIwMDAhF8RHIyqo486xv///1PTPAAK+gYTB7OzJAAAAABJRU5ErkJggg==");
+				background-repeat: repeat;
+				background-position: 0 0;
+			}
+
+
+			img {
+				position: relative;
+				display: block;
+				background-color: @body-bg;
+
+				@media screen and (max-width: @screen-md) {
+					width: 100%;
+					height: auto;
+				}
 			}
 		}
 

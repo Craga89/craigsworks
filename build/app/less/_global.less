@@ -25,6 +25,19 @@ section[id]:before, a[name]{
 	visibility: hidden;
 }
 
+// Unveil.js fade in images
+img[data-src]{
+	opacity: 0;
+
+	transition: opacity 200ms ease-in;
+	-webkit-transition: opacity 200ms ease-in;
+	-moz-transition: opacity 200ms ease-in;
+
+	&.is-loaded{
+		opacity: 1;
+	}
+}
+
 // Sections
 section{
 	margin-bottom: @grid-gutter-width;

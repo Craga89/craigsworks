@@ -1,2 +1,78 @@
-function scroll(){var o=document.documentElement,e=o&&o.scrollTop||document.body.scrollTop,s=e>threshold;hasClass&&!s?(body.className=body.className.replace(/\s*scrolled\s*/g,""),hasClass=!1):!hasClass&&s&&(body.className=body.className+" scrolled",hasClass=!0)}function request_scroll(o){var e,s,n,t,r,l;return s=function(){var o;return o=window.scrollY,t()},t=function(){var o;return o?void 0:(n(l),o=!0)},l=function(){var s;return o(e),s=!1},e=0,r=!1,window.addEventListener("scroll",s,!1),n=function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(o){return window.setTimeout(o,1e3/60)}}()}var body=document.body,logo=document.getElementById("logo"),threshold=logo.offsetTop+logo.height,hasClass=!1;request_scroll(scroll),scroll();
+(function() {
+	var body = document.body,
+		logo = document.getElementById('logo'),
+		threshold = logo.offsetTop + logo.height,
+		hasClass = false;
+
+	function scroll() {
+		var docElem = document.documentElement,
+			scrollTop = docElem && docElem.scrollTop || document.body.scrollTop,
+			state = scrollTop > threshold;
+
+		if(hasClass && !state) {
+			body.className = body.className.replace(/\s*scrolled\s*/g, '');
+			hasClass = false;
+		}
+		else if(!hasClass && state) {
+			body.className = body.className + ' scrolled';
+			hasClass = true;
+		}
+	}
+
+	function request_scroll(callback) {
+		/*
+		Callback for our scroll event - just
+		keeps a track on the last scroll value
+		 */
+		var lastScrollY, onScroll, requestAnimFrame, requestTick, ticking, update;
+		onScroll = function() {
+			var lastScrollY;
+			lastScrollY = window.scrollY;
+			return requestTick();
+		};
+
+		/*
+		Calls rAF if it's not already
+		been done already
+		 */
+		requestTick = function() {
+			var ticking;
+			if (!ticking) {
+				requestAnimFrame(update);
+				return ticking = true;
+			}
+		};
+
+		/*
+		Our animation callback
+		 */
+		update = function() {
+			var ticking;
+			callback(lastScrollY);
+			return ticking = false;
+		};
+		lastScrollY = 0;
+		ticking = false;
+		window.addEventListener("scroll", onScroll, false);
+		return requestAnimFrame = (function() {
+			return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(timeout_callback) {
+				return window.setTimeout(timeout_callback, 1000 / 60);
+			};
+		})();
+	};
+
+	request_scroll(scroll);
+	scroll();
+}());
+
+$(document).ready(function() {
+  $('img[data-src]').unveil(100, function () {
+    let $this = $(this);
+    $this.load(function() {
+      $this.addClass('is-loaded');
+    });
+  });
+});
+
+
 //# sourceMappingURL=app.js.map
