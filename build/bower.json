@@ -16,7 +16,6 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.1",
-    "fontawesome": "~4.2.0",
     "html5shiv": "~3.7.2",
     "respond": "~1.4.2",
     "matchmedia": "~0.2.0",

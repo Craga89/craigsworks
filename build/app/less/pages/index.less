@@ -36,12 +36,13 @@
 		article{
 			padding-bottom: @grid-gutter-width;
 			margin-bottom: @grid-gutter-width;
-		
+
 			header h4{
-				&:before{
+				.fa-chevron-right {
+					position: static;
+					margin-left: 0;
 					margin-right: 0.5em;
 
-					.icon('chevron-right');
 					color: @brand-primary;
 					font-size: 12px;
 				}
@@ -50,7 +51,7 @@
 			&:hover{
 				border-left-color: @brand-primary;
 			}
-		
+
 			@media screen and (min-width: @screen-xs-max) {
 				p{
 					min-height: 6em;

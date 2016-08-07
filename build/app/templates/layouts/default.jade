@@ -3,15 +3,7 @@ block variables
 	- var page = '';
 
 doctype
-//if lt IE 7
-	<html class="no-js lt-ie9 lt-ie8 lt-ie7">
-//if IE 7
-	<html class="no-js lt-ie9 lt-ie8">
-//if IE 8
-	<html class="no-js lt-ie9">
-//[if gt IE 8]><!
 html(id='page-'+page, class='page-'+page).no-js
-	//<![endif]
 	head
 		block meta
 			meta(http-equiv='X-UA-Compatible', content='IE=edge')
@@ -53,6 +45,7 @@ html(id='page-'+page, class='page-'+page).no-js
 
 		block stylesheets_fonts
 			link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600|Roboto:400,100,300', rel='stylesheet', type='text/css')
+			link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', rel='stylesheet', type='text/css')
 			
 		block stylesheets
 			link(rel='stylesheet', href='/css/vendor.css')
@@ -90,7 +83,7 @@ html(id='page-'+page, class='page-'+page).no-js
 				footer#footer: .container.text-center
 					block footer
 						.copyright
-							| &copy; Craig Michael Thompson 2014 — Graphics, logos and 
+							| &copy; Craig Michael Thompson #{new Date().getFullYear()} — Graphics, logos and 
 							wbr
 							| designs are released under the 
 							a(href='http://creativecommons.org/licenses/by/3.0/', target='_blank') CC Attribution 3.0 license
