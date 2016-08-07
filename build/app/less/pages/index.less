@@ -33,6 +33,17 @@
 
 
 	.plugins{
+		header {
+			.github-button,
+			iframe{
+				position: relative;
+				top: 5px;
+				vertical-align: top;
+
+				font-size: @font-size-small;
+			}
+		}
+
 		article{
 			padding-bottom: @grid-gutter-width;
 			margin-bottom: @grid-gutter-width;
@@ -68,10 +79,11 @@
 			padding-bottom: 0;
 		}
 
-		iframe{
+		iframe,
+		.github-button{
 			position: relative;
 
-			top: 5px;
+			top: 3px;
 			left: 10px;
 		}
 	}

@@ -7,7 +7,7 @@ append variables
 block content
   section#about.about: .container
     header: h3 
-      a.fa.fa-newspaper-o.fa-fw(href='#about')
+      a.fa-prefix.fa.fa-newspaper-o.fa-fw(href='#about')
       |  About 
       small me
 
@@ -42,7 +42,7 @@ block content
 
   section#skills.skills: .container
     header: h3 
-      a.fa.fa-pie-chart.fa-fw(href='#skills')
+      a.fa-prefix.fa.fa-pie-chart.fa-fw(href='#skills')
       |  Skills 
       small &amp; Experience 
   
@@ -146,7 +146,11 @@ block content
     header: h3
       a.fa.fa-plug.fa-fw(href='#plugins')
       |  Plugins 
-      small JavaScript
+        
+      a#follow-me.btn.btn-default.btn-xs.github-button(href="https://github.com/craga89" data-count-href="/craga89/followers" data-count-api="/users/craga89#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @craga89 on GitHub")
+        span.fa.fa-github
+        |  Follow @craga89
+      script document.getElementById('follow-me').style.display = 'none';
 
     .row
       .col-sm-6
@@ -172,7 +176,10 @@ block content
                 span.fa.fa-github
                 span GitHub
 
-            iframe(src='//ghbtns.com/github-btn.html?user=qTip2&repo=qTip2&type=watch&count=true', allowtransparency='true', frameborder='0', scrolling='0', width='110', height='20')
+                a#star-me.btn.btn-default.btn-xs.github-button(href="https://github.com/craga89/qTip2" data-icon="octicon-star" data-count-href="/craga89/qTip2/stargazers" data-count-api="/repos/craga89/qTip2#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star craga89/qTip2 on GitHub")
+                  span.fa.fa-star
+                  |  Star
+                script document.getElementById('star-me').style.display = 'none';
 
       .col-sm-6
         article
@@ -247,7 +254,7 @@ block content
 
   section#who.who: .container
     header: h3 
-      a.fa.fa-users.fa-fw(href='#who')
+      a.fa-prefix.fa.fa-users.fa-fw(href='#who')
       |  Who 
       small has used my work?
 
@@ -300,3 +307,6 @@ block content
     
     p.text-muted
       small * Available 09:00am - 6:00pm, Monday - Friday
+
+block scripts
+  script(async defer src="https://buttons.github.io/buttons.js")
