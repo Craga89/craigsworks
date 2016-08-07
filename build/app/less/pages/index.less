@@ -47,6 +47,7 @@
 		.activity {
 			position: relative;
 			display: block;
+			overflow: hidden;
 			margin: @grid-gutter-width 0;
 
 			&:before{
@@ -63,15 +64,15 @@
 				background-position: 0 0;
 			}
 
-
 			img {
 				position: relative;
 				display: block;
 				background-color: @body-bg;
 
-				@media screen and (max-width: @screen-md) {
-					width: 100%;
-					height: auto;
+				&.fallback{
+					position: absolute;
+					top: 0;
+					left: 0;
 				}
 			}
 		}

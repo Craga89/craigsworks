@@ -230,6 +230,7 @@ section:target header .fa {
 #page-home .github .activity {
   position: relative;
   display: block;
+  overflow: hidden;
   margin: 30px 0;
 }
 #page-home .github .activity:before {
@@ -248,11 +249,10 @@ section:target header .fa {
   display: block;
   background-color: #fff;
 }
-@media screen and (max-width: 992px) {
-  #page-home .github .activity img {
-    width: 100%;
-    height: auto;
-  }
+#page-home .github .activity img.fallback {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 #page-home .github article {
   padding-bottom: 30px;

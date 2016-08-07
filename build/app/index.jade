@@ -152,10 +152,10 @@ block content
         |  Follow @craga89
       script document.getElementById('follow-me').style.display = 'none';
       
-    a.activity.hidden-xs(href='//github.com/Craga89')
+    a.activity.visible-md(href='//github.com/Craga89')
       img(src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="http://ghchart.rshah.org/craga89" title="Craga89's Github chart" width=715 height=104)
       noscript
-        img(src="http://ghchart.rshah.org/craga89" title="Craga89's Github chart" width=715 height=104)
+        img.fallback(src="http://ghchart.rshah.org/craga89" title="Craga89's Github chart" width=715 height=104)
 
     .row
       .col-sm-6
