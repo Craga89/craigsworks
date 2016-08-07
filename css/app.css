@@ -297,6 +297,8 @@ section:target header .fa {
   display: inline-block;
   vertical-align: middle;
   margin: 15px;
+  -webkit-filter: sepia() saturate(94%) hue-rotate(178deg);
+  filter: sepia() saturate(94%) hue-rotate(178deg);
 }
 #page-home .who .lloyds {
   top: 2px;
