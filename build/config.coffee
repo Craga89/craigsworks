@@ -52,8 +52,8 @@ exports.config =
 		definition: false
 
 	# Optimize outputs
-	optimize: false
-	minify: false
+	optimize: true
+	minify: true
 
 	# `watch` server
 	server:
