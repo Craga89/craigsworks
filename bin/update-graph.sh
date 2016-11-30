@@ -1,2 +1,2 @@
 #!/bin/bash
-wget http://ghchart.rshah.org/Craga89 > ./images/graph.svg
+wget http://ghchart.rshah.org/Craga89 -O ./images/graph.svg
