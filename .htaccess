@@ -5,6 +5,9 @@ RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
+# Prevent .git access
+RedirectMatch 404 /\.git
+
 # Charset
 AddCharset UTF-8 .html
 
