@@ -35,13 +35,16 @@ test.describe('home page', () => {
   });
 });
 
+// axe runs as a script in the page, so this state is checked by hand: nothing is lost or left
+// half-working without scripts.
 test.describe('without scripts', () => {
   test.use({ javaScriptEnabled: false });
-  test('the home page shows every service', async ({ page, axe }) => {
+  test('the home page shows every service, and no controls that need scripts', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('tabpanel')).toHaveCount(3);
     for (const panel of await page.getByRole('tabpanel').all()) await expect(panel).toBeVisible();
-    await axe('home without scripts');
+    await expect(page.getByRole('tablist'), 'tabs that could not switch').toBeHidden();
+    await expect(page.locator('[data-motion-toggle]'), 'a pause switch that could not work').toBeHidden();
   });
 });
 
