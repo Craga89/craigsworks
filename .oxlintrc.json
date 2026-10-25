@@ -1,12 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "import",
-    "jsdoc",
-    "node",
-    "promise",
-    "unicorn"
-  ],
+  "plugins": ["import", "jsdoc", "node", "promise", "unicorn"],
   "categories": {
     "correctness": "error",
     "suspicious": "error",
@@ -15,9 +9,7 @@
   "env": {
     "es2024": true
   },
-  "ignorePatterns": [
-    "site/**"
-  ],
+  "ignorePatterns": ["site/**"],
   "rules": {
     "no-empty": [
       "error",
@@ -39,9 +31,7 @@
     "jsdoc/check-tag-names": [
       "error",
       {
-        "definedTags": [
-          "satisfies"
-        ]
+        "definedTags": ["satisfies"]
       }
     ],
     "no-underscore-dangle": "off",
@@ -53,19 +43,13 @@
   },
   "overrides": [
     {
-      "files": [
-        "src/**/*.js",
-        "src/**/*.ts"
-      ],
+      "files": ["src/**/*.js", "src/**/*.ts"],
       "env": {
         "browser": true
       }
     },
     {
-      "files": [
-        "tools/**/*.mjs",
-        "tests/**"
-      ],
+      "files": ["tools/**/*.mjs", "tests/**"],
       "env": {
         "node": true
       },
@@ -74,10 +58,7 @@
       }
     },
     {
-      "files": [
-        "src/**/*.ts",
-        "src/**/*.astro"
-      ],
+      "files": ["src/**/*.ts", "src/**/*.astro"],
       "rules": {
         "import/no-unassigned-import": "off"
       }

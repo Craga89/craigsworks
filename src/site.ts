@@ -19,4 +19,4 @@ export const INDEXING = import.meta.env.ALLOW_INDEXING === 'true';
 
 export const HOME_TITLE = "Craig's Works · Ship faster. Remove what's holding your engineering back.";
 export const HOME_DESC =
-  "Engineering consultancy for startups and SMEs: release acceleration, AI-assisted development and technical health checks, from a hands-on Head of Engineering in Newcastle upon Tyne.";
+  'Engineering consultancy for startups and SMEs: release acceleration, AI-assisted development and technical health checks, from a hands-on Head of Engineering in Newcastle upon Tyne.';

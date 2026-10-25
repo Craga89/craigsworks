@@ -41,23 +41,27 @@ test.describe('motion', { tag: '@desktop' }, () => {
   });
 });
 
-test('the tooltip: shown on hover and focus, hoverable, and Escape dismisses it', { tag: '@desktop' }, async ({ page }) => {
-  await page.goto('/');
-  const button = page.locator('.tip-btn');
-  const tip = page.getByRole('tooltip');
-  await expect(button).toHaveAccessibleDescription(/tooltip/);
-  await button.scrollIntoViewIfNeeded();
-  await expect(tip).toBeHidden();
-  await button.hover();
-  await expect(tip).toBeVisible();
-  await tip.hover();
-  await expect(tip, 'stays while the pointer is on it').toBeVisible();
-  await page.keyboard.press('Escape');
-  await expect(tip, 'Escape dismisses it').toBeHidden();
-  await page.mouse.move(1, 1);
-  await button.focus();
-  await expect(tip, 'shown on keyboard focus').toBeVisible();
-  await page.keyboard.press('Escape');
-  await expect(tip).toBeHidden();
-  await expect(button, 'focus stays put').toBeFocused();
-});
+test(
+  'the tooltip: shown on hover and focus, hoverable, and Escape dismisses it',
+  { tag: '@desktop' },
+  async ({ page }) => {
+    await page.goto('/');
+    const button = page.locator('.tip-btn');
+    const tip = page.getByRole('tooltip');
+    await expect(button).toHaveAccessibleDescription(/tooltip/);
+    await button.scrollIntoViewIfNeeded();
+    await expect(tip).toBeHidden();
+    await button.hover();
+    await expect(tip).toBeVisible();
+    await tip.hover();
+    await expect(tip, 'stays while the pointer is on it').toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(tip, 'Escape dismisses it').toBeHidden();
+    await page.mouse.move(1, 1);
+    await button.focus();
+    await expect(tip, 'shown on keyboard focus').toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(tip).toBeHidden();
+    await expect(button, 'focus stays put').toBeFocused();
+  },
+);
