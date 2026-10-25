@@ -1,0 +1,71 @@
+---
+// The footer: who runs the business, the policy and profile links, and "pause animations".
+import { NAME, OWNER, LOCATION, PERSONAL_SITE, LINKEDIN, SOURCE } from '../site';
+---
+
+<footer class="ftr">
+  <div class="wrap row">
+    <p>{NAME} is the trading name of {OWNER}, sole trader, {LOCATION}. © {new Date().getFullYear()}</p>
+    <ul>
+      <li><a href="/privacy/">Privacy</a></li>
+      <li><a href={PERSONAL_SITE}>craigthompson.dev</a></li>
+      <li><a href={LINKEDIN}>LinkedIn</a></li>
+      <li><a href={SOURCE}>Source</a></li>
+      <li>
+        <button type="button" class="motion" data-motion-toggle aria-pressed="false" hidden>Pause animations</button>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    padding: 24px 0 40px;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px 24px;
+  }
+  p {
+    margin: 0;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 20px;
+  }
+  a,
+  .motion {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--muted);
+  }
+  a:hover {
+    color: var(--ink);
+  }
+  .motion {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+    cursor: pointer;
+  }
+  .motion:hover {
+    color: var(--ink);
+  }
+  .motion[hidden] {
+    display: none;
+  }
+</style>

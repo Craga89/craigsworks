@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/home/Hero.astro';
+import Services from '../components/home/Services.astro';
+import Record from '../components/home/Record.astro';
+import How from '../components/home/How.astro';
+import Contact from '../components/home/Contact.astro';
+import { HOME_TITLE, HOME_DESC } from '../site';
+---
+
+<Base title={HOME_TITLE} description={HOME_DESC} path="" mono>
+  <Hero />
+  <Services />
+  <Record />
+  <How />
+  <Contact />
+</Base>

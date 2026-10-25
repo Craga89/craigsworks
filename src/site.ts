@@ -1,0 +1,22 @@
+// Facts about the site that several pages and build steps share.
+
+export const SITE = 'https://craigsworks.com';
+export const NAME = "Craig's Works";
+export const OWNER = 'Craig Thompson';
+/** Where enquiries go. Swap for a craigsworks.com address once one is set up. */
+export const EMAIL = 'craga89@gmail.com';
+export const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent("Craig's Works: free 30-minute call")}`;
+export const PERSONAL_SITE = 'https://craigthompson.dev';
+export const LINKEDIN = 'https://www.linkedin.com/in/craigmichaelthompson/';
+export const SOURCE = 'https://github.com/Craga89/craigsworks';
+export const LOCATION = 'Newcastle upon Tyne';
+
+/** Browser chrome colour (the page background). */
+export const CHROME = '#F3F4F6';
+
+/** Search engines stay out until the content is finished (ALLOW_INDEXING=true opens it up). */
+export const INDEXING = import.meta.env.ALLOW_INDEXING === 'true';
+
+export const HOME_TITLE = "Craig's Works · Ship faster. Remove what's holding your engineering back.";
+export const HOME_DESC =
+  "Engineering consultancy for startups and SMEs: release acceleration, AI-assisted development and technical health checks, from a hands-on Head of Engineering in Newcastle upon Tyne.";

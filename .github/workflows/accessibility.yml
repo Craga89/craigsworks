@@ -1,0 +1,59 @@
+# The WCAG 2.2 AA suite (tests/a11y/) against the live site: weekly and on demand. CI runs the
+# same suite on every build before it's deployed. The report goes to the accessibility branch,
+# and the run fails if anything doesn't pass.
+name: Accessibility (WCAG 2.2 AA, live site)
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: The address to test
+        default: https://craigsworks.com/
+  schedule:
+    - cron: '17 6 * * 1' # Mondays, 06:17 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: accessibility
+  cancel-in-progress: true
+
+jobs:
+  wcag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      BASE_URL: ${{ inputs.url || 'https://craigsworks.com/' }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup-playwright
+      - name: Run the suite
+        id: run
+        continue-on-error: true
+        run: npx playwright test --project=a11y-desktop --project=a11y-mobile --workers=4
+      - name: Save to the accessibility branch
+        if: always() && hashFiles('a11y.json') != ''
+        run: |
+          mkdir -p out/reports && cp a11y.json out/reports/latest.json
+          git rev-parse HEAD > out/reports/commit.txt
+          echo "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" > out/reports/run.txt
+          date -u +%FT%TZ > out/reports/at.txt
+      - if: always() && hashFiles('a11y.json') != ''
+        uses: ./.github/actions/publish-branch
+        with:
+          branch: accessibility
+          source: out
+          message: WCAG 2.2 AA report for ${{ env.BASE_URL }}
+      - if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: a11y-report
+          path: |
+            a11y.json
+            playwright-report
+          retention-days: 14
+      - name: Fail if anything didn't pass
+        if: steps.run.outcome != 'success'
+        run: exit 1

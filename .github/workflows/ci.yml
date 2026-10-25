@@ -1,0 +1,183 @@
+# Every change: quality checks, a build, then the tests on that build. On the default branch, when
+# everything passes, the build is deployed to GitHub Pages (and lighthouse.yml audits it).
+#
+#   lint ────────────┐
+#   build ─┬─ unit ──┼─ deploy (Pages) ─→ Lighthouse
+#          ├─ e2e ───┤
+#          └─ a11y ──┘
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # Deploys happen from the default branch only, never from pull requests.
+  DEPLOY: ${{ github.ref_name == github.event.repository.default_branch && github.event_name != 'pull_request' }}
+
+jobs:
+  lint:
+    name: Lint and format
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: ./.github/actions/setup-node
+      - run: npm run lint
+      - run: npm run format:check
+
+  build:
+    uses: ./.github/workflows/build.yml
+
+  unit:
+    name: Types and unit tests
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: ./.github/actions/setup-node
+      - run: npm run typecheck
+      - run: npm run test:unit
+
+  e2e:
+    name: End-to-end (${{ matrix.project }})
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [desktop, mobile]
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup-playwright
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        with:
+          name: build
+          path: site
+      - run: npx playwright test --project=${{ matrix.project }}
+      - if: failure()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: e2e-report-${{ matrix.project }}
+          path: playwright-report
+          retention-days: 14
+
+  a11y:
+    name: WCAG 2.2 AA (${{ matrix.shard }}/2)
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup-playwright
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        with:
+          name: build
+          path: site
+      - run: npx playwright test --project=a11y-desktop --project=a11y-mobile --shard=${{ matrix.shard }}/2 --reporter=blob
+      - if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: a11y-blob-${{ matrix.shard }}
+          path: blob-report
+          retention-days: 3
+
+  a11y-report:
+    name: WCAG 2.2 AA report
+    needs: a11y
+    if: always() && needs.a11y.result != 'skipped'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: ./.github/actions/setup-node
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        with:
+          pattern: a11y-blob-*
+          path: blob-report
+          merge-multiple: true
+      - name: Merge the shards
+        run: npx playwright merge-reports --reporter=github,html,./tests/reporters/a11y-report.mjs blob-report
+      - name: Summary
+        run: |
+          node -e '
+            const r = require("./a11y.json");
+            const lines = [`## WCAG 2.2 AA: ${r.pass ? "pass" : "FAIL"}`, "", `${r.tests} tests, ${r.axeRuns} axe runs (axe ${r.axe})`, ""];
+            for (const v of r.violations) lines.push(`- **${v.rule}** (${v.impact}): ${v.help}. \`${v.target}\`, in ${v.states.slice(0, 3).join("; ")}`);
+            for (const f of r.failures) lines.push(`- **${f.check}** (${f.state}): ${f.what}`);
+            require("fs").appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join("\n") + "\n");
+          '
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: a11y-report
+          path: |
+            a11y.json
+            playwright-report
+          retention-days: 14
+      - name: Save to the accessibility branch
+        if: env.DEPLOY == 'true'
+        run: |
+          mkdir -p out/reports && cp a11y.json out/reports/latest.json
+          echo "$GITHUB_SHA" > out/reports/commit.txt
+          echo "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" > out/reports/run.txt
+          date -u +%FT%TZ > out/reports/at.txt
+      - if: env.DEPLOY == 'true'
+        uses: ./.github/actions/publish-branch
+        with:
+          branch: accessibility
+          source: out
+          message: WCAG 2.2 AA report for ${{ github.sha }}
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: [lint, unit, e2e, a11y]
+    if: github.ref_name == github.event.repository.default_branch && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        with:
+          name: build
+          path: site
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+      # The pages carry the commit they were built from (data-commit, data-built), which the
+      # Lighthouse workflow uses to know the address is serving this site.
+      - name: Stamp the commit into the pages
+        run: |
+          at="$(git log -1 --format=%cI)"
+          find site -name '*.html' -exec sed -i "s/__BUILD_SHA__/${GITHUB_SHA}/g; s/__BUILD_AT__/${at}/g" {} +
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
