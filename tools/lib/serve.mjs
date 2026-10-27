@@ -1,7 +1,9 @@
 // A small static file server for the built site, used by the build (to prerender the page) and
 // by the end-to-end tests. Serves index.html for directories and the site's 404 page for anything
 // missing, like GitHub Pages.
-//   node tools/lib/serve.mjs [dir=site] [port=4173]
+// Under a base path (base=/craigsworks/), it serves the directory there, as GitHub Pages does for a
+// project site, and nothing outside it.
+//   node tools/lib/serve.mjs [dir=site] [port=4173] [base=/]
 import http from 'node:http';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, resolve } from 'node:path';
@@ -27,13 +29,15 @@ const TYPES = {
 };
 
 /**
- * Serve `dir` on 127.0.0.1.
+ * Serve `dir` on 127.0.0.1, at `base`.
  * @param {string} dir
  * @param {number} [port] 0 picks a free port
+ * @param {string} [base] the path the site lives under, e.g. '/craigsworks/'
  * @returns {Promise<http.Server & { url: string }>}
  */
-export function serve(dir, port = 0) {
+export function serve(dir, port = 0, base = '/') {
   const root = resolve(dir);
+  const prefix = ('/' + base + '/').replace(/\/+/g, '/');
   const server = http.createServer((req, res) => {
     let path;
     try {
@@ -42,13 +46,14 @@ export function serve(dir, port = 0) {
       res.writeHead(400).end();
       return;
     }
-    let file = join(root, path);
-    if (!file.startsWith(root)) {
+    // Anything outside the base path isn't part of the site (file stays empty: not found).
+    let file = (path + '/').startsWith(prefix) ? join(root, path.slice(prefix.length - 1)) : '';
+    if (file && !file.startsWith(root)) {
       res.writeHead(403).end();
       return;
     }
-    if (existsSync(file) && statSync(file).isDirectory()) file = join(file, 'index.html');
-    if (!existsSync(file)) {
+    if (file && existsSync(file) && statSync(file).isDirectory()) file = join(file, 'index.html');
+    if (!file || !existsSync(file)) {
       const notFound = join(root, '404.html');
       res.writeHead(404, { 'content-type': TYPES['.html'] });
       res.end(existsSync(notFound) ? readFileSync(notFound) : 'Not found');
@@ -61,13 +66,13 @@ export function serve(dir, port = 0) {
     server.once('error', fail);
     server.listen(port, '127.0.0.1', () => {
       const address = server.address();
-      const url = `http://127.0.0.1:${typeof address === 'object' && address ? address.port : port}/`;
+      const url = `http://127.0.0.1:${typeof address === 'object' && address ? address.port : port}${prefix}`;
       done(Object.assign(server, { url }));
     });
   });
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const server = await serve(process.argv[2] || 'site', Number(process.argv[3] || 4173));
+  const server = await serve(process.argv[2] || 'site', Number(process.argv[3] || 4173), process.argv[4] || '/');
   console.log(`serving ${process.argv[2] || 'site'} at ${server.url}`);
 }

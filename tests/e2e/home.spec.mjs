@@ -3,7 +3,7 @@ import { test, expect } from '../fixtures.mjs';
 import { readFileSync } from 'node:fs';
 
 test('the home page says what it is and how to get in touch', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   await expect(page).toHaveTitle(/Craig's Works/);
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Ship faster.');
   const cta = page.getByRole('link', { name: 'Book a free 30-minute call' });
@@ -15,7 +15,7 @@ test('the home page says what it is and how to get in touch', async ({ page }) =
 });
 
 test('the service tabs switch panels', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   const services = page.locator('#services');
   await expect(services.getByRole('tabpanel')).toHaveCount(1);
   await expect(services.getByRole('tabpanel')).toContainText('Release Acceleration');
@@ -26,14 +26,14 @@ test('the service tabs switch panels', async ({ page }) => {
 });
 
 test('the main links jump to their sections', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   await page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'How it works' }).click();
   await expect(page).toHaveURL(/#how$/);
   await expect(page.locator('#how')).toBeInViewport();
 });
 
 test('the skip link moves to the content', { tag: '@desktop' }, async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   await page.keyboard.press('Tab');
   const skip = page.getByRole('link', { name: 'Skip to content' });
   await expect(skip).toBeFocused();
@@ -72,9 +72,26 @@ test('search engines are kept out until indexing is switched on', async ({ reque
 });
 
 test('every page has a Content-Security-Policy and no inline styles', async ({ page }) => {
-  for (const path of ['', 'privacy/']) {
+  for (const path of ['./', 'privacy/']) {
     await page.goto(path);
     await expect(page.locator('meta[http-equiv="content-security-policy"]')).toHaveCount(1);
     expect(await page.locator('[style]').count(), `inline style attributes on /${path}`).toBe(0);
+  }
+});
+
+// GitHub Pages serves the site under /craigsworks/ until the custom domain is set: nothing may
+// point at the domain root, or the styles, fonts and scripts 404 there.
+test('every link and asset stays inside the site, wherever it is served from', async ({ page, baseURL }) => {
+  const base = new URL(baseURL || 'http://127.0.0.1/');
+  for (const path of ['./', 'privacy/']) {
+    await page.goto(path);
+    const refs = await page.locator('[href], [src]').evaluateAll((els) =>
+      els.map((el) => el.getAttribute('href') || el.getAttribute('src') || ''),
+    );
+    const outside = refs.filter((ref) => {
+      const to = new URL(ref, page.url());
+      return to.origin === base.origin && !to.pathname.startsWith(base.pathname);
+    });
+    expect(outside, `links and assets outside ${base.pathname} on ${path}`).toEqual([]);
   }
 });

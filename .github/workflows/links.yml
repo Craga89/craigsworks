@@ -12,6 +12,11 @@ permissions:
 jobs:
   build:
     uses: ./.github/workflows/build.yml
+    permissions:
+      contents: read
+      pages: read
+    with:
+      base: / # lychee resolves root-relative links against site/
 
   links:
     needs: build

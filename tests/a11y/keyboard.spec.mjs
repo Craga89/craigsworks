@@ -8,7 +8,7 @@ import { test, expect, settle } from './axe.mjs';
  * @typedef {{ key: string, tag: string, name: string, rect: number[], hidden: number, inView: boolean }} Stop
  */
 
-for (const path of ['/', 'privacy/']) {
+for (const path of ['./', 'privacy/']) {
   test(`${path}: a full lap with Tab, every stop visibly focused and not hidden`, async ({ page }) => {
     test.setTimeout(240_000);
     await page.goto(path);
@@ -85,7 +85,7 @@ for (const path of ['/', 'privacy/']) {
       stops.push({ ...info, focusVisible });
     }
 
-    expect(stops.length, 'focus stops in a lap').toBeGreaterThan(path === '/' ? 12 : 6);
+    expect(stops.length, 'focus stops in a lap').toBeGreaterThan(path === './' ? 12 : 6);
     const describe = (/** @type {Stop} */ s) => `${s.tag} "${s.name}"`;
     expect.soft(stops.filter((s) => !s.inView).map(describe), '2.4.11: focused but off screen').toEqual([]);
     expect
@@ -105,7 +105,7 @@ for (const path of ['/', 'privacy/']) {
 }
 
 test('the service tabs follow the tabs pattern: arrow keys, Home and End', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   await settle(page);
   const tabs = page.locator('#services').getByRole('tab');
   await tabs.first().focus();

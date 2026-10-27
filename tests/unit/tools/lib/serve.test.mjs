@@ -62,3 +62,32 @@ describe('serve, without a 404 page', () => {
     assert.equal(await r.text(), 'Not found');
   });
 });
+
+describe('serve, under a base path', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'serve-base-'));
+  /** @type {Awaited<ReturnType<typeof serve>>} */
+  let server;
+  before(async () => {
+    mkdirSync(join(dir, 'privacy'));
+    writeFileSync(join(dir, 'index.html'), '<h1>home</h1>');
+    writeFileSync(join(dir, 'privacy', 'index.html'), '<h1>privacy</h1>');
+    writeFileSync(join(dir, '404.html'), '<h1>missing</h1>');
+    server = await serve(dir, 0, 'craigsworks');
+  });
+  after(() => server.close());
+
+  it('serves the site at the base path, like a GitHub Pages project site', async () => {
+    assert.match(server.url, /\/craigsworks\/$/);
+    assert.equal(await (await fetch(server.url)).text(), '<h1>home</h1>');
+    assert.equal(await (await fetch(server.url.replace(/\/$/, ''))).text(), '<h1>home</h1>');
+    assert.equal(await (await fetch(server.url + 'privacy/')).text(), '<h1>privacy</h1>');
+  });
+
+  it('serves nothing outside it', async () => {
+    const root = new URL('/', server.url).href;
+    const r = await fetch(root + 'privacy/');
+    assert.equal(r.status, 404);
+    assert.equal(await r.text(), '<h1>missing</h1>');
+    assert.equal((await fetch(root)).status, 404);
+  });
+});

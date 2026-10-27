@@ -2,11 +2,14 @@
 //   npx playwright test                       everything, against a local server for site/
 //   npx playwright test --project=desktop     one project
 //   BASE_URL=https://craigsworks.com/ npx playwright test --project=a11y-desktop
+// Tests navigate relative to BASE_URL ('./', 'privacy/'), so the site can live under a path, as it
+// does on GitHub Pages without a custom domain: SITE_BASE=/craigsworks/ serves site/ there.
 import { defineConfig, devices } from '@playwright/test';
 
 const CI = !!process.env.CI;
 const PORT = 4173;
-const BASE_URL = process.env.BASE_URL || `http://127.0.0.1:${PORT}/`;
+const SITE_BASE = ('/' + (process.env.SITE_BASE || '/') + '/').replace(/\/+/g, '/');
+const BASE_URL = process.env.BASE_URL || `http://127.0.0.1:${PORT}${SITE_BASE}`;
 
 const desktop = { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } };
 // Pixel 7 is a Chromium phone: 412×915 CSS px, touch, a mobile user agent.
@@ -37,7 +40,7 @@ export default defineConfig({
   },
   webServer: process.env.BASE_URL
     ? undefined
-    : { command: `node tools/lib/serve.mjs site ${PORT}`, url: BASE_URL, reuseExistingServer: !CI },
+    : { command: `node tools/lib/serve.mjs site ${PORT} ${SITE_BASE}`, url: BASE_URL, reuseExistingServer: !CI },
   projects: [
     // Behaviour on a desktop and a phone. Tests tagged @desktop or @mobile run on that one only.
     { name: 'desktop', testDir: 'tests/e2e', use: desktop, grepInvert: /@mobile/ },

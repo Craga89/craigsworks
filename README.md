@@ -55,6 +55,10 @@ After each deploy, `.github/workflows/lighthouse.yml` runs Lighthouse (3 runs ea
 
 Report branches (`accessibility`, `lighthouse`) are written by `.github/actions/publish-branch`. Node and Chromium are set up by `.github/actions/setup-node` and `.github/actions/setup-playwright` (cached). Actions are pinned to commit SHAs, and Dependabot proposes updates weekly. `bootstrap.yml` writes `package-lock.json`, fetches the fonts and applies the formatter (push a `bootstrap/…` branch, or run it by hand to upgrade everything).
 
+### Where it's served from
+
+Until the custom domain is set, GitHub Pages serves the site under a path: <https://craga89.github.io/craigsworks/>. `build.yml` reads where Pages serves from (`actions/configure-pages`) and builds for it (`SITE_BASE`, `SITE_ORIGIN` in `astro.config.mjs`), so links in pages go through `url()` in `src/site.ts`, never a bare `/`. The tests serve the build at that same path (`SITE_BASE` in `playwright.config.mjs`), and an end-to-end test fails if any link or asset points outside it. Once the custom domain is set, the next build moves to the root by itself.
+
 ### Going live
 
 1. **Pages:** Settings → Pages → Source: **GitHub Actions**, custom domain `craigsworks.com`, enforce HTTPS.
