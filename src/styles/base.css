@@ -311,7 +311,13 @@ kbd.step-acc {
   animation: pulse 1.6s ease-in-out infinite;
 }
 .beam {
-  background: conic-gradient(from var(--angle), var(--dark-raised) 0deg, var(--dark-raised) 270deg, var(--dark-acc) 330deg, var(--dark-raised) 360deg);
+  background: conic-gradient(
+    from var(--angle),
+    var(--dark-raised) 0deg,
+    var(--dark-raised) 270deg,
+    var(--dark-acc) 330deg,
+    var(--dark-raised) 360deg
+  );
   animation: beam 5s linear infinite;
 }
 

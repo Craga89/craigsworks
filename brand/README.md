@@ -8,16 +8,16 @@ look the same everywhere and don't need the font installed.
 
 ## Files
 
-| File | Use it for |
-| --- | --- |
-| `svg/craigsworks-wordmark.svg` | The main logo, on light backgrounds |
-| `svg/craigsworks-wordmark-reversed.svg` | On dark backgrounds |
-| `svg/craigsworks-wordmark-black.svg`, `-white.svg` | One-colour printing, stamps, engraving, photos |
-| `svg/craigsworks-crate.svg` (and `-reversed`, `-black`, `-white`) | The icon on its own |
-| `svg/craigsworks-app-icon.svg` | Avatars and profile pictures (rounded square) |
-| `svg/craigsworks-app-icon-square.svg` | Where the platform rounds the corners itself |
-| `png/` | The same, as transparent PNGs: wordmarks at 600, 1200 and 2400px wide, the crate at 256, 512 and 1024px, the app icon at 512 and 1024px |
-| `favicon/` | `favicon.ico` (16, 32 and 48px), `favicon.svg`, `apple-touch-icon.png` (180px), `icon-192.png`, `icon-512.png` |
+| File                                                              | Use it for                                                                                                                              |
+| ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `svg/craigsworks-wordmark.svg`                                    | The main logo, on light backgrounds                                                                                                     |
+| `svg/craigsworks-wordmark-reversed.svg`                           | On dark backgrounds                                                                                                                     |
+| `svg/craigsworks-wordmark-black.svg`, `-white.svg`                | One-colour printing, stamps, engraving, photos                                                                                          |
+| `svg/craigsworks-crate.svg` (and `-reversed`, `-black`, `-white`) | The icon on its own                                                                                                                     |
+| `svg/craigsworks-app-icon.svg`                                    | Avatars and profile pictures (rounded square)                                                                                           |
+| `svg/craigsworks-app-icon-square.svg`                             | Where the platform rounds the corners itself                                                                                            |
+| `png/`                                                            | The same, as transparent PNGs: wordmarks at 600, 1200 and 2400px wide, the crate at 256, 512 and 1024px, the app icon at 512 and 1024px |
+| `favicon/`                                                        | `favicon.ico` (16, 32 and 48px), `favicon.svg`, `apple-touch-icon.png` (180px), `icon-192.png`, `icon-512.png`                          |
 
 Prefer the SVGs; use the PNGs where SVG isn't accepted (social profiles, some email tools, office
 documents).
@@ -26,13 +26,13 @@ The favicon uses a slightly chunkier crate than the logo so it still reads at 16
 
 ## Colours: kraft & ink
 
-| | Hex | Where |
-| --- | --- | --- |
-| Lid | `#E9BC7C` | Crate top; buttons and highlight panels (with ink text) |
-| Side | `#C4893F` | Crate left face; small accents |
-| Shade | `#8F5E24` | Crate right face |
-| Ink | `#1E1A16` | Letters, body text, dark backgrounds |
-| Paper | `#F6EFE4` | Light backgrounds |
+|       | Hex       | Where                                                   |
+| ----- | --------- | ------------------------------------------------------- |
+| Lid   | `#E9BC7C` | Crate top; buttons and highlight panels (with ink text) |
+| Side  | `#C4893F` | Crate left face; small accents                          |
+| Shade | `#8F5E24` | Crate right face                                        |
+| Ink   | `#1E1A16` | Letters, body text, dark backgrounds                    |
+| Paper | `#F6EFE4` | Light backgrounds                                       |
 
 On dark backgrounds the crate lifts to `#F2C98C` / `#D39A50` / `#A86F2E` and the letters are paper.
 
