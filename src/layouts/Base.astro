@@ -3,7 +3,7 @@
 // the footer and the scripts that run on every page.
 import '../styles/fonts.css';
 import '../styles/base.css';
-import bodyFont from '../assets/fonts/plus-jakarta-sans-latin.woff2?url';
+import bodyFont from '../assets/fonts/space-grotesk-latin.woff2?url';
 import monoFont from '../assets/fonts/jetbrains-mono-latin.woff2?url';
 import { SITE, NAME, CHROME, INDEXING, LOCATION, OWNER, PERSONAL_SITE, LINKEDIN, EMAIL, url as at } from '../site';
 import { BOOT } from '../scripts/inline.mjs';
@@ -46,7 +46,9 @@ const org = {
     <link rel="canonical" href={url} />
     <meta name="color-scheme" content="light" />
     <meta name="theme-color" content={CHROME} />
+    <link rel="icon" href={at('favicon.ico')} sizes="32x32" />
     <link rel="icon" href={at('favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={at('apple-touch-icon.png')} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={NAME} />

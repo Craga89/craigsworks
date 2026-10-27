@@ -1,22 +1,27 @@
 /* Tokens, base styles and the motion every page shares. Components keep their own layout. */
 :root {
-  --bg: #f3f4f6;
-  --tile: #ffffff;
-  --ink: #0b0d12;
-  --text: #3a404c;
-  --muted: #5b6270;
-  --line: #e3e6ec;
-  --line2: #c9ced8;
-  --acc: #2e5bff;
-  --acc-ink: #1f3fcc;
-  --acc-soft: #eaf0ff;
+  /* Kraft & ink: the crate's three faces are --acc (lid), --acc-mid (side) and --acc-deep (shade). */
+  --bg: #f6efe4;
+  --tile: #fffdf9;
+  --ink: #1e1a16;
+  --text: #40382f;
+  --muted: #685c4f;
+  --line: #e7dccb;
+  --line2: #cfc0a9;
+  --acc: #e9bc7c;
+  --acc-mid: #c4893f;
+  --acc-deep: #8f5e24;
+  --on-acc: #1e1a16;
+  --acc-ink: #8a5a22;
+  --acc-soft: #f3e3c8;
   --ok: #0e8a5c;
-  --dark: #0b0d12;
-  --dark-text: #c9ced8;
-  --dark-muted: #a8aeba;
-  --dark-acc: #8fa8ff;
-  --focus: #0b0d12;
-  --f-sans: 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', system-ui, sans-serif;
+  --dark: #1e1a16;
+  --dark-raised: #3a332c;
+  --dark-text: #dcd2c4;
+  --dark-muted: #b5a897;
+  --dark-acc: #f2c98c;
+  --focus: #1e1a16;
+  --f-sans: 'Space Grotesk', 'Space Grotesk Fallback', system-ui, sans-serif;
   --f-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, monospace;
   --r-tile: 28px;
   --r-btn: 14px;
@@ -76,7 +81,7 @@ a:hover {
 
 ::selection {
   background: var(--acc);
-  color: #ffffff;
+  color: var(--on-acc);
 }
 
 .wrap {
@@ -116,7 +121,7 @@ a:hover {
 .skip:focus-visible {
   transform: none;
   color: #ffffff;
-  outline-color: var(--acc);
+  outline-color: var(--acc-mid);
 }
 
 /* Buttons that are links. */
@@ -133,11 +138,11 @@ a:hover {
 }
 .btn-primary {
   background: var(--acc);
-  color: #ffffff;
+  color: var(--on-acc);
 }
 .btn-primary:hover {
-  background: var(--acc-ink);
-  color: #ffffff;
+  background: #dda95f;
+  color: var(--on-acc);
 }
 .btn-secondary {
   background: var(--tile);
@@ -158,7 +163,7 @@ a:hover {
 }
 .btn-dark:hover {
   color: #ffffff;
-  background: #262b36;
+  background: var(--dark-raised);
 }
 
 /* Tiles: the bento building block. */
@@ -172,7 +177,7 @@ a:hover {
 }
 .tile:hover {
   transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(11, 13, 18, 0.08);
+  box-shadow: 0 16px 36px rgba(30, 26, 22, 0.08);
 }
 
 .bento {
@@ -193,7 +198,7 @@ a:hover {
 }
 .section-title {
   margin: 0 0 24px;
-  font-weight: 800;
+  font-weight: 700;
   font-size: clamp(2.25rem, 4.5vw, 3.5rem);
   line-height: 1;
   letter-spacing: -0.045em;
@@ -212,7 +217,7 @@ kbd.step {
   padding: 2px 8px;
 }
 kbd.step-acc {
-  border-color: var(--acc);
+  border-color: var(--acc-mid);
   color: var(--acc-ink);
 }
 
@@ -248,7 +253,7 @@ kbd.step-acc {
   }
   10%,
   45% {
-    background: var(--on, var(--acc));
+    background: var(--on, var(--acc-mid));
   }
 }
 /* From hidden to drawn; the element's own style is the drawn state, so without motion it's simply there. */
@@ -264,13 +269,13 @@ kbd.step-acc {
 }
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(46, 91, 255, 0.45);
+    box-shadow: 0 0 0 0 rgba(196, 137, 63, 0.45);
   }
   70% {
-    box-shadow: 0 0 0 12px rgba(46, 91, 255, 0);
+    box-shadow: 0 0 0 12px rgba(196, 137, 63, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(46, 91, 255, 0);
+    box-shadow: 0 0 0 0 rgba(196, 137, 63, 0);
   }
 }
 @keyframes line-in {
@@ -306,7 +311,7 @@ kbd.step-acc {
   animation: pulse 1.6s ease-in-out infinite;
 }
 .beam {
-  background: conic-gradient(from var(--angle), #2a2f3a 0deg, #2a2f3a 270deg, var(--dark-acc) 330deg, #2a2f3a 360deg);
+  background: conic-gradient(from var(--angle), var(--dark-raised) 0deg, var(--dark-raised) 270deg, var(--dark-acc) 330deg, var(--dark-raised) 360deg);
   animation: beam 5s linear infinite;
 }
 

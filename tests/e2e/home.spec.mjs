@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 
 test('the home page says what it is and how to get in touch', async ({ page }) => {
   await page.goto('./');
-  await expect(page).toHaveTitle(/Craig's Works/);
+  await expect(page).toHaveTitle(/craigsworks/);
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Ship faster.');
   const cta = page.getByRole('link', { name: 'Book a free 30-minute call' });
   await expect(cta).toHaveAttribute('href', /^mailto:/);
