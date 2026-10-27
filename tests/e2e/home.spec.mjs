@@ -85,9 +85,9 @@ test('every link and asset stays inside the site, wherever it is served from', a
   const base = new URL(baseURL || 'http://127.0.0.1/');
   for (const path of ['./', 'privacy/']) {
     await page.goto(path);
-    const refs = await page.locator('[href], [src]').evaluateAll((els) =>
-      els.map((el) => el.getAttribute('href') || el.getAttribute('src') || ''),
-    );
+    const refs = await page
+      .locator('[href], [src]')
+      .evaluateAll((els) => els.map((el) => el.getAttribute('href') || el.getAttribute('src') || ''));
     const outside = refs.filter((ref) => {
       const to = new URL(ref, page.url());
       return to.origin === base.origin && !to.pathname.startsWith(base.pathname);
