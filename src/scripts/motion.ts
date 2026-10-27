@@ -26,3 +26,6 @@ for (const button of document.querySelectorAll<HTMLButtonElement>('[data-motion-
     sync(button);
   });
 }
+
+// A module, so its names stay its own.
+export {};

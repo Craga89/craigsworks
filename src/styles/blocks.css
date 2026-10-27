@@ -203,6 +203,7 @@
 .flow .acc {
   background: var(--acc);
   border-color: transparent;
+  color: var(--on-acc);
 }
 .flow .ok {
   background: var(--ok-soft);

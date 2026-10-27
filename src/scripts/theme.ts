@@ -46,3 +46,6 @@ matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
   root.dataset.theme = e.matches ? 'dark' : 'light';
   sync();
 });
+
+// A module, so its names stay its own.
+export {};
