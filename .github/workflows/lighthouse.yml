@@ -1,5 +1,9 @@
 # Runs Lighthouse (mobile and desktop) against the live site and saves a summary to the
 # `lighthouse` branch (reports/summary.json + full reports), so results can be read back later.
+#
+# After a deploy it runs when either CI or Staging deploy finishes, because either can be the one
+# that publishes a new live site (a staging deploy can replace CI's waiting one, and publishes the
+# live site CI stored). It audits only when the live site has changed since the last audit.
 name: Lighthouse audit
 
 on:
@@ -9,7 +13,7 @@ on:
         description: Page to audit (blank = the first address that's serving this site)
         default: ''
   workflow_run:
-    workflows: [CI]
+    workflows: [CI, Staging deploy]
     types: [completed]
   schedule:
     - cron: '43 5 * * 1' # Mondays, 05:43 UTC
@@ -31,14 +35,8 @@ jobs:
       URL: ${{ inputs.url }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
-        with:
-          node-version-file: .node-version
-      - name: Install Lighthouse
-        run: npm i -g lighthouse@12
-      - name: Audit
+      - name: Where the live site is, and whether it's new
         run: |
-          mkdir -p out
           sleep 20 # let the Pages CDN pick up a fresh deploy
           # Use the first address that serves the site (the new domain, then the old one while DNS moves).
           # A domain only counts if it serves this site (the home page carries its build stamp, data-built), not a redirect elsewhere.
@@ -48,9 +46,33 @@ jobs:
               if grep -q "data-built=" page.html 2>/dev/null; then URL="$final"; break; fi
               echo "::warning title=Lighthouse::$u isn't serving this site yet (ended up at ${final:-no response})"
             done
+          else
+            curl -sfL -m 20 -o page.html "$URL" || true
           fi
           [ -n "$URL" ] || { echo "::error::No address is serving the site"; exit 1; }
-          echo "::notice title=Lighthouse::Auditing $URL"; echo "URL=$URL" >> "$GITHUB_ENV"
+          echo "URL=$URL" >> "$GITHUB_ENV"
+          # The commit the live site was built from, and the one last audited.
+          live="$(grep -o 'data-commit="[0-9a-f]*"' page.html | head -1 | cut -d'"' -f2 || true)"
+          echo "LIVE_COMMIT=${live:-unknown}" >> "$GITHUB_ENV"
+          last=""
+          if git fetch -q --depth=1 origin lighthouse 2>/dev/null; then last="$(git show FETCH_HEAD:reports/commit.txt 2>/dev/null || true)"; fi
+          if [ "$GITHUB_EVENT_NAME" = workflow_run ] && [ -n "$live" ] && [ "$live" = "$last" ]; then
+            echo "::notice title=Lighthouse::The live site (${live:0:7}) was already audited; nothing to do"
+            echo "SKIP=1" >> "$GITHUB_ENV"
+          else
+            echo "::notice title=Lighthouse::Auditing $URL (${live:0:7})"
+          fi
+      - if: env.SKIP != '1'
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version-file: .node-version
+      - name: Install Lighthouse
+        if: env.SKIP != '1'
+        run: npm i -g lighthouse@12
+      - name: Audit
+        if: env.SKIP != '1'
+        run: |
+          mkdir -p out
           # SEO is only checked once the site is open to search engines.
           if curl -sf -m 20 "${URL%/}/robots.txt" | grep -qx 'Disallow: /'; then echo "INDEXED=0" >> "$GITHUB_ENV"; else echo "INDEXED=1" >> "$GITHUB_ENV"; fi
           for preset in mobile desktop; do
@@ -66,18 +88,21 @@ jobs:
           fi
           head -c 4000 out/summary.json
       - name: Prepare the report
+        if: env.SKIP != '1'
         run: |
           mkdir -p report/reports && cp out/summary.json report/reports/summary.json
           for f in out/mobile-2.json out/desktop-2.json; do [ -f "$f" ] && cp "$f" report/reports/; done
-          echo "${{ github.event.workflow_run.head_sha || github.sha }}" > report/reports/commit.txt
+          echo "$LIVE_COMMIT" > report/reports/commit.txt
           echo "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" > report/reports/run.txt
           date -u +%FT%TZ > report/reports/at.txt
-      - uses: ./.github/actions/publish-branch
+      - if: env.SKIP != '1'
+        uses: ./.github/actions/publish-branch
         with:
           branch: lighthouse
           source: report
-          message: Lighthouse for ${{ github.event.workflow_run.head_sha || github.sha }}
+          message: Lighthouse for ${{ env.LIVE_COMMIT }}
       - name: Check thresholds
+        if: env.SKIP != '1'
         # Fails the run if a score drops: performance under 95, or accessibility / best practices
         # under 100. SEO is only checked once the site is open to search engines (no noindex).
         run: |

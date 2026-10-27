@@ -4,22 +4,34 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { readPreviews, renderIndex, slug } from '../../../../tools/lib/staging.mjs';
+import { readPreviews, renderIndex, slug, stale } from '../../../../tools/lib/staging.mjs';
 
 describe('slug', () => {
-  it('turns a branch name into a folder name', () => {
-    assert.equal(slug('master'), 'master');
-    assert.equal(slug('brand/craigsworks'), 'brand-craigsworks');
-    assert.equal(slug('Feature/Some_Thing--Big!'), 'feature-some-thing-big');
-    assert.equal(slug('/leading/and/trailing/'), 'leading-and-trailing');
+  const tail = (/** @type {string} */ s) => s.slice(-7);
+  const head = (/** @type {string} */ s) => s.slice(0, -7);
+
+  it('reads like the branch name, with a short hash of it on the end', () => {
+    assert.equal(head(slug('master')), 'master');
+    assert.equal(head(slug('brand/craigsworks')), 'brand-craigsworks');
+    assert.equal(head(slug('Feature/Some_Thing--Big!')), 'feature-some-thing-big');
+    assert.equal(head(slug('/leading/and/trailing/')), 'leading-and-trailing');
+    assert.match(tail(slug('master')), /^-[0-9a-f]{6}$/);
+    assert.equal(slug('brand/craigsworks'), slug('brand/craigsworks'), 'the same every time');
+  });
+
+  it('gives branches that read the same their own folders', () => {
+    const names = ['feature/foo', 'feature-foo', 'Feature/Foo', 'feature_foo'];
+    assert.equal(new Set(names.map((n) => head(slug(n)))).size, 1, 'they read the same');
+    assert.equal(new Set(names.map(slug)).size, names.length, 'but never share a folder');
+    const long = 'x'.repeat(80);
+    assert.notEqual(slug(long + '/a'), slug(long + '/b'));
   });
 
   it('keeps names short and never empty', () => {
-    const long = slug('x'.repeat(59) + '/abc');
-    assert.equal(long, 'x'.repeat(59));
-    assert.ok(slug('a'.repeat(100)).length <= 60);
-    assert.equal(slug('///'), 'branch');
-    assert.equal(slug(''), 'branch');
+    assert.equal(head(slug('x'.repeat(49) + '/abc')), 'x'.repeat(49));
+    assert.ok(slug('a'.repeat(100)).length <= 57);
+    assert.equal(head(slug('///')), 'branch');
+    assert.equal(head(slug('')), 'branch');
   });
 });
 
@@ -46,6 +58,17 @@ describe('readPreviews', () => {
     assert.equal(previews[0].branch, 'feat/new');
     assert.equal(previews[0].message, 'Hi');
     assert.equal(previews[2].at, '');
+  });
+
+  it('finds folders that are not named for their branch', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'staging-'));
+    const add = (/** @type {string} */ name, /** @type {string} */ branch) => {
+      mkdirSync(join(dir, 'staging', name), { recursive: true });
+      writeFileSync(join(dir, 'staging', name, '_staging.json'), JSON.stringify({ branch, sha: 'a', at: '' }));
+    };
+    add(slug('feature/new'), 'feature/new');
+    add('feature-old', 'feature/old');
+    assert.deepEqual(stale(dir), ['feature-old']);
   });
 
   it('is empty when there is no staging folder', () => {
