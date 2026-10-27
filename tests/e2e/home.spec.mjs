@@ -211,6 +211,33 @@ test.describe('themes', () => {
     await expect(html).toHaveAttribute('data-theme', 'light');
   });
 
+  test('a choice sticks for the page even when it cannot be saved', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(window, 'localStorage', {
+        get() {
+          throw new Error('storage blocked');
+        },
+      });
+    });
+    await page.emulateMedia({ colorScheme: 'light' });
+    await page.goto('./');
+    await page.getByRole('button', { name: 'Dark theme' }).click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.emulateMedia({ colorScheme: 'light' });
+    await expect(page.locator('html'), 'not overridden by the system').toHaveAttribute('data-theme', 'dark');
+  });
+
+  test('focus rings stay dark on the kraft tiles, on both themes', async ({ page }) => {
+    for (const colorScheme of /** @type {const} */ (['light', 'dark'])) {
+      await page.emulateMedia({ colorScheme });
+      await page.goto('./');
+      const link = page.locator('#services .tone-acc a');
+      await link.focus();
+      expect(await link.evaluate((el) => getComputedStyle(el).outlineColor), colorScheme).toBe('rgb(30, 26, 22)');
+    }
+  });
+
   test('with no choice made, the page follows the system', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'dark' });
     await page.goto('./');

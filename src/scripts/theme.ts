@@ -7,12 +7,13 @@ type Theme = 'light' | 'dark';
 /** The theme the page is in now. (Exported, which also makes this a module with its own names.) */
 export const current = (): Theme => (root.dataset.theme === 'dark' ? 'dark' : 'light');
 
-function saved(): string | null {
-  try {
-    return localStorage.getItem('theme');
-  } catch {
-    return null; // storage can be unavailable (private windows, blocked site data)
-  }
+/** Whether the visitor has picked a theme: saved from an earlier visit, or with the switch on this
+ * page (remembered here too, in case storage is unavailable and saving it fails). */
+let chosen = false;
+try {
+  chosen = Boolean(localStorage.getItem('theme'));
+} catch {
+  // Storage can be unavailable (private windows, blocked site data).
 }
 
 function sync() {
@@ -27,6 +28,7 @@ function sync() {
 }
 
 function set(theme: Theme) {
+  chosen = true;
   root.dataset.theme = theme;
   try {
     localStorage.setItem('theme', theme);
@@ -43,7 +45,7 @@ for (const button of document.querySelectorAll<HTMLButtonElement>('[data-theme-t
 sync();
 
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-  if (saved()) return;
+  if (chosen) return;
   root.dataset.theme = e.matches ? 'dark' : 'light';
   sync();
 });

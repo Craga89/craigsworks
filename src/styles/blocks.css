@@ -69,8 +69,12 @@
   border-color: transparent;
 }
 .tone-acc {
+  --focus: var(--on-acc);
   background: var(--acc);
   border-color: transparent;
+  color: var(--on-acc);
+}
+.tone-acc a {
   color: var(--on-acc);
 }
 .tone-acc .label {
