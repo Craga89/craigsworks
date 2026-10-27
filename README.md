@@ -9,7 +9,7 @@ The website of craigsworks, Craig Thompson's engineering consultancy, served by 
   - `components/`: the header, footer, logo and the contact section every page ends with; `home/`, the home page's sections; `services/`, pieces the service pages share; and `ui/`, the building blocks (section headings, flows, steps, questions, case note cards, the inner-page intro).
   - `data/`: the words. `home.ts` (problems, outcomes, track record, questions), `services.ts` (each service's page, the health check's areas, how an engagement runs), `notes.ts` (the case notes, each linking to its full case study on craigthompson.dev) and `about.ts`. `site.ts`: facts several pages share (the email address, links, titles).
   - Everything on the site comes from real work; the full detail is on craigthompson.dev. The two "illustrative" examples (a health check plan, an AI-rated pull request) are labelled as such.
-  - `layouts/Base.astro` (the document: meta, structured data, fonts), `scripts/` (one module per behaviour: the tooltip and "pause animations"; `inline.mjs` is the one inline script, hashed into the CSP) and `styles/` (tokens, base styles and motion in `base.css`, the shared building blocks in `blocks.css`; each component has its own scoped styles).
+  - `layouts/Base.astro` (the document: meta, structured data, fonts), `scripts/` (one module per behaviour: the tooltip, "pause animations", the light and dark themes, and the hello in the browser console; `inline.mjs` is the one inline script, hashed into the CSP) and `styles/` (tokens, base styles and motion in `base.css`, the shared building blocks in `blocks.css`; each component has its own scoped styles).
   - There are no inline styles: every page has a Content-Security-Policy without `unsafe-inline`.
 - `brand/` is the logo kit: outlined SVG and PNG logos, favicons, the colours and how to use them (see `brand/README.md`). The header's wordmark and `public/` favicons are copied from it.
 - `tools/` holds the scripts CI runs (fonts, the Lighthouse summary, the staging previews list); `tools/lib/serve.mjs` is the static server the tests use.
@@ -40,7 +40,7 @@ npm run test:a11y      # the WCAG 2.2 AA suite
 
 The site targets WCAG 2.2 AA, and `tests/a11y/` checks it on every change:
 
-- **axe** (every WCAG 2.0–2.2 A and AA rule) on every page and state: all the questions open, the tooltip open, animations paused, scripts off, and every other page including the 404.
+- **axe** (every WCAG 2.0–2.2 A and AA rule) on every page and state: all the questions open, the tooltip open, animations paused, scripts off, every other page including the 404, and every page again on the dark theme.
 - **Keyboard:** a full lap with Tab on every page, where every stop must show a visible focus indicator and not be hidden (2.1.1, 2.4.3, 2.4.7, 2.4.11).
 - **Reflow and text spacing** at 320px (1.4.10, 1.4.12).
 - **Motion:** with reduced motion nothing loops; otherwise "Pause animations" in the footer stops every loop and is remembered (2.2.2, 2.3.3). The qTip2 tooltip shows on hover and focus, stays while hovered and Escape dismisses it (1.4.13).
@@ -56,6 +56,10 @@ The site targets WCAG 2.2 AA, and `tests/a11y/` checks it on every change:
 After each deploy, `.github/workflows/lighthouse.yml` runs Lighthouse (3 runs each, mobile and desktop) against the live site, saves a summary to the `lighthouse` branch, and fails if performance drops under 95, or accessibility or best practices under 100 (SEO under 100 too, once the site is open to search engines). `.github/workflows/accessibility.yml` runs the WCAG suite against the live site weekly, and `links.yml` checks for dead links weekly.
 
 Report branches (`accessibility`, `lighthouse`) are written by `.github/actions/publish-branch`. Node and Chromium are set up by `.github/actions/setup-node` and `.github/actions/setup-playwright` (cached). Actions are pinned to commit SHAs, and Dependabot proposes updates weekly. `bootstrap.yml` writes `package-lock.json`, fetches the fonts and applies the formatter (push a `bootstrap/…` branch, or run it by hand to upgrade everything).
+
+### Themes
+
+The site has a light and a dark theme (`:root[data-theme='dark']` in `styles/base.css`). A first visit follows the system setting; the switch in the header saves a choice, which the inline boot script applies before the page paints, so there's no flash of the other theme. Without scripts the system setting still applies, through `prefers-color-scheme`. Colours that should flip go through tokens (`--solid` for solid buttons and the tooltip, `--crate-*` for the logo's crate), and both themes are held to WCAG 2.2 AA by the axe runs.
 
 ### Staging previews
 

@@ -70,7 +70,7 @@ import { RECORD, USED_BY } from '../../data/home';
   }
   .term {
     background: var(--dark);
-    border-color: transparent;
+    border-color: var(--dark-edge);
     color: #efe6d8;
     font-size: 0.875rem;
     line-height: 1.85;
@@ -120,8 +120,8 @@ import { RECORD, USED_BY } from '../../data/home';
     max-width: min(280px, 70vw);
     padding: 10px 12px;
     border-radius: 12px;
-    background: var(--ink);
-    color: #ffffff;
+    background: var(--solid);
+    color: var(--on-solid);
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.4;
@@ -140,7 +140,7 @@ import { RECORD, USED_BY } from '../../data/home';
     left: 22px;
     top: 100%;
     border: 7px solid transparent;
-    border-top-color: var(--ink);
+    border-top-color: var(--solid);
   }
   .tip-wrap:hover .tip,
   .tip-wrap:focus-within .tip {

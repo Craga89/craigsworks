@@ -38,6 +38,20 @@ const links = [
             </li>
           ))
         }
+        <li>
+          <button type="button" class="theme" data-theme-toggle aria-pressed="false" hidden>
+            <svg class="moon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" />
+            </svg>
+            <svg class="sun" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="4.5" />
+              <path
+                d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"
+              />
+            </svg>
+            <span class="visually-hidden">Dark theme</span>
+          </button>
+        </li>
         <li><a class="btn btn-dark" href={contact ? '#contact' : url('#contact')}>Book a call</a></li>
       </ul>
     </nav>
@@ -64,7 +78,7 @@ const links = [
     align-items: center;
     justify-content: space-between;
     gap: 8px 12px;
-    background: rgba(255, 253, 249, 0.9);
+    background: var(--bar);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid var(--line);
@@ -125,6 +139,40 @@ const links = [
   ul a[aria-current='page'] {
     text-decoration-thickness: 2px;
     text-decoration-color: var(--acc-mid);
+  }
+  .theme {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--tile);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .theme:hover {
+    border-color: var(--line2);
+  }
+  .theme[hidden] {
+    display: none;
+  }
+  .theme svg {
+    grid-area: 1 / 1;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  /* The moon to go dark, the sun to go light. */
+  .sun,
+  .theme[aria-pressed='true'] .moon {
+    display: none;
+  }
+  .theme[aria-pressed='true'] .sun {
+    display: block;
   }
   @media (max-width: 760px) {
     .status {

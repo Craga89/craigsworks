@@ -22,6 +22,18 @@
   --dark-muted: #b5a897;
   --dark-acc: #f2c98c;
   --focus: #1e1a16;
+  /* A solid button or tooltip: dark on the light theme, light on the dark one. */
+  --solid: #1e1a16;
+  --on-solid: #ffffff;
+  --solid-hover: #3a332c;
+  --ok-ink: #0b5e3f;
+  --bar: rgba(255, 253, 249, 0.9);
+  /* The edge of a dark panel: none on the light theme, a hairline on the dark one. */
+  --dark-edge: transparent;
+  /* The crate in the logo. */
+  --crate-lid: #e9bc7c;
+  --crate-side: #c4893f;
+  --crate-shade: #8f5e24;
   --f-sans: 'Space Grotesk', 'Space Grotesk Fallback', system-ui, sans-serif;
   --f-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, monospace;
   --r-tile: 28px;
@@ -29,6 +41,68 @@
   --wrap: 1200px;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   color-scheme: light;
+}
+
+/* The dark theme: the visitor's choice (data-theme, set before paint by inline.mjs), or their
+   system's when scripts don't run. The two blocks hold the same values. */
+:root[data-theme='dark'] {
+  --bg: #17140f;
+  --tile: #211d18;
+  --ink: #f3ebdd;
+  --text: #d8cdbe;
+  --muted: #ada08e;
+  --line: #352e27;
+  --line2: #4a4239;
+  --acc-mid: #d39a50;
+  --acc-deep: #a86f2e;
+  --acc-ink: #f2c98c;
+  --acc-soft: #33281c;
+  --ok: #5fcb95;
+  --ok-soft: #1e3529;
+  --ok-ink: #8fe0b6;
+  --dark: #0e0c0a;
+  --dark-raised: #2f2922;
+  --focus: #f3ebdd;
+  --solid: #f3ebdd;
+  --on-solid: #1e1a16;
+  --solid-hover: #dcd2c4;
+  --bar: rgba(33, 29, 24, 0.9);
+  --dark-edge: #352e27;
+  --crate-lid: #f2c98c;
+  --crate-side: #d39a50;
+  --crate-shade: #a86f2e;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #17140f;
+    --tile: #211d18;
+    --ink: #f3ebdd;
+    --text: #d8cdbe;
+    --muted: #ada08e;
+    --line: #352e27;
+    --line2: #4a4239;
+    --acc-mid: #d39a50;
+    --acc-deep: #a86f2e;
+    --acc-ink: #f2c98c;
+    --acc-soft: #33281c;
+    --ok: #5fcb95;
+    --ok-soft: #1e3529;
+    --ok-ink: #8fe0b6;
+    --dark: #0e0c0a;
+    --dark-raised: #2f2922;
+    --focus: #f3ebdd;
+    --solid: #f3ebdd;
+    --on-solid: #1e1a16;
+    --solid-hover: #dcd2c4;
+    --bar: rgba(33, 29, 24, 0.9);
+    --dark-edge: #352e27;
+    --dark-edge: #352e27;
+    --crate-lid: #f2c98c;
+    --crate-side: #d39a50;
+    --crate-shade: #a86f2e;
+    color-scheme: dark;
+  }
 }
 
 *,
@@ -114,14 +188,14 @@ a:hover {
   z-index: 100;
   padding: 12px 18px;
   border-radius: 12px;
-  background: var(--ink);
-  color: #ffffff;
+  background: var(--solid);
+  color: var(--on-solid);
   font-weight: 700;
   transform: translateY(-200%);
 }
 .skip:focus-visible {
   transform: none;
-  color: #ffffff;
+  color: var(--on-solid);
   outline-color: var(--acc-mid);
 }
 
@@ -156,15 +230,15 @@ a:hover {
   color: var(--ink);
 }
 .btn-dark {
-  background: var(--ink);
-  color: #ffffff;
+  background: var(--solid);
+  color: var(--on-solid);
   min-height: 44px;
   border-radius: 12px;
   padding: 0 18px;
 }
 .btn-dark:hover {
-  color: #ffffff;
-  background: var(--dark-raised);
+  color: var(--on-solid);
+  background: var(--solid-hover);
 }
 
 /* Tiles: the bento building block. */

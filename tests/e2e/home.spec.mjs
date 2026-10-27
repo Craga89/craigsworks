@@ -188,3 +188,78 @@ test('every internal link leads to a page that exists', async ({ page, request, 
     expect((await request.get(href)).status(), href).toBe(200);
   }
 });
+
+test.describe('themes', () => {
+  test('the switch changes the theme, and the choice is remembered', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'light' });
+    await page.goto('./');
+    const html = page.locator('html');
+    const toggle = page.getByRole('button', { name: 'Dark theme' });
+    await expect(html).toHaveAttribute('data-theme', 'light');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    const lightBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+
+    await toggle.click();
+    await expect(html).toHaveAttribute('data-theme', 'dark');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).not.toBe(lightBg);
+    await expect(page.locator('meta[name="theme-color"]').first()).toHaveAttribute('content', '#17140F');
+
+    await page.goto('about/');
+    await expect(html, 'remembered on the next page').toHaveAttribute('data-theme', 'dark');
+    await page.getByRole('button', { name: 'Dark theme' }).click();
+    await expect(html).toHaveAttribute('data-theme', 'light');
+  });
+
+  test('a choice sticks for the page even when it cannot be saved', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(window, 'localStorage', {
+        get() {
+          throw new Error('storage blocked');
+        },
+      });
+    });
+    await page.emulateMedia({ colorScheme: 'light' });
+    await page.goto('./');
+    await page.getByRole('button', { name: 'Dark theme' }).click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.emulateMedia({ colorScheme: 'light' });
+    await expect(page.locator('html'), 'not overridden by the system').toHaveAttribute('data-theme', 'dark');
+  });
+
+  test('focus rings stay dark on the kraft tiles, on both themes', async ({ page }) => {
+    for (const colorScheme of /** @type {const} */ (['light', 'dark'])) {
+      await page.emulateMedia({ colorScheme });
+      await page.goto('./');
+      const link = page.locator('#services .tone-acc a');
+      await link.focus();
+      expect(await link.evaluate((el) => getComputedStyle(el).outlineColor), colorScheme).toBe('rgb(30, 26, 22)');
+    }
+  });
+
+  test('with no choice made, the page follows the system', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.goto('./');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await page.emulateMedia({ colorScheme: 'light' });
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  });
+});
+
+test('the console says hello, once, with the overview and working links', async ({ page }) => {
+  /** @type {string[]} */
+  const logs = [];
+  page.on('console', (m) => {
+    if (m.type() === 'log') logs.push(m.text());
+  });
+  await page.goto('services/ai-adoption/');
+  await expect.poll(() => logs.length).toBeGreaterThan(0);
+  const hello = logs.filter((l) => l.includes('craigsworks'));
+  expect(hello).toHaveLength(1);
+  for (const text of ['$ whoami', 'Release acceleration', '$ cat track-record.txt', 'craigthompson.dev']) {
+    expect(hello[0]).toContain(text);
+  }
+  // The site's own links are full addresses on wherever it's being served from.
+  expect(hello[0]).toContain(new URL('work/', page.url().replace(/services\/ai-adoption\/$/, '')).href);
+});

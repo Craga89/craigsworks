@@ -40,8 +40,22 @@ test.describe('without scripts', () => {
     await second.locator('summary').click();
     await expect(second.locator('p')).toBeVisible();
     await expect(page.locator('[data-motion-toggle]'), 'a pause switch that could not work').toBeHidden();
+    await expect(page.locator('[data-theme-toggle]'), 'a theme switch that could not work').toBeHidden();
     await expect(page.locator('#services').getByRole('link')).toHaveCount(3);
   });
+});
+
+// Every page again on the dark theme (here from the system setting, as a first visit would be).
+test.describe('dark theme', () => {
+  test.use({ colorScheme: 'dark' });
+  for (const path of PATHS) {
+    test(path, async ({ page, axe }) => {
+      await page.goto(path);
+      await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+      await settle(page);
+      await axe(`${path} (dark)`);
+    });
+  }
 });
 
 test.describe('other pages', () => {

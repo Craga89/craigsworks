@@ -6,7 +6,7 @@ import '../styles/base.css';
 import '../styles/blocks.css';
 import bodyFont from '../assets/fonts/space-grotesk-latin.woff2?url';
 import monoFont from '../assets/fonts/jetbrains-mono-latin.woff2?url';
-import { SITE, NAME, CHROME, INDEXING, LOCATION, OWNER, PERSONAL_SITE, LINKEDIN, EMAIL, url as at } from '../site';
+import { SITE, NAME, CHROME, CHROME_DARK, INDEXING, LOCATION, OWNER, PERSONAL_SITE, LINKEDIN, EMAIL, url as at } from '../site';
 import { BOOT } from '../scripts/inline.mjs';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -50,8 +50,10 @@ const org = {
     <meta name="description" content={description} />
     {!INDEXING && <meta name="robots" content="noindex, nofollow, noarchive" />}
     <link rel="canonical" href={url} />
-    <meta name="color-scheme" content="light" />
-    <meta name="theme-color" content={CHROME} />
+    <meta name="color-scheme" content="light dark" />
+    {/* Light and dark, by the system's theme; scripts/theme.ts sets both to the page's own. */}
+    <meta name="theme-color" content={CHROME} media="(prefers-color-scheme: light)" data-light={CHROME} data-dark={CHROME_DARK} />
+    <meta name="theme-color" content={CHROME_DARK} media="(prefers-color-scheme: dark)" data-light={CHROME} data-dark={CHROME_DARK} />
     <link rel="icon" href={at('favicon.ico')} sizes="32x32" />
     <link rel="icon" href={at('favicon.svg')} type="image/svg+xml" />
     <link rel="apple-touch-icon" href={at('apple-touch-icon.png')} />
