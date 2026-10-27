@@ -5,32 +5,38 @@ export const PROBLEMS = [
   {
     title: 'Releases are an event',
     body: 'Changes wait for a release day, and someone has to sit with each deploy in case it goes wrong.',
-    before: 'At Hive we stopped having a release train in 2022. Merged work reaches customers by itself, and a bad deploy rolls itself back.',
+    before:
+      'At Hive we stopped having a release train in 2022. Merged work reaches customers by itself, and a bad deploy rolls itself back.',
   },
   {
     title: 'CI is the slowest part of the day',
     body: 'Every change rebuilds everything, and flaky tests get re-run until they pass.',
-    before: 'Builds that work out what a change touched and build only that, and a test suite moved to Playwright for speed and stability.',
+    before:
+      'Builds that work out what a change touched and build only that, and a test suite moved to Playwright for speed and stability.',
   },
   {
     title: "You've tried AI, with mixed results",
     body: "Some of the team swear by it, some don't trust it, and nobody agrees what good AI-written code looks like.",
-    before: 'Coding guidelines kept in the repo, followed by people and models alike, and an AI review that rates every pull request before a person opens it.',
+    before:
+      'Coding guidelines kept in the repo, followed by people and models alike, and an AI review that rates every pull request before a person opens it.',
   },
   {
     title: 'The codebase has drifted',
     body: 'Old tooling, half-finished migrations, and several repos that really should be one.',
-    before: '18 repositories merged into one with their history intact, then nine repo-wide migrations, each landed as a single reviewed change.',
+    before:
+      '18 repositories merged into one with their history intact, then nine repo-wide migrations, each landed as a single reviewed change.',
   },
   {
     title: 'Bigger customers ask harder questions',
     body: 'Security questionnaires, single sign-on, pen tests, ISO 27001. Each deal brings a new list.',
-    before: 'A platform taken to enterprise-ready: SAML SSO, 2FA per organisation, a yearly pen test, and ISO 27001 and GDPR audits every year.',
+    before:
+      'A platform taken to enterprise-ready: SAML SSO, 2FA per organisation, a yearly pen test, and ISO 27001 and GDPR audits every year.',
   },
   {
     title: 'The cloud bill keeps creeping up',
     body: "It's grown with the product, and nobody is quite sure what's driving it.",
-    before: 'Measure first, then cut: about $1.3k a month from the first three changes, each with the evidence in its pull request.',
+    before:
+      'Measure first, then cut: about $1.3k a month from the first three changes, each with the evidence in its pull request.',
   },
 ];
 

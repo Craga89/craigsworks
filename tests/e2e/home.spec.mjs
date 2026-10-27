@@ -39,10 +39,9 @@ test('each service on the home page leads to its own page', async ({ page }) => 
     await page.goto('./');
     await page.locator('#services').getByRole('link', { name: s.link }).click();
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(s.h1);
-    await expect(page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Services' })).toHaveAttribute(
-      'aria-current',
-      'page',
-    );
+    await expect(
+      page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Services' }),
+    ).toHaveAttribute('aria-current', 'page');
   }
 });
 
@@ -62,7 +61,10 @@ test('a service page links back to the services, and to its case notes', async (
   const related = page.locator('#related');
   await expect(related.getByRole('article')).toHaveCount(3);
   for (const link of await related.getByRole('link', { name: /full case study/ }).all()) {
-    await expect(link).toHaveAttribute('href', /^https:\/\/craigthompson\.dev\/(case-studies|responsibilities)\/[a-z-]+\/$/);
+    await expect(link).toHaveAttribute(
+      'href',
+      /^https:\/\/craigthompson\.dev\/(case-studies|responsibilities)\/[a-z-]+\/$/,
+    );
   }
   await page.getByRole('navigation', { name: 'Breadcrumb' }).getByRole('link', { name: 'services' }).click();
   await expect(page).toHaveURL(/#services$/);
@@ -160,7 +162,9 @@ test('every internal link leads to a page that exists', async ({ page, request, 
   const seen = new Set();
   for (const path of PATHS) {
     await page.goto(path);
-    const hrefs = await page.locator('a[href]').evaluateAll((els) => els.map((el) => /** @type {HTMLAnchorElement} */ (el).href));
+    const hrefs = await page
+      .locator('a[href]')
+      .evaluateAll((els) => els.map((el) => /** @type {HTMLAnchorElement} */ (el).href));
     for (const href of hrefs) {
       const to = new URL(href);
       if (to.origin !== base.origin) continue;

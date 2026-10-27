@@ -53,13 +53,26 @@ export const CAREER = [
 ];
 
 export const SKILLS = [
-  { label: 'engineering', items: ['TypeScript, Node.js, React', 'Monorepos and build tooling', 'Playwright, accessibility'] },
+  {
+    label: 'engineering',
+    items: ['TypeScript, Node.js, React', 'Monorepos and build tooling', 'Playwright, accessibility'],
+  },
   {
     label: 'platform',
-    items: ['AWS: Fargate, CloudFront, WAF', 'Terraform, Buildkite, GitHub Actions', 'Auth: SAML SSO, 2FA, key rotation'],
+    items: [
+      'AWS: Fargate, CloudFront, WAF',
+      'Terraform, Buildkite, GitHub Actions',
+      'Auth: SAML SSO, 2FA, key rotation',
+    ],
   },
-  { label: 'ai', items: ['AI-first team workflows', 'AI review and risk ratings in CI', 'Mastra, Amazon Bedrock, evals'] },
-  { label: 'around the code', items: ['Hiring, 1:1s, progression', 'ISO 27001, GDPR, pen tests', 'On-call, incidents, DR'] },
+  {
+    label: 'ai',
+    items: ['AI-first team workflows', 'AI review and risk ratings in CI', 'Mastra, Amazon Bedrock, evals'],
+  },
+  {
+    label: 'around the code',
+    items: ['Hiring, 1:1s, progression', 'ISO 27001, GDPR, pen tests', 'On-call, incidents, DR'],
+  },
 ];
 
 export const PRINCIPLES = [

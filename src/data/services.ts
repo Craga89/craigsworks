@@ -45,10 +45,19 @@ export const SERVICES: Service[] = [
       'Rolling back means a scramble and a late night',
     ],
     steps: [
-      { title: 'Measure', body: 'Time every stage of the pipeline and find where the waiting really is. No changes yet, just facts.' },
-      { title: 'Speed up', body: 'Fix the slowest steps first: caching, running in parallel, and building only what a change touches.' },
+      {
+        title: 'Measure',
+        body: 'Time every stage of the pipeline and find where the waiting really is. No changes yet, just facts.',
+      },
+      {
+        title: 'Speed up',
+        body: 'Fix the slowest steps first: caching, running in parallel, and building only what a change touches.',
+      },
       { title: 'Preview', body: 'Give every change a place to be seen before it merges, for review, product and QA.' },
-      { title: 'Automate and hand over', body: 'Deploys that check their own health and roll back, with runbooks and a walkthrough for the team.' },
+      {
+        title: 'Automate and hand over',
+        body: 'Deploys that check their own health and roll back, with runbooks and a walkthrough for the team.',
+      },
     ],
     stepsNote: 'In this order, because each step makes the next one easier, and you can stop after any of them.',
     related: ['ci', 'test', 'mono'],
@@ -75,10 +84,22 @@ export const SERVICES: Service[] = [
       'Leadership is asking what the plan for AI is',
     ],
     steps: [
-      { title: 'Write the rules down', body: 'Coding and style guidelines in the repo, so the models and the team work to the same standard.' },
-      { title: 'Pilot on real work', body: 'One team, real tickets, a few weeks. We measure what changes rather than guessing.' },
-      { title: 'AI review first, people decide', body: 'Every pull request rated for risk before a person opens it, so attention goes where it matters.' },
-      { title: 'Spread what works', body: 'Turn the routine chores into commands anyone (or any agent) can run, and update onboarding to match.' },
+      {
+        title: 'Write the rules down',
+        body: 'Coding and style guidelines in the repo, so the models and the team work to the same standard.',
+      },
+      {
+        title: 'Pilot on real work',
+        body: 'One team, real tickets, a few weeks. We measure what changes rather than guessing.',
+      },
+      {
+        title: 'AI review first, people decide',
+        body: 'Every pull request rated for risk before a person opens it, so attention goes where it matters.',
+      },
+      {
+        title: 'Spread what works',
+        body: 'Turn the routine chores into commands anyone (or any agent) can run, and update onboarding to match.',
+      },
     ],
     related: ['aiproc', 'ai', 'proc'],
     cta: {
@@ -166,5 +187,8 @@ export const STEPS = [
   { title: 'A free call', body: "30 minutes to talk through what's slowing you down. If I can't help, I'll say so." },
   { title: 'A health check', body: 'Fixed scope and price, agreed up front. You get a ranked plan and a walkthrough.' },
   { title: 'Hands-on work', body: 'Alongside your team, on the items you choose, scoped and priced before we start.' },
-  { title: 'A clean handover', body: 'Docs, runbooks and a session with the team, so it all keeps working without me.' },
+  {
+    title: 'A clean handover',
+    body: 'Docs, runbooks and a session with the team, so it all keeps working without me.',
+  },
 ];
