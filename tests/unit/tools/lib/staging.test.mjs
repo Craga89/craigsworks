@@ -58,11 +58,22 @@ describe('renderIndex', () => {
 
   it('links each preview, its commit and the live site, and stays out of search engines', () => {
     const html = renderIndex(
-      [{ slug: 'brand-x', branch: 'brand/x', sha: '0123456789abcdef', at: '2026-10-27T12:34:56.789Z', message: 'Rebrand' }],
+      [
+        {
+          slug: 'brand-x',
+          branch: 'brand/x',
+          sha: '0123456789abcdef',
+          at: '2026-10-27T12:34:56.789Z',
+          message: 'Rebrand',
+        },
+      ],
       repo,
     );
     assert.match(html, /<a class="name" href="\.\/brand-x\/">brand\/x<\/a>/);
-    assert.match(html, /href="https:\/\/github.com\/Craga89\/craigsworks\/commit\/0123456789abcdef"><code>0123456<\/code>/);
+    assert.match(
+      html,
+      /href="https:\/\/github.com\/Craga89\/craigsworks\/commit\/0123456789abcdef"><code>0123456<\/code>/,
+    );
     assert.match(html, /<time datetime="2026-10-27T12:34:56.789Z">2026-10-27 12:34:56 UTC<\/time>/);
     assert.match(html, /<span class="msg">Rebrand<\/span>/);
     assert.match(html, /href="\.\.\/">The live site/);

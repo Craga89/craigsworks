@@ -4,5 +4,7 @@ import { INDEXING, SITE } from '../site';
 
 export const GET: APIRoute = () =>
   new Response(
-    INDEXING ? `User-agent: *\nAllow: /\nDisallow: /staging/\nSitemap: ${SITE}/sitemap-index.xml\n` : 'User-agent: *\nDisallow: /\n',
+    INDEXING
+      ? `User-agent: *\nAllow: /\nDisallow: /staging/\nSitemap: ${SITE}/sitemap-index.xml\n`
+      : 'User-agent: *\nDisallow: /\n',
   );

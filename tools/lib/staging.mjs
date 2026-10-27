@@ -31,7 +31,13 @@ export function readPreviews(/** @type {string} */ dir) {
     try {
       const meta = JSON.parse(readFileSync(join(root, entry.name, '_staging.json'), 'utf8'));
       if (typeof meta.branch !== 'string' || typeof meta.sha !== 'string') continue;
-      out.push({ slug: entry.name, branch: meta.branch, sha: meta.sha, at: String(meta.at ?? ''), message: meta.message });
+      out.push({
+        slug: entry.name,
+        branch: meta.branch,
+        sha: meta.sha,
+        at: String(meta.at ?? ''),
+        message: meta.message,
+      });
     } catch {
       continue; // not a preview (or a half-written one); it doesn't get listed
     }
@@ -49,7 +55,9 @@ const esc = (/** @type {unknown} */ s) =>
  */
 export function renderIndex(previews, repo) {
   const rows = previews.map((p) => {
-    const when = p.at ? `<time datetime="${esc(p.at)}">${esc(p.at.replace('T', ' ').replace(/(:\d\d)(\.\d+)?Z$/, '$1 UTC'))}</time>` : '';
+    const when = p.at
+      ? `<time datetime="${esc(p.at)}">${esc(p.at.replace('T', ' ').replace(/(:\d\d)(\.\d+)?Z$/, '$1 UTC'))}</time>`
+      : '';
     return `<li>
   <a class="name" href="./${esc(p.slug)}/">${esc(p.branch)}</a>
   <span class="meta"><a href="${esc(repo)}/commit/${esc(p.sha)}"><code>${esc(p.sha.slice(0, 7))}</code></a> ${when}</span>
