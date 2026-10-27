@@ -1,5 +1,6 @@
 // Staging previews: every pushed branch is built into staging/<slug>/ on the Pages site, next to the
 // live site. These helpers name the folders and write the staging/ index page that lists them.
+import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -12,13 +13,22 @@ import { join } from 'node:path';
  * @property {string} [message] The commit message's first line
  */
 
-/** The folder name for a branch: lowercase letters, digits and dashes, at most 60 characters. */
-export const slug = (/** @type {string} */ branch) =>
-  String(branch)
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .slice(0, 60)
-    .replace(/^-+|-+$/g, '') || 'branch';
+/**
+ * The folder name for a branch: a readable part (lowercase letters, digits and dashes, at most 50
+ * characters) and six characters of a hash of the exact name, so branches that read the same
+ * (`feature/foo` and `feature-foo`, `Foo` and `foo`, long names that share a start) never share a
+ * folder, and one can't overwrite or delete the other's preview.
+ */
+export const slug = (/** @type {string} */ branch) => {
+  const name = String(branch);
+  const readable =
+    name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .slice(0, 50)
+      .replace(/^-+|-+$/g, '') || 'branch';
+  return `${readable}-${createHash('sha256').update(name).digest('hex').slice(0, 6)}`;
+};
 
 /** The previews in `dir`/staging/, newest first. Folders without a readable _staging.json are left out. */
 export function readPreviews(/** @type {string} */ dir) {
@@ -44,6 +54,13 @@ export function readPreviews(/** @type {string} */ dir) {
   }
   return out.sort((a, b) => b.at.localeCompare(a.at) || a.slug.localeCompare(b.slug));
 }
+
+/** Folders in `dir`/staging/ whose name isn't (or is no longer) their branch's slug, such as ones named
+ * before the hash was added. Their branch gets a fresh folder on its next push. */
+export const stale = (/** @type {string} */ dir) =>
+  readPreviews(dir)
+    .filter((p) => p.slug !== slug(p.branch))
+    .map((p) => p.slug);
 
 const esc = (/** @type {unknown} */ s) =>
   String(s ?? '').replace(/[&<>"']/g, (c) => `&${{ '&': 'amp', '<': 'lt', '>': 'gt', '"': 'quot', "'": '#39' }[c]};`);

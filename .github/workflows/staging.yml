@@ -60,7 +60,9 @@ jobs:
   store:
     name: Store the preview
     needs: [where, build]
-    if: always() && needs.where.result == 'success' && (github.event_name == 'delete' || needs.build.result == 'success')
+    # Not always(): a newer push (or deleting the branch) cancels this run, and then nothing may be
+    # stored, or an older build could overwrite a newer preview or bring back a deleted one.
+    if: ${{ !cancelled() && needs.where.result == 'success' && (github.event_name == 'delete' || needs.build.result == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
