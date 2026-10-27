@@ -74,7 +74,7 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/lighthouse" && cd "$RUNNER_TEMP/lighthouse"
           echo '{"private":true}' > package.json
-          pnpm add lighthouse@12 --config.strict-dep-builds=false > /dev/null
+          pnpm add lighthouse@13 --config.strict-dep-builds=false > /dev/null
           echo "$RUNNER_TEMP/lighthouse/node_modules/.bin" >> "$GITHUB_PATH"
       - name: Audit
         if: env.SKIP != '1'

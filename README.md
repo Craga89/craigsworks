@@ -18,7 +18,7 @@ The website of craigsworks, Craig Thompson's engineering consultancy, served by 
 
 ## Development
 
-Node 22 (see `.node-version`) and [pnpm](https://pnpm.io), the version pinned in `package.json`'s `packageManager` (`corepack enable` picks it up). Dependencies' install scripts only run if `pnpm-workspace.yaml` allows them (`allowBuilds`; none needs one today).
+Node 26 (see `.node-version`) and [pnpm](https://pnpm.io), the version pinned in `package.json`'s `packageManager` (`corepack enable` picks it up). Dependencies' install scripts only run if `pnpm-workspace.yaml` allows them (`allowBuilds`; none needs one today).
 
 ```sh
 pnpm install
