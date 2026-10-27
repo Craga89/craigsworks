@@ -3,6 +3,17 @@
 // on a phone it never covers what has focus.
 import Logo from './Logo.astro';
 import { url } from '../site';
+
+interface Props {
+  /** The section the page belongs to, marked as current in the links. */
+  current?: 'services' | 'work' | 'about';
+}
+const { current } = Astro.props;
+const links = [
+  { key: 'services', text: 'Services', href: url('#services') },
+  { key: 'work', text: 'Case notes', href: url('work/') },
+  { key: 'about', text: 'About', href: url('about/') },
+];
 ---
 
 <header class="hdr">
@@ -12,14 +23,20 @@ import { url } from '../site';
         <Logo />
         <span class="visually-hidden">craigsworks</span>
       </a>
-      <p class="status mono"><span class="dot pulse" aria-hidden="true"></span>Taking on new clients</p>
+      <p class="status mono"><span class="dot pulse" aria-hidden="true"></span>Open to new projects</p>
     </div>
     <nav aria-label="Main">
       <ul>
-        <li><a href={url('#services')}>Services</a></li>
-        <li><a href={url('#record')}>Track record</a></li>
-        <li><a href={url('#how')}>How it works</a></li>
-        <li><a class="btn btn-dark" href={url('#contact')}>Book a call</a></li>
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href} aria-current={l.key === current ? 'page' : undefined}>
+                {l.text}
+              </a>
+            </li>
+          ))
+        }
+        <li><a class="btn btn-dark" href="#contact">Book a call</a></li>
       </ul>
     </nav>
   </div>
@@ -99,8 +116,13 @@ import { url } from '../site';
     min-height: 44px;
     text-decoration: none;
   }
-  ul a:not(.btn):hover {
+  ul a:not(.btn):hover,
+  ul a[aria-current='page'] {
     text-decoration: underline;
+  }
+  ul a[aria-current='page'] {
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--acc-mid);
   }
   @media (max-width: 760px) {
     .status {

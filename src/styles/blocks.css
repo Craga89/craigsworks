@@ -1,0 +1,357 @@
+/* Building blocks the pages share: headings, tiles in their tones, lists, flows, steps and chips. */
+
+.kicker {
+  margin: 0 0 12px;
+  font-family: var(--f-mono);
+  font-size: 0.8125rem;
+  color: var(--acc-ink);
+}
+.page-title {
+  margin: 0 0 22px;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 6.5vw, 4.25rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+.lede {
+  margin: 0;
+  max-width: 46rem;
+  font-size: clamp(1.125rem, 2vw, 1.3125rem);
+  line-height: 1.5;
+  color: var(--text);
+}
+.sub {
+  margin: 0;
+  max-width: 44rem;
+  color: var(--text);
+}
+.note {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.label {
+  display: block;
+  margin: 0 0 10px;
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.shead {
+  margin-bottom: 32px;
+}
+.shead .section-title {
+  margin-bottom: 14px;
+}
+.tile h3,
+.step h3 {
+  margin: 0 0 8px;
+  font-size: 1.375rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+.tile p {
+  margin: 0;
+}
+.tile .muted,
+.muted {
+  color: var(--muted);
+}
+.small {
+  font-size: 0.9375rem;
+}
+
+/* Tile tones. */
+.tone-soft {
+  background: var(--acc-soft);
+  border-color: transparent;
+}
+.tone-acc {
+  background: var(--acc);
+  border-color: transparent;
+  color: var(--on-acc);
+}
+.tone-acc .label {
+  color: #4a3e31;
+}
+.tone-dark {
+  background: var(--dark);
+  border-color: transparent;
+  color: #ffffff;
+}
+.tone-dark p,
+.tone-dark .muted {
+  color: var(--dark-text);
+}
+.tone-dark .label {
+  color: var(--dark-muted);
+}
+.tone-dark a {
+  color: #ffffff;
+}
+.tone-dark h3 {
+  color: #ffffff;
+}
+
+.big {
+  margin: 0;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+/* Spans in a 12-column bento (collapse to one column on phones, in base.css). */
+.c3 {
+  grid-column: span 3;
+}
+.c4 {
+  grid-column: span 4;
+}
+.c5 {
+  grid-column: span 5;
+}
+.c6 {
+  grid-column: span 6;
+}
+.c7 {
+  grid-column: span 7;
+}
+.c8 {
+  grid-column: span 8;
+}
+.c12 {
+  grid-column: span 12;
+}
+@media (min-width: 761px) and (max-width: 1000px) {
+  .c3 {
+    grid-column: span 6;
+  }
+  .c4 {
+    grid-column: span 6;
+  }
+}
+
+/* Lists. */
+.ticks,
+.dash {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.ticks li,
+.dash li {
+  position: relative;
+  padding-left: 26px;
+}
+.ticks li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.45em;
+  width: 12px;
+  height: 7px;
+  border-left: 2.5px solid var(--ok);
+  border-bottom: 2.5px solid var(--ok);
+  transform: rotate(-45deg);
+}
+.dash li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  width: 12px;
+  height: 2px;
+  background: var(--acc-mid);
+}
+.tone-dark .ticks li::before {
+  border-color: #7fd6a8;
+}
+
+/* A row of steps with arrows between them. */
+.flow {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.flow li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.flow li + li::before {
+  content: '→';
+  color: var(--acc-mid);
+  font-weight: 700;
+}
+.flow span {
+  padding: 7px 12px;
+  border-radius: 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.flow .acc {
+  background: var(--acc);
+  border-color: transparent;
+}
+.flow .ok {
+  background: var(--ok-soft);
+  border-color: transparent;
+  color: #0b5e3f;
+}
+.tone-dark .flow span {
+  background: var(--dark-raised);
+  border-color: transparent;
+  color: #ffffff;
+}
+.tone-dark .flow .acc {
+  background: var(--acc);
+  color: var(--on-acc);
+}
+.tone-dark .flow .ok {
+  background: #7fd6a8;
+  color: #0b3b27;
+}
+/* Vertical, one step per line. */
+.flow.down {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.flow.down li + li::before {
+  content: '↓';
+}
+
+/* Chips. */
+.chips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  font-family: var(--f-mono);
+  font-size: 0.8125rem;
+  color: var(--text);
+}
+.chip-acc {
+  background: var(--acc-soft);
+  border-color: transparent;
+  color: var(--acc-ink);
+}
+
+/* Numbered steps. */
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  counter-reset: s;
+}
+@media (max-width: 1000px) {
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.step {
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 22px;
+  counter-increment: s;
+}
+.step::before {
+  content: counter(s, decimal-leading-zero);
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  color: var(--acc-ink);
+}
+.step h3 {
+  font-size: 1.1875rem;
+}
+.step p {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--text);
+}
+
+/* Two columns: a heading on the left, content on the right. */
+.split {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 16px 32px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* A small definition list. */
+.kv {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
+  font-size: 0.9375rem;
+}
+.kv dt {
+  padding-top: 2px;
+  font-family: var(--f-mono);
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.kv dd {
+  margin: 0;
+}
+
+.pill {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.pill-high {
+  background: var(--ok-soft);
+  color: #0b5e3f;
+}
+.pill-medium {
+  background: var(--acc-soft);
+  color: var(--acc-ink);
+}
+
+.more {
+  font-weight: 700;
+}
+.fit {
+  margin-top: auto !important;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line2);
+  font-size: 0.875rem;
+}

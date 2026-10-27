@@ -1,0 +1,45 @@
+---
+// One case note as a card, linking to its full write-up on craigthompson.dev.
+import type { Note } from '../../data/notes';
+
+interface Props {
+  note: Note;
+  /** Show who it's useful for. */
+  fit?: boolean;
+  heading?: 'h2' | 'h3';
+}
+const { note, fit = true, heading: H = 'h3' } = Astro.props;
+---
+
+<article class="tile card pop">
+  <p class="label">{note.kicker}</p>
+  <H class="title">{note.title}</H>
+  <p class="chip chip-acc stat">{note.stat}</p>
+  <p class="muted small">{note.body}</p>
+  {fit && <p class="fit">{note.fit}</p>}
+  <a class="more small" href={note.href}>
+    The full case study<span class="visually-hidden">: {note.title}</span>, on craigthompson.dev <span aria-hidden="true">→</span>
+  </a>
+</article>
+
+<style>
+  .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .title {
+    margin: 0;
+    font-size: 1.375rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .stat {
+    align-self: flex-start;
+    margin: 0;
+  }
+  .more {
+    margin-top: 4px;
+  }
+</style>

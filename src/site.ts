@@ -26,6 +26,6 @@ export const INDEXING = import.meta.env.ALLOW_INDEXING === 'true';
 /** On a staging build (staging/<branch>/), the branch it previews; empty on the live site. */
 export const STAGING = import.meta.env.STAGING_BRANCH ?? '';
 
-export const HOME_TITLE = "craigsworks · Ship faster. Remove what's holding your engineering back.";
+export const HOME_TITLE = "craigsworks · Ship faster and calmer, with help from someone who's done it";
 export const HOME_DESC =
   'Engineering consultancy for startups and SMEs: release acceleration, AI-assisted development and technical health checks, from a hands-on Head of Engineering in Newcastle upon Tyne.';

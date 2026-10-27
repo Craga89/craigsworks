@@ -3,6 +3,7 @@
 // the footer and the scripts that run on every page.
 import '../styles/fonts.css';
 import '../styles/base.css';
+import '../styles/blocks.css';
 import bodyFont from '../assets/fonts/space-grotesk-latin.woff2?url';
 import monoFont from '../assets/fonts/jetbrains-mono-latin.woff2?url';
 import { SITE, NAME, CHROME, INDEXING, LOCATION, OWNER, PERSONAL_SITE, LINKEDIN, EMAIL, url as at } from '../site';
@@ -20,9 +21,11 @@ interface Props {
   mono?: boolean;
   /** Structured data for the page. */
   ld?: Record<string, unknown>;
+  /** Which of the main links the page belongs to. */
+  current?: 'services' | 'work' | 'about';
 }
 
-const { title, description, path, ld, mono = false } = Astro.props;
+const { title, description, path, ld, mono = false, current } = Astro.props;
 const url = SITE + '/' + path;
 const org = {
   '@context': 'https://schema.org',
@@ -71,7 +74,7 @@ const org = {
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <StagingBar />
-    <Header />
+    <Header current={current} />
     <main id="main" tabindex="-1">
       <slot />
     </main>

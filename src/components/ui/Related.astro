@@ -1,0 +1,28 @@
+---
+// The case notes behind a page.
+import NoteCard from './NoteCard.astro';
+import { note } from '../../data/notes';
+import { url } from '../../site';
+
+interface Props {
+  ids: string[];
+}
+const notes = Astro.props.ids.map(note);
+---
+
+<section id="related" class="section wrap" aria-labelledby="related-title">
+  <div class="shead pop">
+    <p class="kicker">related case notes</p>
+    <h2 id="related-title" class="section-title">Read how it went</h2>
+    <p class="sub">The full write-ups live on my personal site. <a href={url('work/')}>All case notes</a>.</p>
+  </div>
+  <div class="bento">
+    {
+      notes.map((n) => (
+        <div class="c4">
+          <NoteCard note={n} fit={false} />
+        </div>
+      ))
+    }
+  </div>
+</section>

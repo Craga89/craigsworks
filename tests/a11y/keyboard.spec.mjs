@@ -3,12 +3,13 @@
 //   2.4.7          each one shows a visible focus indicator (its pixels change when focused);
 //   2.4.11         none is hidden behind the sticky header when focused.
 import { test, expect, settle } from './axe.mjs';
+import { PATHS } from '../pages.mjs';
 
 /**
  * @typedef {{ key: string, tag: string, name: string, rect: number[], hidden: number, inView: boolean }} Stop
  */
 
-for (const path of ['./', 'privacy/']) {
+for (const path of PATHS) {
   test(`${path}: a full lap with Tab, every stop visibly focused and not hidden`, async ({ page }) => {
     test.setTimeout(240_000);
     await page.goto(path);
@@ -103,21 +104,3 @@ for (const path of ['./', 'privacy/']) {
       test.info().annotations.push({ type: 'note', description: `partly covered when focused: ${partly.join(', ')}` });
   });
 }
-
-test('the service tabs follow the tabs pattern: arrow keys, Home and End', async ({ page }) => {
-  await page.goto('./');
-  await settle(page);
-  const tabs = page.locator('#services').getByRole('tab');
-  await tabs.first().focus();
-  await page.keyboard.press('ArrowRight');
-  await expect(tabs.nth(1)).toBeFocused();
-  await expect(tabs.nth(1)).toHaveAttribute('aria-selected', 'true');
-  await page.keyboard.press('End');
-  await expect(tabs.last()).toHaveAttribute('aria-selected', 'true');
-  await page.keyboard.press('Home');
-  await expect(tabs.first()).toHaveAttribute('aria-selected', 'true');
-  await page.keyboard.press('ArrowLeft');
-  await expect(tabs.last()).toBeFocused();
-  // Only the selected tab is in the Tab order.
-  await expect(page.locator('#services [role="tab"][tabindex="0"]')).toHaveCount(1);
-});

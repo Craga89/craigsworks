@@ -1,0 +1,22 @@
+---
+// Steps in a row (or a column, with `down`), arrows between them.
+import type { FlowStep } from '../../data/services';
+
+interface Props {
+  steps: (FlowStep | string)[];
+  label: string;
+  down?: boolean;
+}
+const { steps, label, down = false } = Astro.props;
+const items = steps.map((s) => (typeof s === 'string' ? { text: s } : s));
+---
+
+<ol class:list={['flow', { down }]} aria-label={label}>
+  {
+    items.map((s) => (
+      <li>
+        <span class={s.tone}>{s.text}</span>
+      </li>
+    ))
+  }
+</ol>

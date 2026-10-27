@@ -1,0 +1,16 @@
+---
+// "What we'd do together": a service's steps.
+import SectionHead from '../ui/SectionHead.astro';
+import Steps from '../ui/Steps.astro';
+
+interface Props {
+  steps: { title: string; body: string }[];
+  note?: string;
+}
+const { steps, note } = Astro.props;
+---
+
+<section id="together" class="section wrap" aria-labelledby="together-title">
+  <SectionHead id="together" kicker="working together" title="What we would do together" sub={note} />
+  <Steps steps={steps} />
+</section>

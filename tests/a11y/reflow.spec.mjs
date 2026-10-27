@@ -1,6 +1,7 @@
 // 1.4.10 Reflow: no sideways scrolling at 320 CSS px. 1.4.12 Text Spacing: no clipped text, and
 // still no sideways scrolling, with the WCAG spacing overrides applied.
 import { test, expect, settle, addStyle } from './axe.mjs';
+import { PATHS } from '../pages.mjs';
 
 test.use({ viewport: { width: 320, height: 640 } });
 
@@ -9,7 +10,7 @@ const SPACING =
 /** @param {import('@playwright/test').Page} page */
 const sideways = (page) => page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
 
-for (const path of ['./', 'privacy/']) {
+for (const path of PATHS) {
   test(`${path} at 320px: reflows, and survives text spacing`, { tag: '@mobile' }, async ({ page }) => {
     await page.goto(path);
     await settle(page);

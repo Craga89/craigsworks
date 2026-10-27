@@ -1,260 +1,135 @@
 ---
-// The opening: the promise, the two calls to action, and an example dashboard of a team running
-// well, which tilts into place as it scrolls into view.
-import { MAILTO } from '../../site';
+// The opening: who this is, what it's for, and a few results from real work beside it.
+import { MAILTO, url } from '../../site';
 
-const stages = ['commit', 'build', 'test', 'review', 'deploy'];
-const bars = ['b1', 'b2', 'b3', 'b4', 'b5'];
+const STATS = [
+  { label: 'releases', title: 'No release train since 2022', body: 'Every merge reaches customers on its own.' },
+  { label: 'ai', title: 'AI-first in a year', body: 'Most code AI-written, reviewed by AI and people.' },
+];
+const FIGURES = [
+  { label: 'typechecks', value: '~10×', body: 'faster on TypeScript 7' },
+  { label: 'aws', value: '$1.3k', body: 'a month, from the first three cuts' },
+];
 ---
 
 <section class="hero wrap" aria-labelledby="hero-title">
-  <div class="copy">
-    <p class="kicker mono fade-up">Engineering consultancy · startups &amp; SMEs</p>
-    <h1 id="hero-title" class="fade-up delay-1">
-      Ship faster.<span class="sub">Remove what's holding your engineering back.</span>
-    </h1>
-    <p class="lede fade-up delay-2">
-      Release engineering, AI-assisted development and technical health checks, from a Head of Engineering who's done
-      it in production.
+  <div class="copy fade-up">
+    <p class="kicker">engineering consultancy · newcastle upon tyne · remote</p>
+    <h1 id="hero-title" class="page-title">Ship faster and calmer, with help from someone who's done it.</h1>
+    <p class="lede">
+      I'm Craig. I've spent the last eight years leading engineering at a B2B SaaS company, from its early days through
+      to acquisition. Along the way we went from release days to shipping every merge, and from trying AI tools to a
+      team where most code is written by AI and reviewed by AI and people. I help startups and small teams make the same
+      moves, at a pace that suits them.
     </p>
-    <div class="ctas fade-up delay-3">
+    <div class="ctas">
       <a class="btn btn-primary" href={MAILTO}>Book a free 30-minute call</a>
-      <a class="btn btn-secondary" href="#services">See services</a>
+      <a class="btn btn-secondary" href={url('#services')}>See how I can help</a>
     </div>
+    <p class="note">No pitch deck, no hard sell. If I'm not the right fit, I'll say so.</p>
   </div>
-
   <div class="stage">
-    <div
-      class="dash"
-      role="img"
-      aria-label="Example engineering dashboard: every pipeline stage passing, deploys per week rising, review wait falling, on-call quiet, and an AI review with a human approval."
-    >
-      <div class="head mono"><span>release dashboard</span><span>example</span></div>
-      <div class="card wide">
-        <p class="label mono">Pipeline</p>
-        <div class="pipe mono">
-          {stages.map((s) => <span>{s}</span>)}
-          {stages.map((_, i) => <span class:list={['lamp', `lamp-${i + 1}`]} />)}
-        </div>
-      </div>
-      <div class="card">
-        <p class="label mono">Deploys / week</p>
-        <svg viewBox="0 0 200 80" preserveAspectRatio="none" class="spark" focusable="false">
-          <polyline
-            class="draw"
-            pathLength="1"
-            points="0,74 25,72 50,66 75,68 100,54 125,46 150,32 175,22 200,8"
-            fill="none"
-            stroke="#c4893f"
-            stroke-width="2.5"
-            vector-effect="non-scaling-stroke"></polyline>
-        </svg>
-      </div>
-      <div class="card">
-        <p class="label mono">Review wait</p>
-        <div class="bars">{bars.map((b) => <span class:list={['bar', b]} />)}</div>
-      </div>
-      <div class="card ink">
-        <p class="label mono">On-call</p>
-        <p class="big">Quiet</p>
-      </div>
-      <div class="card soft mono">
-        <p class="label">AI review · PR #212</p>
-        <p class="ai">2 suggestions · human ✓</p>
-      </div>
+    <div class="card tile tone-dark on-dark tilt">
+      <p class="label">from the last few years · hive hr</p>
+      <ul class="stats">
+        {
+          STATS.map((s) => (
+            <li class="stat">
+              <span class="label">{s.label}</span>
+              <strong>{s.title}</strong>
+              <span class="body">{s.body}</span>
+            </li>
+          ))
+        }
+        {
+          FIGURES.map((s) => (
+            <li class="stat half">
+              <span class="label">{s.label}</span>
+              <strong class="fig">{s.value}</strong>
+              <span class="body">{s.body}</span>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </div>
 </section>
 
 <style>
   .hero {
-    padding-top: 72px;
-    padding-bottom: 40px;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 40px;
     align-items: center;
-    gap: 48px;
+    padding-top: 56px;
   }
-  .copy {
-    flex: 1 1 420px;
-    min-width: 0;
-  }
-  .kicker {
-    margin: 0 0 20px;
-    font-size: 0.8125rem;
-    color: var(--muted);
-  }
-  h1 {
-    margin: 0;
-    font-weight: 700;
-    font-size: clamp(2.75rem, 6vw, 5rem);
-    line-height: 0.98;
-    letter-spacing: -0.05em;
-  }
-  .sub {
-    display: block;
-    margin-top: 0.25em;
-    color: var(--muted);
-    font-size: 0.62em;
-    line-height: 1.08;
-    letter-spacing: -0.04em;
-  }
-  .lede {
-    margin: 24px 0 0;
-    max-width: 500px;
-    font-size: 1.1875rem;
-    color: var(--text);
+  @media (max-width: 960px) {
+    .hero {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
   .ctas {
-    margin-top: 32px;
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
+    margin-top: 30px;
   }
-
+  .note {
+    margin: 14px 0 0;
+  }
   .stage {
-    flex: 1 1 480px;
-    min-width: 0;
-    perspective: 1600px;
-  }
-  .dash {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    padding: 14px;
-    background: var(--tile);
-    border: 1px solid var(--line);
-    border-radius: 22px;
-    box-shadow: 0 40px 80px rgba(30, 26, 22, 0.12);
-    transform-origin: 0 50%;
-    animation: tilt 1.8s var(--ease) 0.3s both;
-  }
-  @supports (animation-timeline: view()) {
-    .dash {
-      animation: tilt linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 50%;
-    }
-  }
-  .head {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: space-between;
-    padding: 4px 6px 6px;
-    font-size: 0.6875rem;
-    color: var(--muted);
+    perspective: 1400px;
   }
   .card {
-    min-width: 0;
-    padding: 14px 16px;
-    border-radius: 14px;
-    background: var(--bg);
+    padding: 24px;
   }
-  .card p {
+  .tilt {
+    transform: rotate(-1.2deg);
+    transform-origin: 0 50%;
+    animation: tilt 1.6s var(--ease) 0.2s both;
+  }
+  .card:hover {
+    transform: rotate(-1.2deg) translateY(-3px);
+  }
+  .stats {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .stat {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 16px;
+    border-radius: 16px;
+    background: var(--dark-raised);
+  }
+  .stat.half {
+    grid-column: span 1;
+  }
+  .stat .label {
     margin: 0;
   }
-  .wide {
-    grid-column: 1 / -1;
-  }
-  .label {
-    margin: 0 0 8px !important;
-    font-size: 0.6875rem;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-  .pipe {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 6px;
-    font-size: 0.6875rem;
-    text-align: center;
-  }
-  .lamp {
-    height: 8px;
-    border-radius: 99px;
-    background: var(--acc-mid);
-    animation: seq 3s linear infinite;
-  }
-  .lamp-2 {
-    animation-delay: 0.5s;
-  }
-  .lamp-3 {
-    animation-delay: 1s;
-  }
-  .lamp-4 {
-    animation-delay: 1.5s;
-  }
-  .lamp-5 {
-    --on: var(--ok);
-    background: var(--ok);
-    animation-delay: 2s;
-  }
-  .spark {
-    display: block;
-    width: 100%;
-    height: 80px;
-  }
-  .draw {
-    stroke-dasharray: 1;
-    animation: draw 2s cubic-bezier(0.6, 0, 0.2, 1) 0.8s backwards;
-  }
-  .bars {
-    display: flex;
-    align-items: flex-end;
-    gap: 6px;
-    height: 80px;
-  }
-  .bar {
-    flex: 1;
-    border-radius: 5px 5px 2px 2px;
-    transform-origin: bottom;
-    animation: grow-up 1s cubic-bezier(0.6, 0, 0.2, 1) backwards;
-  }
-  .b1 {
-    height: 100%;
-    background: var(--line2);
-    animation-delay: 0.9s;
-  }
-  .b2 {
-    height: 72%;
-    background: var(--line2);
-    animation-delay: 1s;
-  }
-  .b3 {
-    height: 46%;
-    background: var(--acc-mid);
-    animation-delay: 1.1s;
-  }
-  .b4 {
-    height: 26%;
-    background: var(--acc-mid);
-    animation-delay: 1.2s;
-  }
-  .b5 {
-    height: 14%;
-    background: var(--ok);
-    animation-delay: 1.3s;
-  }
-  .ink {
-    background: var(--dark);
+  strong {
+    font-size: 1.375rem;
+    line-height: 1.2;
     color: #ffffff;
   }
-  .ink .label {
-    color: var(--dark-muted);
+  .fig {
+    font-size: 1.75rem;
+    color: var(--dark-acc);
   }
-  .big {
-    font-weight: 700;
-    font-size: 1.625rem;
-    letter-spacing: -0.03em;
+  .body {
+    font-size: 0.875rem;
+    color: var(--dark-text);
   }
-  .soft {
-    background: var(--acc-soft);
-    font-size: 0.75rem;
-  }
-  .soft .label {
-    text-transform: none;
-  }
-  .ai {
-    color: var(--acc-ink);
+  @media (max-width: 420px) {
+    .stat.half {
+      grid-column: span 2;
+    }
   }
 </style>

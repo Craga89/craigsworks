@@ -1,15 +1,23 @@
 ---
-// The call to action every "book a call" link lands on.
-import { MAILTO, EMAIL } from '../../site';
+// The call to action at the end of every page; every "book a call" link lands here.
+import { MAILTO, EMAIL } from '../site';
+
+interface Props {
+  title?: string;
+  body?: string;
+}
+const {
+  title = 'Got something slowing you down?',
+  body = "Tell me about it on a free 30-minute call. If I can help, I'll say how; if I can't, I'll say that too, and point you somewhere better if I know of somewhere.",
+} = Astro.props;
 ---
 
 <section id="contact" class="section wrap" aria-labelledby="contact-title">
   <div class="box on-dark pop">
     <div class="copy">
-      <h2 id="contact-title">Releases slower than they should be?</h2>
+      <h2 id="contact-title">{title}</h2>
       <p>
-        A free 30-minute call. No pitch deck, just a frank look at what's in the way. Or email
-        <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+        {body} Or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
       </p>
     </div>
     <div class="beam ring">
@@ -37,7 +45,7 @@ import { MAILTO, EMAIL } from '../../site';
   h2 {
     margin: 0 0 14px;
     font-weight: 700;
-    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
     line-height: 0.98;
     letter-spacing: -0.05em;
   }
