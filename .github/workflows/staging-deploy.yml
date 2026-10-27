@@ -1,5 +1,6 @@
 # Publishes a staging preview as soon as staging.yml has stored it, then links it from the commit
-# (a "Staging preview" status, so it shows in the pull request's checks).
+# (a "Staging preview" status, so it shows in the pull request's checks, with the address in its
+# description and behind its Details link) and, once, in a comment on the branch's pull request.
 #
 # This is its own workflow, started when Staging finishes, because it then runs from the default
 # branch, the only branch the github-pages environment lets deploy.
@@ -29,19 +30,31 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
+      contents: read
       statuses: write
+      pull-requests: write
+    # One at a time per branch, so this and staging-comment.yml can't both post the comment.
+    concurrency:
+      group: preview-comment-${{ github.event.workflow_run.head_branch }}
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           persist-credentials: false
+      - id: link
+        uses: ./.github/actions/preview-comment
+        with:
+          branch: ${{ github.event.workflow_run.head_branch }}
+          page-url: ${{ needs.deploy.outputs.page_url }}
+      # The commit's "Staging preview" status: its Details link opens the preview, and the
+      # address is in its description too.
       - env:
           GH_TOKEN: ${{ github.token }}
-          BRANCH: ${{ github.event.workflow_run.head_branch }}
           SHA: ${{ github.event.workflow_run.head_sha }}
-          PAGE_URL: ${{ needs.deploy.outputs.page_url }}
+          URL: ${{ steps.link.outputs.url }}
         run: |
-          url="${PAGE_URL%/}/staging/$(node tools/staging-index.mjs slug "$BRANCH")/"
+          desc="Live at $URL"; [ ${#desc} -le 140 ] || desc="Live: open Details for the preview"
           gh api "repos/$GITHUB_REPOSITORY/statuses/$SHA" -f state=success -f context="Staging preview" \
-            -f description="Built before the checks; open to preview" -f target_url="$url" > /dev/null
-          echo "::notice title=Staging preview::$url"
-          echo "Staging preview: $url" >> "$GITHUB_STEP_SUMMARY"
+            -f description="$desc" -f target_url="$URL" > /dev/null
+          echo "::notice title=Staging preview::$URL"
+          echo "Staging preview: $URL" >> "$GITHUB_STEP_SUMMARY"
