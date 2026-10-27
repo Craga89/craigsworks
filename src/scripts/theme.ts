@@ -4,7 +4,8 @@
 
 const root = document.documentElement;
 type Theme = 'light' | 'dark';
-const current = (): Theme => (root.dataset.theme === 'dark' ? 'dark' : 'light');
+/** The theme the page is in now. (Exported, which also makes this a module with its own names.) */
+export const current = (): Theme => (root.dataset.theme === 'dark' ? 'dark' : 'light');
 
 function saved(): string | null {
   try {
@@ -46,6 +47,3 @@ matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
   root.dataset.theme = e.matches ? 'dark' : 'light';
   sync();
 });
-
-// A module, so its names stay its own.
-export {};
