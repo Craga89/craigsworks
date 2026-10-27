@@ -1,5 +1,6 @@
 // axe across every page, and every page state that shows different content.
 import { test, expect, settle } from './axe.mjs';
+import { PATHS } from '../pages.mjs';
 
 test.describe('home page', () => {
   test.beforeEach(async ({ page }) => {
@@ -11,15 +12,9 @@ test.describe('home page', () => {
     await axe('home');
   });
 
-  test('every service tab', async ({ page, axe }) => {
-    const tabs = page.locator('#services').getByRole('tab');
-    const n = await tabs.count();
-    expect(n).toBeGreaterThan(1);
-    for (let i = 0; i < n; i++) {
-      await tabs.nth(i).click();
-      await expect(tabs.nth(i)).toHaveAttribute('aria-selected', 'true');
-      await axe(`service tab ${i + 1}`, '#services');
-    }
+  test('every question open', async ({ page, axe }) => {
+    for (const d of await page.locator('#faq details').all()) await d.evaluate((el) => el.setAttribute('open', ''));
+    await axe('questions open', '#faq');
   });
 
   test('the qTip2 tooltip, open', async ({ page, axe }) => {
@@ -39,21 +34,24 @@ test.describe('home page', () => {
 // half-working without scripts.
 test.describe('without scripts', () => {
   test.use({ javaScriptEnabled: false });
-  test('the home page shows every service, and no controls that need scripts', async ({ page }) => {
+  test('the home page works: questions still open, and no controls that need scripts', async ({ page }) => {
     await page.goto('./');
-    await expect(page.getByRole('tabpanel')).toHaveCount(3);
-    for (const panel of await page.getByRole('tabpanel').all()) await expect(panel).toBeVisible();
-    await expect(page.getByRole('tablist'), 'tabs that could not switch').toBeHidden();
+    const second = page.locator('#faq details').nth(1);
+    await second.locator('summary').click();
+    await expect(second.locator('p')).toBeVisible();
     await expect(page.locator('[data-motion-toggle]'), 'a pause switch that could not work').toBeHidden();
+    await expect(page.locator('#services').getByRole('link')).toHaveCount(3);
   });
 });
 
 test.describe('other pages', () => {
-  test('privacy', async ({ page, axe }) => {
-    await page.goto('privacy/');
-    await settle(page);
-    await axe('privacy');
-  });
+  for (const path of PATHS.filter((p) => p !== './')) {
+    test(path, async ({ page, axe }) => {
+      await page.goto(path);
+      await settle(page);
+      await axe(path);
+    });
+  }
 
   test.describe('the 404 page', () => {
     test.use({ expectedErrors: [/status of 404/] });

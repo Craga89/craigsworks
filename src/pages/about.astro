@@ -1,0 +1,271 @@
+---
+// About: who's behind craigsworks, where the experience comes from, and how I like to work.
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/ui/PageIntro.astro';
+import SectionHead from '../components/ui/SectionHead.astro';
+import Contact from '../components/Contact.astro';
+import { CAREER, SKILLS, PRINCIPLES, QUOTES } from '../data/about';
+import { USED_BY } from '../data/home';
+import { PERSONAL_SITE, LOCATION } from '../site';
+---
+
+<Base
+  title="About · craigsworks"
+  description="Craig Thompson: a hands-on engineer and engineering leader with 20+ years of building software, from open source to taking a B2B SaaS platform from startup to acquisition."
+  path="about/"
+  current="about"
+>
+  <PageIntro
+    kicker="about"
+    title="Hi, I'm Craig."
+    lede="A hands-on engineer and engineering leader with 20+ years of building software, from a tooltip library used across the web to a B2B SaaS platform I helped take from startup to acquisition. craigsworks is how I help other teams with the things I've learned along the way."
+  >
+    <div slot="side" class="tile tone-soft">
+      <dl class="kv">
+        <dt>based</dt>
+        <dd>{LOCATION}, UK</dd>
+        <dt>works</dt>
+        <dd>Remote</dd>
+        <dt>building</dt>
+        <dd>20+ years</dd>
+        <dt>leading</dt>
+        <dd>12+ years, teams of up to 12</dd>
+        <dt>study</dt>
+        <dd>MEng Electronic &amp; Computer Engineering, Newcastle University</dd>
+      </dl>
+    </div>
+  </PageIntro>
+
+  <section id="bring" class="section wrap" aria-labelledby="bring-title">
+    <div class="split">
+      <div class="pop">
+        <p class="kicker">what i bring</p>
+        <h2 id="bring-title" class="section-title">The code, the platform and the team</h2>
+      </div>
+      <div class="pop">
+        <p class="opening">
+          I'm a full-stack engineer across UI, back end, infrastructure and AI. I've also spent years on everything around
+          the code: hiring and growing engineers, owning a cloud budget, leading incidents, sitting in sales and
+          due-diligence calls, and writing board updates in plain English.
+        </p>
+        <p class="muted">
+          That matters when you bring someone in. The fix for slow releases is rarely just a pipeline change; it's also how
+          the team reviews, tests and decides what "done" means. I can help with both.
+        </p>
+      </div>
+    </div>
+    <ul class="bento skills">
+      {
+        SKILLS.map((s) => (
+          <li class="tile c3 pop">
+            <p class="label">{s.label}</p>
+            <ul class="dash small">
+              {s.items.map((i) => (
+                <li>{i}</li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section id="experience" class="section wrap" aria-labelledby="experience-title">
+    <SectionHead id="experience" kicker="experience" title="Where it comes from" />
+    <ol class="career">
+      {
+        CAREER.map((c) => (
+          <li class="tile job pop">
+            <div class="who">
+              <p class="mono when">{c.when}</p>
+              <h3>{c.company}</h3>
+              <p class="muted">{c.role}</p>
+            </div>
+            <div>
+              <p>{c.body}</p>
+              {c.phases.length > 0 && (
+                <ol class="phases">
+                  {c.phases.map((p) => (
+                    <li>
+                      <span class="mono">{p.when}</span>
+                      <p>
+                        <strong>{p.title}.</strong> <span class="muted">{p.body}</span>
+                      </p>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section id="principles" class="section wrap" aria-labelledby="principles-title">
+    <SectionHead
+      id="principles"
+      kicker="how i like to work"
+      title="A few things I hold to"
+      sub="Habits that have served me well, and that you'd see in anything we do together."
+    />
+    <ul class="bento plain">
+      {
+        PRINCIPLES.map((p) => (
+          <li class="tile c4 pop">
+            <h3>{p.title}</h3>
+            <p class="muted small">{p.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section id="oss" class="section wrap" aria-labelledby="oss-title">
+    <div class="bento">
+      <div class="tile c6 tone-dark on-dark oss pop">
+        <p class="label">open source</p>
+        <h2 id="oss-title" class="oss-title">qTip2: pretty powerful tooltips</h2>
+        <p>
+          A widely adopted jQuery plugin and a go-to tooltip library in its day, built with a lot of help from community
+          contributors. Featured in <i>Smashing jQuery</i> (2011), and winner of a Famous Software Award.
+        </p>
+        <p class="mono used">It and its predecessors ran on sites for {USED_BY.join(', ')}.</p>
+      </div>
+      <div class="c6 quotes">
+        {
+          QUOTES.map((q) => (
+            <figure class="tile pop">
+              <blockquote>
+                <p>"{q.quote}"</p>
+              </blockquote>
+              <figcaption class="muted small">
+                {q.who}, {q.role} · {q.when}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="cv" class="section wrap" aria-labelledby="cv-title">
+    <div class="tile tone-soft cv pop">
+      <div>
+        <h2 id="cv-title" class="cv-title">Want the full CV?</h2>
+        <p class="muted">My personal site has the detail: every case study, the responsibilities, and a downloadable CV.</p>
+      </div>
+      <a class="btn btn-secondary" href={PERSONAL_SITE}>craigthompson.dev <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <Contact
+    title="Want to talk it through?"
+    body="No preparation needed. Tell me what's going on, and we'll work out together whether I can help."
+  />
+</Base>
+
+<style>
+  .opening {
+    margin: 0 0 16px;
+    font-size: 1.1875rem;
+  }
+  .skills,
+  .plain {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .skills {
+    margin-top: 28px;
+  }
+  .career {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 16px;
+  }
+  .job {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 760px) {
+    .job {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+  }
+  .when {
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  .who h3 {
+    margin: 6px 0 0;
+  }
+  .phases {
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .phases li {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 12px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 480px) {
+    .phases li {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 4px;
+    }
+  }
+  .phases .mono {
+    font-size: 0.8125rem;
+    color: var(--acc-ink);
+  }
+  .oss {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .oss-title {
+    margin: 0;
+    font-size: 1.75rem;
+    letter-spacing: -0.02em;
+  }
+  .used {
+    margin-top: auto !important;
+    font-size: 0.8125rem;
+    color: var(--dark-muted) !important;
+  }
+  .quotes {
+    display: grid;
+    gap: 16px;
+  }
+  figure {
+    margin: 0;
+  }
+  blockquote {
+    margin: 0;
+  }
+  blockquote p {
+    font-size: 1.0625rem;
+  }
+  figcaption {
+    margin-top: 10px;
+  }
+  .cv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  .cv-title {
+    margin: 0 0 6px;
+    font-size: 1.5rem;
+  }
+</style>

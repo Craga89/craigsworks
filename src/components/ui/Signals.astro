@@ -1,0 +1,29 @@
+---
+// "Is this you?": the signs a service would help.
+interface Props {
+  items: string[];
+}
+const { items } = Astro.props;
+---
+
+<section id="signs" class="section wrap" aria-labelledby="signs-title">
+  <div class="split">
+    <div class="pop">
+      <p class="kicker">signs it would help</p>
+      <h2 id="signs-title" class="section-title">Is this you?</h2>
+      <p class="sub">If a few of these ring true, it's probably worth a conversation.</p>
+    </div>
+    <div class="tile pop">
+      <ul class="dash signals">
+        {items.map((s) => <li>{s}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .signals {
+    gap: 14px;
+    font-size: 1.125rem;
+  }
+</style>

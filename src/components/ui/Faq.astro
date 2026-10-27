@@ -1,0 +1,74 @@
+---
+// Questions and answers as disclosures (no script needed); the first one starts open.
+interface Props {
+  id: string;
+  title: string;
+  items: { q: string; a: string }[];
+}
+const { id, title, items } = Astro.props;
+---
+
+<section id={id} class="section wrap" aria-labelledby={`${id}-title`}>
+  <div class="faq">
+    <div>
+      <p class="kicker">questions</p>
+      <h2 id={`${id}-title`} class="section-title">{title}</h2>
+    </div>
+    <div>
+      {
+        items.map((item, i) => (
+          <details open={i === 0}>
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    gap: 16px 32px;
+  }
+  @media (max-width: 860px) {
+    .faq {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  details {
+    border-top: 1px solid var(--line);
+  }
+  details:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 44px;
+    padding: 16px 0;
+    font-weight: 700;
+    font-size: 1.1875rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: '+';
+    font-family: var(--f-mono);
+    color: var(--acc-ink);
+  }
+  details[open] summary::after {
+    content: '–';
+  }
+  details p {
+    margin: 0 0 18px;
+    max-width: 52rem;
+    color: var(--text);
+  }
+</style>

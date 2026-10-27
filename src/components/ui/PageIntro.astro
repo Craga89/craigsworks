@@ -1,0 +1,90 @@
+---
+// The top of an inner page: where it sits, the heading, a lede, the next steps, and a picture
+// (the `side` slot) beside it.
+import { MAILTO, url } from '../../site';
+
+interface Props {
+  /** Breadcrumb: the parent's name and path, then this page's name. */
+  crumb?: { parent: string; href: string; here: string };
+  kicker: string;
+  title: string;
+  lede: string;
+  /** The second button. */
+  second?: { text: string; href: string };
+}
+const { crumb, kicker, title, lede, second } = Astro.props;
+const hasSide = Astro.slots.has('side');
+---
+
+<section class="intro wrap" aria-labelledby="page-title">
+  {
+    crumb && (
+      <nav class="crumbs mono" aria-label="Breadcrumb">
+        <ol>
+          <li>
+            <a href={url(crumb.href)}>{crumb.parent}</a>
+          </li>
+          <li aria-current="page">{crumb.here}</li>
+        </ol>
+      </nav>
+    )
+  }
+  <div class:list={['row', { solo: !hasSide }]}>
+    <div class="copy fade-up">
+      <p class="kicker">{kicker}</p>
+      <h1 id="page-title" class="page-title">{title}</h1>
+      <p class="lede">{lede}</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href={MAILTO}>Talk it through on a free call</a>
+        {second && <a class="btn btn-secondary" href={second.href}>{second.text}</a>}
+      </div>
+    </div>
+    {hasSide && <div class="side fade-up delay-2"><slot name="side" /></div>}
+  </div>
+</section>
+
+<style>
+  .intro {
+    padding-top: 48px;
+  }
+  .crumbs ol {
+    margin: 0 0 18px;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  .crumbs li + li::before {
+    content: '/';
+    margin-right: 4px;
+  }
+  .crumbs a {
+    display: inline-flex;
+    min-height: 24px;
+    align-items: center;
+    color: var(--muted);
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .row.solo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  @media (max-width: 960px) {
+    .row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+</style>

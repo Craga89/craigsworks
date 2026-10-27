@@ -5,10 +5,11 @@ The website of craigsworks, Craig Thompson's engineering consultancy, served by 
 ## Layout
 
 - `src/` is an [Astro](https://astro.build) site, built to static HTML:
-  - `pages/`: the home page, the privacy notice, the 404 page and `robots.txt`.
-  - `components/`: the header, footer and logo, and `home/`, the home page's sections (hero, services, track record, how it works, contact).
-  - `data/services.ts`: the words for the services, track record and process. `site.ts`: facts several pages share (the email address, links, titles).
-  - `layouts/Base.astro` (the document: meta, structured data, fonts), `scripts/` (one module per behaviour: the service tabs, the tooltip, "pause animations"; `inline.mjs` is the one inline script, hashed into the CSP) and `styles/` (tokens, base styles and motion; each component has its own scoped styles).
+  - `pages/`: the home page, a page per service (`services/`), the case notes (`work`), `about`, the privacy notice, the 404 page and `robots.txt`.
+  - `components/`: the header, footer, logo and the contact section every page ends with; `home/`, the home page's sections; `services/`, pieces the service pages share; and `ui/`, the building blocks (section headings, flows, steps, questions, case note cards, the inner-page intro).
+  - `data/`: the words. `home.ts` (problems, outcomes, track record, questions), `services.ts` (each service's page, the health check's areas, how an engagement runs), `notes.ts` (the case notes, each linking to its full case study on craigthompson.dev) and `about.ts`. `site.ts`: facts several pages share (the email address, links, titles).
+  - Everything on the site comes from real work; the full detail is on craigthompson.dev. The two "illustrative" examples (a health check plan, an AI-rated pull request) are labelled as such.
+  - `layouts/Base.astro` (the document: meta, structured data, fonts), `scripts/` (one module per behaviour: the tooltip and "pause animations"; `inline.mjs` is the one inline script, hashed into the CSP) and `styles/` (tokens, base styles and motion in `base.css`, the shared building blocks in `blocks.css`; each component has its own scoped styles).
   - There are no inline styles: every page has a Content-Security-Policy without `unsafe-inline`.
 - `brand/` is the logo kit: outlined SVG and PNG logos, favicons, the colours and how to use them (see `brand/README.md`). The header's wordmark and `public/` favicons are copied from it.
 - `tools/` holds the scripts CI runs (fonts, the Lighthouse summary, the staging previews list); `tools/lib/serve.mjs` is the static server the tests use.
@@ -39,8 +40,8 @@ npm run test:a11y      # the WCAG 2.2 AA suite
 
 The site targets WCAG 2.2 AA, and `tests/a11y/` checks it on every change:
 
-- **axe** (every WCAG 2.0–2.2 A and AA rule) on every page and state: each service tab, the tooltip open, animations paused, scripts off, the privacy and 404 pages.
-- **Keyboard:** a full lap with Tab, where every stop must show a visible focus indicator and not be hidden (2.1.1, 2.4.3, 2.4.7, 2.4.11), and the service tabs follow the WAI-ARIA tabs pattern.
+- **axe** (every WCAG 2.0–2.2 A and AA rule) on every page and state: all the questions open, the tooltip open, animations paused, scripts off, and every other page including the 404.
+- **Keyboard:** a full lap with Tab on every page, where every stop must show a visible focus indicator and not be hidden (2.1.1, 2.4.3, 2.4.7, 2.4.11).
 - **Reflow and text spacing** at 320px (1.4.10, 1.4.12).
 - **Motion:** with reduced motion nothing loops; otherwise "Pause animations" in the footer stops every loop and is remembered (2.2.2, 2.3.3). The qTip2 tooltip shows on hover and focus, stays while hovered and Escape dismisses it (1.4.13).
 
@@ -80,4 +81,4 @@ Until the custom domain is set, GitHub Pages serves the site under a path: <http
 ## Performance
 
 - Fonts are self-hosted from `src/assets/fonts/` (fetched once from Google Fonts by `tools/fetch-fonts.mjs`), variable, latin and latin-ext only, with size-matched system fallbacks so text doesn't move when they arrive. The body font is preloaded.
-- Every page is static HTML with all its content; the one script is a small module. The service tabs collapse before first paint (`html.js`), so the page doesn't shift when the script runs.
+- Every page is static HTML with all its content; the one script is a small module. The questions are native `<details>`, so they work without it.

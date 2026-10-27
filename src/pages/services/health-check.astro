@@ -1,0 +1,233 @@
+---
+// Technical health check: a fixed-scope review that ends in a ranked plan.
+import Base from '../../layouts/Base.astro';
+import PageIntro from '../../components/ui/PageIntro.astro';
+import Flow from '../../components/ui/Flow.astro';
+import SectionHead from '../../components/ui/SectionHead.astro';
+import Faq from '../../components/ui/Faq.astro';
+import Contact from '../../components/Contact.astro';
+import { service, AREAS, SAMPLE_PLAN } from '../../data/services';
+
+const s = service('health-check');
+const GET = [
+  {
+    title: 'A ranked plan',
+    body: "Every finding with its impact, rough effort and the reasoning, in the order I'd tackle them.",
+  },
+  {
+    title: 'A plain-English summary',
+    body: 'One page for founders and leadership: where things stand and what it would take to move.',
+  },
+  {
+    title: 'A walkthrough with the team',
+    body: "We go through it together, so questions get answered and nothing's lost in a PDF.",
+  },
+];
+const FAQ = [
+  {
+    q: 'Do you need access to production?',
+    a: 'Usually not. Read-only access to the code, the CI set-up and the cloud configuration covers most of it, and anything sensitive can be walked through on a call instead.',
+  },
+  {
+    q: 'Can we act on the plan without you?',
+    a: "Yes, that's the point. It's written so your team can pick it up, and it's yours to keep either way.",
+  },
+  {
+    q: "Can it help with due diligence or a big customer's security review?",
+    a: "It can be a good starting point. I've been through an acquisition's due diligence and plenty of security questionnaires, so I know the kinds of questions that come up.",
+  },
+];
+---
+
+<Base title={`${s.name} · craigsworks`} description={s.description} path={`services/${s.slug}/`} current="services">
+  <PageIntro
+    crumb={{ parent: 'services', href: '#services', here: s.name.toLowerCase() }}
+    kicker={`${s.name.toLowerCase()} · most teams start here`}
+    title={s.title}
+    lede={s.lede}
+    second={{ text: 'See what it covers', href: '#areas' }}
+  >
+    <figure slot="side" class="tile plan">
+      <div class="plan-head">
+        <span class="plan-title">Health check · the plan</span>
+        <span class="mono note">illustrative</span>
+      </div>
+      <ol class="rows">
+        {
+          SAMPLE_PLAN.map((p) => (
+            <li>
+              <span class="change">{p.change}</span>
+              <span class="meta">
+                <span class:list={['pill', `pill-${p.impact}`]}>
+                  <span class="visually-hidden">impact: </span>
+                  {p.impact}
+                </span>
+                <span class="mono effort">
+                  <span class="visually-hidden">effort: </span>
+                  {p.effort}
+                </span>
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+      <figcaption class="note">An example of the format, not a real client's plan.</figcaption>
+    </figure>
+  </PageIntro>
+
+  <section id="areas" class="section wrap" aria-labelledby="areas-title">
+    <SectionHead
+      id="areas"
+      kicker="what it looks at"
+      title="Six areas, each one I've owned"
+      sub="We'll agree which matter most for you; not every check needs all six."
+    />
+    <ul class="bento areas">
+      {
+        AREAS.map((a) => (
+          <li class="tile c4 pop">
+            <p class="label">{a.key}</p>
+            <h3>{a.title}</h3>
+            <p class="muted small">{a.body}</p>
+            <p class="fit">
+              <span class="mono done">done before ·</span> {a.done}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section id="get" class="section wrap" aria-labelledby="get-title">
+    <div class="split">
+      <div class="pop">
+        <p class="kicker">what you get</p>
+        <h2 id="get-title" class="section-title">A plan you keep, with or without me</h2>
+        <p class="sub">The output is written for the people who'll act on it, and for the people who'll fund it.</p>
+      </div>
+      <ul class="list">
+        {
+          GET.map((g) => (
+            <li class="tile pop">
+              <h3>{g.title}</h3>
+              <p class="muted small">{g.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section id="runs" class="section wrap" aria-labelledby="runs-title">
+    <SectionHead id="runs" kicker="how it runs" title="Light on your team's time" />
+    <div class="bento">
+      <div class="tile c8 pop">
+        <Flow
+          label="How a health check runs"
+          steps={[
+            'kick-off call',
+            'read-only access',
+            'short chats with a few of the team',
+            'findings',
+            { text: 'walkthrough', tone: 'ok' },
+          ]}
+        />
+        <p class="muted small after">
+          Scope, timings and price are agreed before we start. Read-only access to code, CI and cloud configuration is
+          usually enough, and nothing changes without you.
+        </p>
+      </div>
+      <div class="tile c4 tone-acc pop">
+        <p class="label">price</p>
+        <p class="price">Fixed, agreed up front</p>
+        <p class="small after">Based on the size of what we're looking at. No surprises.</p>
+      </div>
+    </div>
+  </section>
+
+  <Faq id="faq" title="About the health check" items={FAQ} />
+  <Contact title={s.cta.title} body={s.cta.body} />
+</Base>
+
+<style>
+  .plan {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .plan-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .plan-title {
+    font-weight: 700;
+  }
+  .rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: r;
+  }
+  .rows li {
+    counter-increment: r;
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.9375rem;
+  }
+  .rows li::before {
+    content: counter(r);
+    font-family: var(--f-mono);
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .effort {
+    width: 1.5em;
+    text-align: center;
+  }
+  figcaption {
+    padding: 10px 20px;
+  }
+  .areas {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .areas li {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .done {
+    font-size: 0.75rem;
+    color: var(--acc-ink);
+  }
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 16px;
+  }
+  .after {
+    margin-top: 14px !important;
+  }
+  .price {
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+</style>

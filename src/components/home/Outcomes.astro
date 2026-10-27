@@ -1,0 +1,44 @@
+---
+// What working together leads to.
+import { OUTCOMES } from '../../data/home';
+---
+
+<section id="outcomes" class="section wrap" aria-labelledby="outcomes-title">
+  <div class="split">
+    <div class="intro pop">
+      <p class="kicker">what working together could look like</p>
+      <h2 id="outcomes-title" class="section-title">You end up faster, and not needing me</h2>
+      <p class="sub">
+        I work alongside your engineers rather than around them, and I measure success by how well things run after I've
+        gone.
+      </p>
+    </div>
+    <ul class="list">
+      {
+        OUTCOMES.map((o, i) => (
+          <li class:list={['tile pop', { 'tone-dark on-dark': i === OUTCOMES.length - 1 }]}>
+            <p class="label">{o.label}</p>
+            <h3>{o.title}</h3>
+            <p class="muted">{o.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 16px;
+  }
+  @media (min-width: 861px) {
+    .intro {
+      position: sticky;
+      top: 120px;
+    }
+  }
+</style>

@@ -1,0 +1,30 @@
+---
+// Three case notes, as a taste of the rest.
+import SectionHead from '../ui/SectionHead.astro';
+import NoteCard from '../ui/NoteCard.astro';
+import { note } from '../../data/notes';
+import { url } from '../../site';
+
+const picks = ['ci', 'aiproc', 'cost'].map(note);
+---
+
+<section id="notes" class="section wrap" aria-labelledby="notes-title">
+  <SectionHead id="notes" kicker="case notes" title="How it went, in plain terms">
+    <p class="all"><a class="more" href={url('work/')}>All case notes <span aria-hidden="true">→</span></a></p>
+  </SectionHead>
+  <div class="bento">
+    {
+      picks.map((n) => (
+        <div class="c4">
+          <NoteCard note={n} fit={false} />
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .all {
+    margin: 0;
+  }
+</style>

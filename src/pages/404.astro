@@ -4,7 +4,12 @@ import Base from '../layouts/Base.astro';
 import { PERSONAL_SITE, url } from '../site';
 ---
 
-<Base title="Not found · craigsworks" description="That address doesn't exist on craigsworks.com." path="404.html">
+<Base
+  title="Not found · craigsworks"
+  description="That address doesn't exist on craigsworks.com."
+  path="404.html"
+  contact={false}
+>
   <section class="nf wrap" aria-labelledby="nf-title">
     <div class="tile">
       <p class="mono code">404</p>

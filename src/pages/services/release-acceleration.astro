@@ -1,0 +1,171 @@
+---
+// Release acceleration: faster, calmer releases, and what I've done before.
+import Base from '../../layouts/Base.astro';
+import PageIntro from '../../components/ui/PageIntro.astro';
+import Flow from '../../components/ui/Flow.astro';
+import SectionHead from '../../components/ui/SectionHead.astro';
+import Signals from '../../components/ui/Signals.astro';
+import Related from '../../components/ui/Related.astro';
+import Together from '../../components/services/Together.astro';
+import ThenNow from '../../components/services/ThenNow.astro';
+import Contact from '../../components/Contact.astro';
+import { service } from '../../data/services';
+import { url } from '../../site';
+
+const s = service('release-acceleration');
+const HAVE = [
+  { title: 'Quick feedback', body: 'CI fast enough that people wait for it rather than switching tasks.' },
+  { title: 'See it before it merges', body: 'A preview of every change for review, product and QA.' },
+  { title: 'One clear gate', body: 'The same required checks on every pull request, and nothing else to remember.' },
+  { title: 'Boring deploys', body: 'Automatic, health-checked, and rolled back without a scramble.' },
+];
+---
+
+<Base title={`${s.name} · craigsworks`} description={s.description} path={`services/${s.slug}/`} current="services">
+  <PageIntro
+    crumb={{ parent: 'services', href: '#services', here: s.name.toLowerCase() }}
+    kicker={s.name.toLowerCase()}
+    title={s.title}
+    lede={s.lede}
+    second={{ text: 'Start with a health check', href: url('services/health-check/') }}
+  >
+    <div slot="side" class="tile tone-dark on-dark run">
+      <p class="label">every merge, end to end · how it runs at hive</p>
+      <Flow
+        down
+        label="Every merge, end to end"
+        steps={[
+          'merge to main',
+          "package graph: what's affected?",
+          'build affected packages, in parallel',
+          'one gate: format · lint · types · tests · drift',
+          { text: 'staging, deployed automatically', tone: 'acc' },
+          { text: 'production · waits for healthy tasks', tone: 'ok' },
+        ]}
+      />
+      <p class="small">No release train since 2022.</p>
+    </div>
+  </PageIntro>
+
+  <Signals items={s.signals} />
+  <Together steps={s.steps} note={s.stepsNote} />
+
+  <section id="before" class="section wrap" aria-labelledby="before-title">
+    <SectionHead
+      id="before"
+      kicker="what i've done before"
+      title="From release days to every merge"
+      sub="I built Hive's CI/CD from scratch in 2019 and kept evolving it as the team and codebase grew. It's the clearest example of the kind of change I can help with."
+    />
+    <ThenNow
+      then={{
+        label: 'then · 2019',
+        title: 'Hosted pipelines, 18 repositories, a release train',
+        items: [
+          'Each repository built and deployed its own way',
+          'Work queued up for a scheduled release',
+          'A growing Cypress suite that slowed CI down',
+        ],
+      }}
+      now={{
+        label: 'now',
+        title: 'One monorepo, a graph-aware release engine, continuous deployment',
+        items: [
+          'Self-hosted Buildkite, defined in Terraform',
+          'A TypeScript build engine that builds and deploys only what a change affects',
+          '<code class="mono">/deploy</code> on a pull request puts it in a test environment',
+          'Deploys wait for healthy tasks and detect rollbacks, so a bad release stops itself',
+          'End-to-end tests moved to Playwright: faster and far more stable',
+        ],
+      }}
+    />
+    <div class="tile evolved pop">
+      <p class="label">how it evolved</p>
+      <Flow
+        label="How the pipeline evolved"
+        steps={[
+          'hosted pipelines',
+          'Buildkite + build engine',
+          'continuous deployment',
+          'merge queue · staging',
+          { text: 'one Validate gate', tone: 'ok' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section id="have" class="section wrap" aria-labelledby="have-title">
+    <div class="split">
+      <div class="pop">
+        <p class="kicker">what you'd have</p>
+        <h2 id="have-title" class="section-title">Releases nobody has to think about</h2>
+        <p class="sub">The specifics depend on where you start, but this is what we'd be working towards.</p>
+      </div>
+      <ul class="have">
+        {
+          HAVE.map((h) => (
+            <li class="tile pop">
+              <h3>{h.title}</h3>
+              <p class="muted small">{h.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="bento below">
+      <div class="tile c6 tone-soft pop">
+        <p class="label">what it won't be</p>
+        <ul class="dash">
+          <li>A big-bang rewrite of your pipeline</li>
+          <li>A switch to my favourite tools for the sake of it</li>
+          <li>Something only I understand</li>
+        </ul>
+      </div>
+      <div class="tile c6 pop">
+        <p class="label">ci tools i've run in production</p>
+        <ul class="chips">
+          <li class="chip">GitHub Actions</li>
+          <li class="chip">Buildkite</li>
+          <li class="chip">GitLab CI</li>
+          <li class="chip">TeamCity</li>
+          <li class="chip">Semaphore</li>
+        </ul>
+        <p class="note">
+          This site works the same way: every branch gets a staging preview within a couple of minutes, and nothing goes
+          live until the accessibility, end-to-end and Lighthouse checks pass.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Related ids={s.related} />
+  <Contact title={s.cta.title} body={s.cta.body} />
+</Base>
+
+<style>
+  .run p.small {
+    margin-top: 14px;
+  }
+  .evolved {
+    margin-top: 16px;
+  }
+  .have {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 560px) {
+    .have {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .below {
+    margin-top: 16px;
+  }
+  .chips {
+    margin-bottom: 12px;
+  }
+</style>

@@ -1,0 +1,161 @@
+---
+// Case notes: real work, written up plainly, grouped by area. Each links to its full case study.
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/ui/PageIntro.astro';
+import Flow from '../components/ui/Flow.astro';
+import NoteCard from '../components/ui/NoteCard.astro';
+import Contact from '../components/Contact.astro';
+import { NOTES, AREAS, note } from '../data/notes';
+import { url } from '../site';
+
+const featured = note('ci');
+const groups = AREAS.map((a) => ({ ...a, notes: NOTES.filter((n) => n.area === a.key) })).filter((g) => g.notes.length);
+---
+
+<Base
+  title="Case notes · craigsworks"
+  description="Real engineering work, written up plainly: releases, AI-first development, platform, security, cost and an acquisition, and what each could mean for your team."
+  path="work/"
+  current="work"
+>
+  <PageIntro
+    kicker="case notes"
+    title="Real work, written up plainly"
+    lede="What the problem was, what changed, and what it could mean for a team like yours. Most of these come from my eight years leading engineering at Hive HR, a B2B SaaS platform used by enterprise, mid-market and SME customers."
+  />
+
+  <nav class="wrap jump" aria-label="Case note areas">
+    <ul class="chips">
+      {
+        groups.map((g) => (
+          <li>
+            <a class="chip" href={`#${g.key}`}>
+              {g.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <section id="featured" class="section wrap" aria-labelledby="featured-title">
+    <div class="tile feature pop">
+      <div class="main">
+        <p class="label">featured · ci/cd and release engineering · 2019 → today</p>
+        <h2 id="featured-title" class="section-title">{featured.title}</h2>
+        <p class="sub">
+          I built Hive's CI/CD platform from scratch and kept evolving it as the team and codebase grew. Today it runs on
+          self-hosted Buildkite defined in Terraform, driven by an in-house TypeScript build-and-deploy engine that models
+          the monorepo's dependency graph, so each change builds and deploys only the packages it affects.
+        </p>
+        <Flow
+          label="Every merge, end to end"
+          steps={[
+            'merge',
+            'package graph',
+            'build affected, in parallel',
+            'Validate gate',
+            { text: 'staging', tone: 'acc' },
+            { text: 'production', tone: 'ok' },
+          ]}
+        />
+        <p class="label">in practice</p>
+        <ul class="ticks">
+          <li>Merged work reaches customers automatically. No release train since 2022.</li>
+          <li>A small fix rebuilds a handful of packages, not the whole platform.</li>
+          <li>Every pull request passes one required gate, and <code class="mono">/deploy</code> puts it in a test environment.</li>
+          <li>Deploys wait for healthy tasks and detect rollbacks, so a bad release stops itself.</li>
+        </ul>
+        <a class="more" href={featured.href}>Full case study<span class="visually-hidden">, on craigthompson.dev</span> <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="aside">
+        <div class="tile tone-acc">
+          <p class="label">what it could mean for you</p>
+          <p class="mean">
+            Not necessarily this exact set-up: a team of five doesn't need a custom build engine. But the same moves, in
+            the same order, work at any size: measure, build less, preview every change, make deploys look after
+            themselves.
+          </p>
+        </div>
+        <div class="tile tone-dark on-dark">
+          <p class="label">the related service</p>
+          <h3>Release acceleration</h3>
+          <p class="small">How we'd work through it together, step by step.</p>
+          <a class="more" href={url('services/release-acceleration/')}>See the service <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {
+    groups.map((g) => (
+      <section id={g.key} class="section wrap" aria-labelledby={`${g.key}-title`}>
+        <div class="shead pop">
+          <h2 id={`${g.key}-title`} class="section-title group">
+            {g.label}
+          </h2>
+        </div>
+        <div class="bento">
+          {g.notes.map((n) => (
+            <div class="c4">
+              <NoteCard note={n} />
+            </div>
+          ))}
+        </div>
+      </section>
+    ))
+  }
+
+  <Contact
+    title="Recognise one of these?"
+    body="If one of these sounds like where you are now, tell me about it. I'll be honest about whether the same approach would fit."
+  />
+</Base>
+
+<style>
+  .jump {
+    margin-top: 28px;
+  }
+  .jump .chip {
+    min-height: 32px;
+    text-decoration: none;
+  }
+  .jump .chip:hover {
+    border-color: var(--line2);
+    color: var(--ink);
+  }
+  .feature {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 32px;
+    padding: clamp(24px, 4vw, 40px);
+  }
+  @media (max-width: 960px) {
+    .feature {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .main {
+    display: grid;
+    gap: 18px;
+    align-content: start;
+  }
+  .main .label,
+  .main .section-title {
+    margin: 0;
+  }
+  .aside {
+    display: grid;
+    gap: 16px;
+    align-content: start;
+  }
+  .mean {
+    font-size: 1.125rem;
+  }
+  .aside .small {
+    margin: 0 0 12px !important;
+  }
+  .group {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+</style>

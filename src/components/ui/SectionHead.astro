@@ -1,0 +1,18 @@
+---
+// A section's heading: a small kicker, the title (an h2, id `${id}-title` for aria-labelledby) and
+// an optional line underneath.
+interface Props {
+  id: string;
+  kicker: string;
+  title: string;
+  sub?: string;
+}
+const { id, kicker, title, sub } = Astro.props;
+---
+
+<div class="shead pop">
+  <p class="kicker">{kicker}</p>
+  <h2 id={`${id}-title`} class="section-title">{title}</h2>
+  {sub && <p class="sub">{sub}</p>}
+  <slot />
+</div>
