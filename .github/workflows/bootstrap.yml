@@ -33,10 +33,11 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.latest
         run: |
           rm -f pnpm-lock.yaml
-          # Exact versions in package.json; pnpm-lock.yaml pins the rest.
+          # Exact versions in package.json; pnpm-lock.yaml pins the rest. @types/node follows the
+          # Node major in .node-version, and TypeScript stays on 6 until @astrojs/check supports 7.
           pnpm add --save-exact --save-dev --config.strict-dep-builds=false \
             @axe-core/playwright@latest @playwright/test@latest playwright@latest \
-            @types/node@22 axe-core@latest oxfmt@latest oxlint@latest typescript@6 \
+            "@types/node@$(cut -d. -f1 .node-version)" axe-core@latest oxfmt@latest oxlint@latest typescript@6 \
             astro@latest @astrojs/sitemap@latest @astrojs/check@latest
       - name: Install the locked versions
         if: github.event_name == 'push' || !inputs.latest
