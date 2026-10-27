@@ -2,6 +2,11 @@
 
 See `README.md` for how the site is built, tested and deployed, and `brand/README.md` for the logo, colours and type.
 
+## Package manager
+
+pnpm, pinned in `package.json` (`packageManager`). Use `pnpm install`, `pnpm <script>` and `pnpm exec <bin>`,
+never npm or npx, and commit `pnpm-lock.yaml` with any dependency change.
+
 ## Commits and pull requests
 
 Commit messages and pull request titles follow [Conventional Commits](https://www.conventionalcommits.org/):

@@ -18,20 +18,20 @@ The website of craigsworks, Craig Thompson's engineering consultancy, served by 
 
 ## Development
 
-Node 22 (see `.node-version`).
+Node 22 (see `.node-version`) and [pnpm](https://pnpm.io), the version pinned in `package.json`'s `packageManager` (`corepack enable` picks it up). Dependencies' install scripts only run if `pnpm-workspace.yaml` allows them (`allowBuilds`).
 
 ```sh
-npm ci
-npx playwright install chromium
-npm run dev            # Astro's dev server, with live reload
-npm run build          # src/ → site/
-npm run serve          # site/ at http://127.0.0.1:4173/
-npm run verify         # lint, format check, type check and unit tests
-npm run test:e2e       # end-to-end tests on a desktop and a phone
-npm run test:a11y      # the WCAG 2.2 AA suite
+pnpm install
+pnpm exec playwright install chromium
+pnpm dev               # Astro's dev server, with live reload
+pnpm build             # src/ → site/
+pnpm serve             # site/ at http://127.0.0.1:4173/
+pnpm verify            # lint, format check, type check and unit tests
+pnpm test:e2e          # end-to-end tests on a desktop and a phone
+pnpm test:a11y         # the WCAG 2.2 AA suite
 ```
 
-- **Lint and format:** [oxlint](https://oxc.rs/docs/guide/usage/linter) (`.oxlintrc.json`) and [oxfmt](https://oxc.rs/docs/guide/usage/formatter) (`.oxfmtrc.json`); `npm run format` rewrites files.
+- **Lint and format:** [oxlint](https://oxc.rs/docs/guide/usage/linter) (`.oxlintrc.json`) and [oxfmt](https://oxc.rs/docs/guide/usage/formatter) (`.oxfmtrc.json`); `pnpm format` rewrites files.
 - **Types:** the page's scripts are TypeScript, and the tools and tests are JavaScript type-checked from their JSDoc: `tsconfig.json` (the site, strict, checked by `astro check`) and `tsconfig.node.json` (tools and tests).
 - **Unit tests** (`tests/unit/`, mirroring the source tree) run with coverage and fail under 95% of lines, 80% of branches or 90% of functions in `tools/lib/`.
 - **Playwright** (`playwright.config.mjs`) serves `site/` itself. Projects: `desktop` and `mobile` (a Pixel 7) for behaviour, where a test tagged `@desktop` or `@mobile` runs on that one only, and `a11y-desktop` and `a11y-mobile`. Shared fixtures (`tests/fixtures.mjs`) keep every test off the network and fail a test on any page error. Set `BASE_URL` to test a deployed site.
@@ -55,7 +55,7 @@ The site targets WCAG 2.2 AA, and `tests/a11y/` checks it on every change:
 
 After each deploy, `.github/workflows/lighthouse.yml` runs Lighthouse (3 runs each, mobile and desktop) against the live site, saves a summary to the `lighthouse` branch, and fails if performance drops under 95, or accessibility or best practices under 100 (SEO under 100 too, once the site is open to search engines). `.github/workflows/accessibility.yml` runs the WCAG suite against the live site weekly, and `links.yml` checks for dead links weekly.
 
-Report branches (`accessibility`, `lighthouse`) are written by `.github/actions/publish-branch`. Node and Chromium are set up by `.github/actions/setup-node` and `.github/actions/setup-playwright` (cached). Actions are pinned to commit SHAs, and Dependabot proposes updates weekly. `bootstrap.yml` writes `package-lock.json`, fetches the fonts and applies the formatter (push a `bootstrap/…` branch, or run it by hand to upgrade everything).
+Report branches (`accessibility`, `lighthouse`) are written by `.github/actions/publish-branch`. pnpm, Node and Chromium are set up by `.github/actions/setup-node` and `.github/actions/setup-playwright` (cached). Actions are pinned to commit SHAs, and Dependabot proposes updates weekly. `bootstrap.yml` writes `pnpm-lock.yaml`, fetches the fonts and applies the formatter (push a `bootstrap/…` branch, or run it by hand to upgrade everything).
 
 ### Themes
 
