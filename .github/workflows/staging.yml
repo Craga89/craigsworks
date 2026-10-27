@@ -83,4 +83,5 @@ jobs:
         if: github.event_name != 'delete'
         env:
           BASE: ${{ needs.build.outputs.base }}
-        run: echo "Preview (live in a minute or two, once staging-deploy.yml finishes): \`$BASE\`" >> "$GITHUB_STEP_SUMMARY"
+        run: |
+          echo "Preview, live in a minute or two once Staging deploy finishes: \`$BASE\`" >> "$GITHUB_STEP_SUMMARY"
