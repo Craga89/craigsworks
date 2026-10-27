@@ -1,6 +1,6 @@
 # craigsworks.com
 
-The website of Craig's Works, Craig Thompson's engineering consultancy, served by GitHub Pages at <https://craigsworks.com>. Craig's personal site and CV are at <https://craigthompson.dev> ([Craga89/portfolio](https://github.com/Craga89/portfolio)), and this repo follows the same setup.
+The website of craigsworks, Craig Thompson's engineering consultancy, served by GitHub Pages at <https://craigsworks.com>. Craig's personal site and CV are at <https://craigthompson.dev> ([Craga89/portfolio](https://github.com/Craga89/portfolio)), and this repo follows the same setup.
 
 ## Layout
 
@@ -10,6 +10,7 @@ The website of Craig's Works, Craig Thompson's engineering consultancy, served b
   - `data/services.ts`: the words for the services, track record and process. `site.ts`: facts several pages share (the email address, links, titles).
   - `layouts/Base.astro` (the document: meta, structured data, fonts), `scripts/` (one module per behaviour: the service tabs, the tooltip, "pause animations"; `inline.mjs` is the one inline script, hashed into the CSP) and `styles/` (tokens, base styles and motion; each component has its own scoped styles).
   - There are no inline styles: every page has a Content-Security-Policy without `unsafe-inline`.
+- `brand/` is the logo kit: outlined SVG and PNG logos, favicons, the colours and how to use them (see `brand/README.md`). The header's wordmark and `public/` favicons are copied from it.
 - `tools/` holds the scripts CI runs (fonts, the Lighthouse summary); `tools/lib/serve.mjs` is the static server the tests use.
 - `tests/`: `unit/` (Node's test runner), `e2e/` and `a11y/` (Playwright).
 - `site/` is build output. CI builds it; it isn't committed.

@@ -9,7 +9,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'src', 'assets', 'fonts');
 // Variable fonts: one file per subset covers the whole weight range.
 const CSS =
-  'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500..800&family=JetBrains+Mono:wght@400..700&display=swap';
+  'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=JetBrains+Mono:wght@400..700&display=swap';
 const UA =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36';
 
@@ -30,14 +30,14 @@ for (const [, subset, body] of blocks) {
   const fam = must(body, /font-family:\s*'([^']+)'/);
   const url = must(body, /url\(([^)]+)\)/);
   if (files.has(url)) continue;
-  // e.g. plus-jakarta-sans-latin.woff2, the name src/styles/fonts.css and the layout expect.
+  // e.g. space-grotesk-latin.woff2, the name src/styles/fonts.css and the layout expect.
   const name = `${fam.toLowerCase().replace(/\s+/g, '-')}-${subset}.woff2`;
   const buf = Buffer.from(await (await fetch(url, { headers: { 'user-agent': UA } })).arrayBuffer());
   writeFileSync(join(OUT, name), buf);
   files.set(url, name);
   console.log(name, buf.length);
 }
-const expected = ['plus-jakarta-sans', 'jetbrains-mono'].flatMap((f) => [`${f}-latin.woff2`, `${f}-latin-ext.woff2`]);
+const expected = ['space-grotesk', 'jetbrains-mono'].flatMap((f) => [`${f}-latin.woff2`, `${f}-latin-ext.woff2`]);
 const missing = expected.filter((n) => ![...files.values()].includes(n));
 if (missing.length) throw new Error('missing fonts: ' + missing.join(', '));
 console.log('wrote', files.size, 'files');
