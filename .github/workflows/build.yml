@@ -48,8 +48,10 @@ jobs:
           base="/${base#/}"; base="${base%/}/"
           echo "base=$base" >> "$GITHUB_OUTPUT"
           echo "SITE_BASE=$base" >> "$GITHUB_ENV"
-          echo "SITE_ORIGIN=${PAGES_ORIGIN:-https://craigsworks.com}" >> "$GITHUB_ENV"
-          echo "::notice title=Build::for ${PAGES_ORIGIN:-https://craigsworks.com}$base"
+          # Pages reports http:// until HTTPS is enforced; the site is always served over https.
+          origin="${PAGES_ORIGIN:-https://craigsworks.com}"; origin="https://${origin#*://}"
+          echo "SITE_ORIGIN=$origin" >> "$GITHUB_ENV"
+          echo "::notice title=Build::for $origin$base"
       - name: Build
         run: npm run build
         env:

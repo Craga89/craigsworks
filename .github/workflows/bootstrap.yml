@@ -1,7 +1,7 @@
 # Writes package-lock.json, downloads the self-hosted fonts, formats the code with oxfmt and
 # applies oxlint's safe fixes.
-#   Push a `bootstrap/…` branch: installs the versions in package.json and commits the result back
-#   to that branch.
+#   Push a `bootstrap/…` branch: installs from package-lock.json (or, without one, the versions in
+#   package.json), and commits the result back to that branch.
 #   Run by hand with "latest": upgrades every dev dependency to its latest version, and pushes the
 #   result to the `bootstrap` branch for review.
 name: Bootstrap dependencies, fonts and formatting
@@ -37,11 +37,10 @@ jobs:
             @axe-core/playwright@latest @playwright/test@latest playwright@latest \
             @types/node@22 axe-core@latest oxfmt@latest oxlint@latest typescript@6 \
             astro@latest @astrojs/sitemap@latest @astrojs/check@latest
-      - name: Install the versions in package.json
+      - name: Install the locked versions
         if: github.event_name == 'push' || !inputs.latest
         run: |
-          rm -f package-lock.json
-          npm install --no-audit --no-fund
+          if [ -f package-lock.json ]; then npm ci --no-audit --no-fund; else npm install --no-audit --no-fund; fi
       - name: Fonts
         run: node tools/fetch-fonts.mjs
       - name: Format and fix
