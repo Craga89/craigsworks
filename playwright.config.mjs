@@ -1,7 +1,7 @@
 // End-to-end and accessibility tests for the built site (site/).
-//   npx playwright test                       everything, against a local server for site/
-//   npx playwright test --project=desktop     one project
-//   BASE_URL=https://craigsworks.com/ npx playwright test --project=a11y-desktop
+//   pnpm exec playwright test                       everything, against a local server for site/
+//   pnpm exec playwright test --project=desktop     one project
+//   BASE_URL=https://craigsworks.com/ pnpm exec playwright test --project=a11y-desktop
 // Tests navigate relative to BASE_URL ('./', 'privacy/'), so the site can live under a path, as it
 // does on GitHub Pages without a custom domain: SITE_BASE=/craigsworks/ serves site/ there.
 import { defineConfig, devices } from '@playwright/test';

@@ -64,7 +64,7 @@ jobs:
           echo "SITE_ORIGIN=$origin" >> "$GITHUB_ENV"
           echo "::notice title=Build::for $origin$base"
       - name: Build
-        run: npm run build
+        run: pnpm run build
         env:
           # The site stays out of search engines until this is true (and staging builds always do).
           ALLOW_INDEXING: 'false'

@@ -1,4 +1,4 @@
-# Weekly updates for the npm dev dependencies and the pinned GitHub Actions, grouped into one
+# Weekly updates for the dev dependencies (the npm ecosystem, which covers pnpm-lock.yaml) and the pinned GitHub Actions, grouped into one
 # pull request each so CI checks them together.
 version: 2
 updates:

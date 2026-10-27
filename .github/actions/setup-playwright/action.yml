@@ -1,6 +1,6 @@
 name: Set up Playwright
 description: >-
-  Chromium for Playwright (the version in package-lock.json), cached between runs, with its
+  Chromium for Playwright (the version in pnpm-lock.yaml), cached between runs, with its
   system libraries. Run after setup-node.
 runs:
   using: composite
@@ -17,8 +17,8 @@ runs:
     - name: Install Chromium
       if: steps.cache.outputs.cache-hit != 'true'
       shell: bash
-      run: npx playwright install --with-deps chromium
+      run: pnpm exec playwright install --with-deps chromium
     - name: Install Chromium's system libraries
       if: steps.cache.outputs.cache-hit == 'true'
       shell: bash
-      run: npx playwright install-deps chromium
+      run: pnpm exec playwright install-deps chromium

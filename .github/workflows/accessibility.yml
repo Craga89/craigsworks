@@ -32,7 +32,7 @@ jobs:
       - name: Run the suite
         id: run
         continue-on-error: true
-        run: npx playwright test --project=a11y-desktop --project=a11y-mobile --workers=4
+        run: pnpm exec playwright test --project=a11y-desktop --project=a11y-mobile --workers=4
       - name: Save to the accessibility branch
         if: always() && hashFiles('a11y.json') != ''
         run: |
