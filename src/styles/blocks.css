@@ -78,7 +78,7 @@
 }
 .tone-dark {
   background: var(--dark);
-  border-color: transparent;
+  border-color: var(--dark-edge);
   color: #ffffff;
 }
 .tone-dark p,
@@ -207,7 +207,7 @@
 .flow .ok {
   background: var(--ok-soft);
   border-color: transparent;
-  color: #0b5e3f;
+  color: var(--ok-ink);
 }
 .tone-dark .flow span {
   background: var(--dark-raised);
@@ -342,7 +342,7 @@
 }
 .pill-high {
   background: var(--ok-soft);
-  color: #0b5e3f;
+  color: var(--ok-ink);
 }
 .pill-medium {
   background: var(--acc-soft);

@@ -17,8 +17,9 @@ export const LOCATION = 'Newcastle upon Tyne';
  */
 export const url = (path = '') => import.meta.env.BASE_URL.replace(/\/?$/, '/') + path.replace(/^\//, '');
 
-/** Browser chrome colour (the page background). */
+/** Browser chrome colour (the page background), on the light and dark themes. */
 export const CHROME = '#F6EFE4';
+export const CHROME_DARK = '#17140F';
 
 /** Search engines stay out until the content is finished (ALLOW_INDEXING=true opens it up). */
 export const INDEXING = import.meta.env.ALLOW_INDEXING === 'true';
