@@ -38,7 +38,9 @@ function crate() {
   for (const row of CRATE) {
     for (const cell of row) {
       parts.push('%c  ');
-      styles.push(cell in FILL ? `background:${FILL[cell]};font-size:9px;line-height:1.1;` : 'font-size:9px;line-height:1.1;');
+      styles.push(
+        cell in FILL ? `background:${FILL[cell]};font-size:9px;line-height:1.1;` : 'font-size:9px;line-height:1.1;',
+      );
     }
     parts.push('\n');
   }
@@ -72,7 +74,10 @@ const lines: [keyof typeof S, string][] = [
   ['link', SOURCE],
   ['key', '\nemail        '],
   ['link', EMAIL],
-  ['end', '\n\n# Built with Astro, checked for WCAG 2.2 AA on every change, no cookies or tracking.\n# Like what you see in here? A free 30-minute call is an email away.\n'],
+  [
+    'end',
+    '\n\n# Built with Astro, checked for WCAG 2.2 AA on every change, no cookies or tracking.\n# Like what you see in here? A free 30-minute call is an email away.\n',
+  ],
 ];
 
 const art = crate();
