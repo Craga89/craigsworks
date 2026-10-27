@@ -15,27 +15,22 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .node-version
-      - name: Audit
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Lighthouse 13 trial
         run: |
-          mkdir -p audit
-          pnpm install --frozen-lockfile
-          node audit/report.mjs || echo "report failed" > audit/report.err
-          pnpm outdated --long > audit/outdated.txt 2>&1 || true
-          pnpm audit > audit/audit.txt 2>&1 || true
-          pnpm audit --json > audit/audit.json 2>&1 || true
-          pnpm list --depth Infinity --json > audit/tree.json 2>&1 || true
-          curl -fsSL https://nodejs.org/dist/index.json | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const j=JSON.parse(s);console.log(j.slice(0,40).map(r=>[r.version,r.date,r.lts||"-",r.security?"security":""].join(" ")).join("\n"))})' > audit/node.txt
-          curl -fsSL https://raw.githubusercontent.com/nodejs/Release/main/schedule.json > audit/node-schedule.json || true
-          for r in actions/checkout actions/setup-node actions/cache actions/upload-artifact actions/download-artifact actions/configure-pages actions/upload-pages-artifact actions/deploy-pages pnpm/action-setup lycheeverse/lychee-action; do
-            gh api "repos/$r/releases?per_page=6" --jq '.[] | select(.prerelease==false and .draft==false) | "\(.tag_name) \(.published_at[0:10])"' | while read -r tag date; do
-              sha=$(gh api "repos/$r/commits/$tag" --jq .sha)
-              echo "$r $tag $date $sha"
-            done
-          done > audit/actions.txt 2>&1 || true
-          gh api repos/lycheeverse/lychee/releases?per_page=4 --jq '.[] | "lychee \(.tag_name) \(.published_at[0:10])"' >> audit/actions.txt || true
+          mkdir -p audit/lh "$RUNNER_TEMP/lighthouse" && cd "$RUNNER_TEMP/lighthouse"
+          echo '{"private":true}' > package.json
+          pnpm add lighthouse@13 --config.strict-dep-builds=false > /dev/null
+          cd "$GITHUB_WORKSPACE"
+          L="$RUNNER_TEMP/lighthouse/node_modules/.bin/lighthouse"
+          { node --version; "$L" --version; } > audit/lh/versions.txt
+          for preset in mobile desktop; do
+            flags=""; [ "$preset" = desktop ] && flags="--preset=desktop"
+            "$L" https://craga89.github.io/craigsworks/ $flags --quiet --output=json --output-path="out-$preset-1.json" \
+              --chrome-flags="--headless=new --no-sandbox" 2> "audit/lh/$preset.log" || echo "run failed" >> "audit/lh/$preset.log"
+          done
+          mkdir -p out && mv out-*.json out/
+          node tools/lighthouse-summary.mjs out > audit/lh/summary.json 2> audit/lh/summary.err || echo "summary exit $?" >> audit/lh/summary.err
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f audit
-          git commit -qm "chore: dependency audit report (throwaway)" && git push origin "HEAD:$GITHUB_REF_NAME"
+          git add -f audit/lh .node-version
+          git commit -qm "chore: lighthouse 13 trial (throwaway)" && git push origin "HEAD:$GITHUB_REF_NAME"
