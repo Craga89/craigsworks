@@ -52,6 +52,9 @@
 .tile p {
   margin: 0;
 }
+.tile .label {
+  margin-bottom: 10px;
+}
 .tile .muted,
 .muted {
   color: var(--muted);

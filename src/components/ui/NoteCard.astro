@@ -18,7 +18,7 @@ const { note, fit = true, heading: H = 'h3' } = Astro.props;
   <p class="muted small">{note.body}</p>
   {fit && <p class="fit">{note.fit}</p>}
   <a class="more small" href={note.href}>
-    The full case study<span class="visually-hidden">: {note.title}</span>, on craigthompson.dev <span aria-hidden="true">→</span>
+    Full case study<span class="visually-hidden">: {note.title}, on craigthompson.dev</span> <span aria-hidden="true">↗</span>
   </a>
 </article>
 

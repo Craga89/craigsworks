@@ -60,7 +60,7 @@ test('a service page links back to the services, and to its case notes', async (
   await page.goto('services/release-acceleration/');
   const related = page.locator('#related');
   await expect(related.getByRole('article')).toHaveCount(3);
-  for (const link of await related.getByRole('link', { name: /full case study/ }).all()) {
+  for (const link of await related.getByRole('link', { name: /full case study/i }).all()) {
     await expect(link).toHaveAttribute(
       'href',
       /^https:\/\/craigthompson\.dev\/(case-studies|responsibilities)\/[a-z-]+\/$/,
@@ -74,7 +74,7 @@ test('the case notes: every one links to its full write-up, and the areas jump t
   await page.goto('work/');
   const notes = page.getByRole('article');
   expect(await notes.count()).toBeGreaterThanOrEqual(12);
-  for (const link of await page.getByRole('link', { name: /full case study/ }).all()) {
+  for (const link of await page.getByRole('link', { name: /full case study/i }).all()) {
     await expect(link).toHaveAttribute('href', /^https:\/\/craigthompson\.dev\//);
   }
   await page.getByRole('navigation', { name: 'Case note areas' }).getByRole('link', { name: 'AI' }).click();
