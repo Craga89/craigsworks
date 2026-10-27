@@ -1,8 +1,10 @@
 # Every change: quality checks, a build, then the tests on that build. On the default branch, when
-# everything passes, the build is deployed to GitHub Pages (and lighthouse.yml audits it).
+# everything passes, the build becomes the live site: it's stored at the root of the pages branch
+# (next to the staging previews, see staging.yml) and the branch is deployed to GitHub Pages
+# (pages-deploy.yml), then lighthouse.yml audits it.
 #
 #   lint ────────────┐
-#   build ─┬─ unit ──┼─ deploy (Pages) ─→ Lighthouse
+#   build ─┬─ unit ──┼─ publish ─ deploy (Pages) ─→ Lighthouse
 #          ├─ e2e ───┤
 #          └─ a11y ──┘
 name: CI
@@ -154,37 +156,30 @@ jobs:
           source: out
           message: WCAG 2.2 AA report for ${{ github.sha }}
 
-  deploy:
-    name: Deploy to GitHub Pages
+  publish:
+    name: Store the live site
     needs: [lint, unit, e2e, a11y]
     if: github.ref_name == github.event.repository.default_branch && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
-      contents: read
-      pages: write
-      id-token: write
-    concurrency:
-      group: pages
-      cancel-in-progress: false
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      contents: write # the pages branch
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
       - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: build
           path: site
-      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
-      # The pages carry the commit they were built from (data-commit, data-built), which the
-      # Lighthouse workflow uses to know the address is serving this site.
-      - name: Stamp the commit into the pages
-        run: |
-          at="$(git log -1 --format=%cI)"
-          find site -name '*.html' -exec sed -i "s/__BUILD_SHA__/${GITHUB_SHA}/g; s/__BUILD_AT__/${at}/g" {} +
-      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+      # The root of the pages branch; the staging previews under staging/ are kept.
+      - uses: ./.github/actions/pages-store
         with:
-          path: site
-      - id: deployment
-        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
+          source: site
+          sha: ${{ github.sha }}
+
+  deploy:
+    needs: publish
+    uses: ./.github/workflows/pages-deploy.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write

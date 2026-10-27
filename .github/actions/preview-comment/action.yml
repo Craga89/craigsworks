@@ -1,0 +1,55 @@
+name: Comment the staging preview link
+description: >-
+  Posts a branch's staging preview link on its open pull request(s), once: a pull request that
+  already has the comment (found by a hidden marker) is left alone, since the link never changes.
+  Needs the repository checked out (for tools/), pull-requests: write and pages: read.
+inputs:
+  branch:
+    description: The branch being previewed
+    required: true
+  pr:
+    description: The pull request to comment on (blank = every open one from the branch)
+    default: ''
+  page-url:
+    description: Where Pages serves the site (blank = read it from the Pages settings)
+    default: ''
+outputs:
+  url:
+    description: The preview's address
+    value: ${{ steps.comment.outputs.url }}
+runs:
+  using: composite
+  steps:
+    - id: comment
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        BRANCH: ${{ inputs.branch }}
+        PR: ${{ inputs.pr }}
+        PAGE_URL: ${{ inputs.page-url }}
+      run: |
+        set -euo pipefail
+        page="${PAGE_URL:-$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .html_url)}"
+        page="https://${page#*://}"; page="${page%/}/"
+        list="${page}staging/"
+        url="${list}$(node tools/staging-index.mjs slug "$BRANCH")/"
+        echo "url=$url" >> "$GITHUB_OUTPUT"
+
+        prs="$PR"
+        if [ -z "$prs" ]; then
+          prs="$(gh api "repos/$GITHUB_REPOSITORY/pulls?state=open&head=${GITHUB_REPOSITORY_OWNER}:${BRANCH}" --jq '.[].number')"
+        fi
+        marker='<!-- staging-preview -->'
+        for n in $prs; do
+          # Read them all first: grep -q stopping early would break the pipe and look like "no".
+          bodies="$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/$n/comments" --jq '.[].body')"
+          if grep -qF "$marker" <<< "$bodies"; then
+            echo "#$n already has the preview link"
+            continue
+          fi
+          body="$marker
+        **Staging preview:** $url
+
+        Rebuilt on every push to \`$BRANCH\`, before the checks run (usually live a minute or two after the push). The latest commit's **Staging preview** check links here too. [All previews]($list)"
+          gh api "repos/$GITHUB_REPOSITORY/issues/$n/comments" -f body="$body" --jq '.html_url'
+        done

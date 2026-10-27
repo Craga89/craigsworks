@@ -1,0 +1,44 @@
+---
+// On staging builds only: a bar across the top saying this is a preview of a branch, not the live
+// site, with links to the other previews and to the live site.
+import { STAGING } from '../site';
+
+// The previews live at <pages base>/staging/<branch>/: the list of them is one level up, and the
+// live site (wherever Pages serves it) two.
+const previews = import.meta.env.BASE_URL.replace(/\/?$/, '/').replace(/[^/]+\/$/, '');
+const live = previews.replace(/[^/]+\/$/, '');
+---
+
+{
+  STAGING && (
+    <aside class="staging" aria-label="Staging preview">
+      <p>
+        <strong>Staging preview</strong> of <code>{STAGING}</code>, built before the checks run.
+        <a href={previews}>All previews</a> · <a href={live}>Live site</a>
+      </p>
+    </aside>
+  )
+}
+
+<style>
+  .staging {
+    background: var(--ink);
+    color: #ffffff;
+    font-size: 0.875rem;
+  }
+  p {
+    max-width: var(--wrap);
+    margin: 0 auto;
+    padding: 8px 24px;
+  }
+  code {
+    font-family: var(--f-mono);
+    color: var(--dark-acc);
+  }
+  a {
+    color: #ffffff;
+  }
+  a:focus-visible {
+    outline-color: #ffffff;
+  }
+</style>

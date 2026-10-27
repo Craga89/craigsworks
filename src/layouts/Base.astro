@@ -9,6 +9,7 @@ import { SITE, NAME, CHROME, INDEXING, LOCATION, OWNER, PERSONAL_SITE, LINKEDIN,
 import { BOOT } from '../scripts/inline.mjs';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import StagingBar from '../components/StagingBar.astro';
 
 interface Props {
   title: string;
@@ -69,6 +70,7 @@ const org = {
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
+    <StagingBar />
     <Header />
     <main id="main" tabindex="-1">
       <slot />
