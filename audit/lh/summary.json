@@ -1,8 +1,371 @@
 {
   "mobile": {
-    "error": "no runs"
+    "runs": 1,
+    "scores": {
+      "performance": 86,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 63,
+      "agentic-browsing": 100
+    },
+    "metrics": {
+      "first-contentful-paint": 1088,
+      "largest-contentful-paint": 1416,
+      "total-blocking-time": 470,
+      "cumulative-layout-shift": 0,
+      "speed-index": 3953,
+      "interactive": 1790
+    },
+    "totalBytes": 77058,
+    "failing": [
+      {
+        "category": "performance",
+        "id": "total-blocking-time",
+        "title": "Total Blocking Time",
+        "score": 0.61,
+        "display": "470 ms",
+        "items": []
+      },
+      {
+        "category": "performance",
+        "id": "speed-index",
+        "title": "Speed Index",
+        "score": 0.81,
+        "display": "4.0 s",
+        "items": []
+      },
+      {
+        "category": "performance",
+        "id": "cache-insight",
+        "title": "Use efficient cache lifetimes",
+        "score": 0,
+        "display": "Est savings of 59 KiB",
+        "items": [
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/jetbrains-mono-latin.6fWv1k7M.woff2",
+            "wastedBytes": 28965.75,
+            "totalBytes": 31599
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/space-grotesk-latin.BhU9QXUp.woff2",
+            "wastedBytes": 20577.333333333332,
+            "totalBytes": 22448
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/Base.CFuSZDWi.css",
+            "wastedBytes": 4037.9166666666665,
+            "totalBytes": 4405
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/Base.astro_astro_type_script_index_0_lang.D_Py6Ppm.js",
+            "wastedBytes": 3583.25,
+            "totalBytes": 3909
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/index.C4rOoa6S.css",
+            "wastedBytes": 1594.0833333333333,
+            "totalBytes": 1739
+          }
+        ]
+      },
+      {
+        "category": "performance",
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0,
+        "display": "",
+        "items": [
+          {
+            "value": {
+              "type": "network-tree",
+              "chains": {
+                "741124AA39E59157832C301F298F23A0": {
+                  "url": "https://craga89.github.io/craigsworks/",
+                  "navStartToEndTime": 223,
+                  "transferSize": 10852,
+                  "isLongest": true,
+                  "children": {
+                    "2433.6": {
+                      "url": "https://craga89.github.io/craigsworks/assets/notes.Vf9MQ4kD.css",
+                      "navStartToEndTime": 395,
+                      "transferSize": 560,
+                      "isLongest": true,
+                      "children": {}
+                    },
+                    "2433.9": {
+                      "url": "https://craga89.github.io/craigsworks/assets/Base.astro_astro_type_script_index_0_lang.D_Py6Ppm.js",
+                      "navStartToEndTime": 301,
+                      "transferSize": 3909,
+                      "children": {}
+                    },
+                    "2433.5": {
+                      "url": "https://craga89.github.io/craigsworks/assets/index.C4rOoa6S.css",
+                      "navStartToEndTime": 301,
+                      "transferSize": 1739,
+                      "children": {}
+                    },
+                    "2433.8": {
+                      "url": "https://craga89.github.io/craigsworks/assets/Contact.DvpmlsTL.css",
+                      "navStartToEndTime": 301,
+                      "transferSize": 590,
+                      "children": {}
+                    },
+                    "2433.4": {
+                      "url": "https://craga89.github.io/craigsworks/assets/Base.CFuSZDWi.css",
+                      "navStartToEndTime": 300,
+                      "transferSize": 4405,
+                      "children": {}
+                    },
+                    "2433.7": {
+                      "url": "https://craga89.github.io/craigsworks/assets/Faq.axz5JcYM.css",
+                      "navStartToEndTime": 296,
+                      "transferSize": 560,
+                      "children": {}
+                    }
+                  }
+                }
+              },
+              "longestChain": {
+                "duration": 395
+              }
+            }
+          },
+          {
+            "description": "[preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints help the browser establish a connection earlier in the page load, saving time when the first request for that origin is made. The following are the origins that the page preconnected to.",
+            "value": {
+              "type": "text",
+              "value": "no origins were preconnected"
+            }
+          },
+          {
+            "description": "Add [preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints to your most important origins, but try to use no more than 4.",
+            "value": {
+              "type": "text",
+              "value": "No additional origins are good candidates for preconnecting"
+            }
+          }
+        ]
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-insight",
+        "title": "Render-blocking requests",
+        "score": 0.5,
+        "display": "",
+        "items": [
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/notes.Vf9MQ4kD.css",
+            "totalBytes": 560
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/index.C4rOoa6S.css",
+            "totalBytes": 1739
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/Contact.DvpmlsTL.css",
+            "totalBytes": 590
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/Base.CFuSZDWi.css",
+            "wastedMs": 150,
+            "totalBytes": 4405
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/Faq.axz5JcYM.css",
+            "totalBytes": 560
+          }
+        ]
+      },
+      {
+        "category": "performance",
+        "id": "max-potential-fid",
+        "title": "Max Potential First Input Delay",
+        "score": 0.08,
+        "display": "510 ms",
+        "items": []
+      },
+      {
+        "category": "seo",
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "score": 0,
+        "display": "",
+        "items": [
+          {}
+        ]
+      }
+    ]
   },
   "desktop": {
-    "error": "no runs"
+    "runs": 1,
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 63,
+      "agentic-browsing": 100
+    },
+    "metrics": {
+      "first-contentful-paint": 285,
+      "largest-contentful-paint": 325,
+      "total-blocking-time": 0,
+      "cumulative-layout-shift": 0,
+      "speed-index": 459,
+      "interactive": 325
+    },
+    "totalBytes": 77077,
+    "failing": [
+      {
+        "category": "performance",
+        "id": "cache-insight",
+        "title": "Use efficient cache lifetimes",
+        "score": 0,
+        "display": "Est savings of 59 KiB",
+        "items": [
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/jetbrains-mono-latin.6fWv1k7M.woff2",
+            "wastedBytes": 29161.916666666664,
+            "totalBytes": 31813
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/space-grotesk-latin.BhU9QXUp.woff2",
+            "wastedBytes": 20569.083333333332,
+            "totalBytes": 22439
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/Base.CFuSZDWi.css",
+            "wastedBytes": 4241.416666666666,
+            "totalBytes": 4627
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/Base.astro_astro_type_script_index_0_lang.D_Py6Ppm.js",
+            "wastedBytes": 3583.25,
+            "totalBytes": 3909
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/index.C4rOoa6S.css",
+            "wastedBytes": 1418.0833333333333,
+            "totalBytes": 1547
+          }
+        ]
+      },
+      {
+        "category": "performance",
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0,
+        "display": "",
+        "items": [
+          {
+            "value": {
+              "type": "network-tree",
+              "chains": {
+                "CC42B3A9B05EE326D9913B80FB15B508": {
+                  "url": "https://craga89.github.io/craigsworks/",
+                  "navStartToEndTime": 99,
+                  "transferSize": 10868,
+                  "isLongest": true,
+                  "children": {
+                    "2649.4": {
+                      "url": "https://craga89.github.io/craigsworks/assets/Base.CFuSZDWi.css",
+                      "navStartToEndTime": 223,
+                      "transferSize": 4627,
+                      "isLongest": true,
+                      "children": {}
+                    },
+                    "2649.7": {
+                      "url": "https://craga89.github.io/craigsworks/assets/Faq.axz5JcYM.css",
+                      "navStartToEndTime": 221,
+                      "transferSize": 543,
+                      "children": {}
+                    },
+                    "2649.6": {
+                      "url": "https://craga89.github.io/craigsworks/assets/notes.Vf9MQ4kD.css",
+                      "navStartToEndTime": 169,
+                      "transferSize": 354,
+                      "children": {}
+                    },
+                    "2649.9": {
+                      "url": "https://craga89.github.io/craigsworks/assets/Base.astro_astro_type_script_index_0_lang.D_Py6Ppm.js",
+                      "navStartToEndTime": 162,
+                      "transferSize": 3909,
+                      "children": {}
+                    },
+                    "2649.8": {
+                      "url": "https://craga89.github.io/craigsworks/assets/Contact.DvpmlsTL.css",
+                      "navStartToEndTime": 158,
+                      "transferSize": 576,
+                      "children": {}
+                    },
+                    "2649.5": {
+                      "url": "https://craga89.github.io/craigsworks/assets/index.C4rOoa6S.css",
+                      "navStartToEndTime": 158,
+                      "transferSize": 1547,
+                      "children": {}
+                    }
+                  }
+                }
+              },
+              "longestChain": {
+                "duration": 223
+              }
+            }
+          },
+          {
+            "description": "[preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints help the browser establish a connection earlier in the page load, saving time when the first request for that origin is made. The following are the origins that the page preconnected to.",
+            "value": {
+              "type": "text",
+              "value": "no origins were preconnected"
+            }
+          },
+          {
+            "description": "Add [preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints to your most important origins, but try to use no more than 4.",
+            "value": {
+              "type": "text",
+              "value": "No additional origins are good candidates for preconnecting"
+            }
+          }
+        ]
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-insight",
+        "title": "Render-blocking requests",
+        "score": 0.5,
+        "display": "",
+        "items": [
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/Base.CFuSZDWi.css",
+            "totalBytes": 4627
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/Faq.axz5JcYM.css",
+            "totalBytes": 543
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/notes.Vf9MQ4kD.css",
+            "totalBytes": 354
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/Contact.DvpmlsTL.css",
+            "totalBytes": 576
+          },
+          {
+            "url": "https://craga89.github.io/craigsworks/assets/index.C4rOoa6S.css",
+            "totalBytes": 1547
+          }
+        ]
+      },
+      {
+        "category": "seo",
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "score": 0,
+        "display": "",
+        "items": [
+          {}
+        ]
+      }
+    ]
   }
 }
