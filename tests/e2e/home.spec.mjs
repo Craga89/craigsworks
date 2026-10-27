@@ -29,6 +29,15 @@ test('every page has its heading, a way to get in touch, and the main links', as
   }
 });
 
+test('"Book a call" reaches a contact section from every page', async ({ page }) => {
+  for (const path of PATHS) {
+    await page.goto(path);
+    await page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Book a call' }).click();
+    await expect(page, path).toHaveURL(/#contact$/);
+    await expect(page.locator('#contact'), path).toBeInViewport();
+  }
+});
+
 test('each service on the home page leads to its own page', async ({ page }) => {
   const services = [
     { link: 'How release acceleration works', h1: /without a release day/ },
@@ -114,6 +123,9 @@ test.describe('missing pages', () => {
     const res = await page.goto('projects/qtip2/');
     expect(res?.status()).toBe(404);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText("That page isn't here.");
+    await expect(
+      page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Book a call' }),
+    ).toHaveAttribute('href', /\/#contact$/);
     await page.getByRole('link', { name: 'Go to the home page' }).click();
     await expect(page).toHaveURL(/\/$/);
   });

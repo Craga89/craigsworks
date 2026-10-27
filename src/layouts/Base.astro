@@ -23,9 +23,11 @@ interface Props {
   ld?: Record<string, unknown>;
   /** Which of the main links the page belongs to. */
   current?: 'services' | 'work' | 'about';
+  /** Whether the page ends with the contact section (the privacy and 404 pages don't). */
+  contact?: boolean;
 }
 
-const { title, description, path, ld, mono = false, current } = Astro.props;
+const { title, description, path, ld, mono = false, current, contact = true } = Astro.props;
 const url = SITE + '/' + path;
 const org = {
   '@context': 'https://schema.org',
@@ -74,7 +76,7 @@ const org = {
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <StagingBar />
-    <Header current={current} />
+    <Header current={current} contact={contact} />
     <main id="main" tabindex="-1">
       <slot />
     </main>

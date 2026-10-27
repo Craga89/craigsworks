@@ -7,8 +7,10 @@ import { url } from '../site';
 interface Props {
   /** The section the page belongs to, marked as current in the links. */
   current?: 'services' | 'work' | 'about';
+  /** Whether the page ends with the contact section; if not, "Book a call" goes to the home page's. */
+  contact?: boolean;
 }
-const { current } = Astro.props;
+const { current, contact = true } = Astro.props;
 const links = [
   { key: 'services', text: 'Services', href: url('#services') },
   { key: 'work', text: 'Case notes', href: url('work/') },
@@ -36,7 +38,7 @@ const links = [
             </li>
           ))
         }
-        <li><a class="btn btn-dark" href="#contact">Book a call</a></li>
+        <li><a class="btn btn-dark" href={contact ? '#contact' : url('#contact')}>Book a call</a></li>
       </ul>
     </nav>
   </div>
