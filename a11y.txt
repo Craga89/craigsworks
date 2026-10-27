@@ -1,0 +1,176 @@
+
+Running 47 tests using 2 workers
+
+[1/47] [desktop] › tests/e2e/home.spec.mjs:6:1 › the home page says what it is and how to get in touch
+[2/47] [desktop] › tests/e2e/home.spec.mjs:18:1 › every page has its heading, a way to get in touch, and the main links
+[3/47] [desktop] › tests/e2e/home.spec.mjs:32:1 › "Book a call" reaches a contact section from every page
+[4/47] [desktop] › tests/e2e/home.spec.mjs:41:1 › each service on the home page leads to its own page
+[5/47] [desktop] › tests/e2e/home.spec.mjs:57:1 › the main links go to their pages, and Services to the list on the home page
+[6/47] [desktop] › tests/e2e/home.spec.mjs:68:1 › a service page links back to the services, and to its case notes
+[7/47] [desktop] › tests/e2e/home.spec.mjs:82:1 › the case notes: every one links to its full write-up, and the areas jump to their groups
+[8/47] [desktop] › tests/e2e/home.spec.mjs:94:1 › questions open and close
+[9/47] [desktop] › tests/e2e/home.spec.mjs:104:1 › the skip link moves to the content @desktop
+[10/47] [desktop] › tests/e2e/home.spec.mjs:114:1 › the privacy page
+[11/47] [desktop] › tests/e2e/home.spec.mjs:122:3 › missing pages › get the 404 page, with a way home
+[12/47] [desktop] › tests/e2e/home.spec.mjs:134:1 › search engines are kept out until indexing is switched on
+[13/47] [desktop] › tests/e2e/home.spec.mjs:146:1 › every page has a Content-Security-Policy and no inline styles
+[14/47] [desktop] › tests/e2e/home.spec.mjs:156:1 › every link and asset stays inside the site, wherever it is served from
+[15/47] [desktop] › tests/e2e/home.spec.mjs:171:1 › every internal link leads to a page that exists
+[16/47] [desktop] › tests/e2e/home.spec.mjs:193:3 › themes › the switch changes the theme, and the choice is remembered
+[17/47] [desktop] › tests/e2e/home.spec.mjs:214:3 › themes › with no choice made, the page follows the system
+[18/47] [desktop] › tests/e2e/home.spec.mjs:223:1 › the console says hello, once, with the overview and working links
+[19/47] [a11y-desktop] › tests/a11y/keyboard.spec.mjs:13:3 › ./: a full lap with Tab, every stop visibly focused and not hidden
+[20/47] [a11y-desktop] › tests/a11y/keyboard.spec.mjs:13:3 › services/release-acceleration/: a full lap with Tab, every stop visibly focused and not hidden
+[21/47] [a11y-desktop] › tests/a11y/keyboard.spec.mjs:13:3 › services/ai-adoption/: a full lap with Tab, every stop visibly focused and not hidden
+[22/47] [a11y-desktop] › tests/a11y/keyboard.spec.mjs:13:3 › services/health-check/: a full lap with Tab, every stop visibly focused and not hidden
+[23/47] [a11y-desktop] › tests/a11y/keyboard.spec.mjs:13:3 › work/: a full lap with Tab, every stop visibly focused and not hidden
+[24/47] [a11y-desktop] › tests/a11y/keyboard.spec.mjs:13:3 › about/: a full lap with Tab, every stop visibly focused and not hidden
+[25/47] [a11y-desktop] › tests/a11y/keyboard.spec.mjs:13:3 › privacy/: a full lap with Tab, every stop visibly focused and not hidden
+[26/47] [a11y-desktop] › tests/a11y/motion.spec.mjs:23:5 › motion › with reduced motion › nothing loops or moves on its own @desktop
+[27/47] [a11y-desktop] › tests/a11y/motion.spec.mjs:29:3 › motion › every looping animation can be paused, and stays paused @desktop
+[28/47] [a11y-desktop] › tests/a11y/motion.spec.mjs:44:1 › the tooltip: shown on hover and focus, hoverable, and Escape dismisses it @desktop
+[29/47] [a11y-desktop] › tests/a11y/states.spec.mjs:11:3 › home page › the whole page
+[30/47] [a11y-desktop] › tests/a11y/states.spec.mjs:15:3 › home page › every question open
+[31/47] [a11y-desktop] › tests/a11y/states.spec.mjs:20:3 › home page › the qTip2 tooltip, open
+[32/47] [a11y-desktop] › tests/a11y/states.spec.mjs:26:3 › home page › with animations paused
+[33/47] [a11y-desktop] › tests/a11y/states.spec.mjs:37:3 › without scripts › the home page works: questions still open, and no controls that need scripts
+[34/47] [a11y-desktop] › tests/a11y/states.spec.mjs:52:5 › dark theme › ./
+[35/47] [a11y-desktop] › tests/a11y/states.spec.mjs:52:5 › dark theme › services/release-acceleration/
+[36/47] [a11y-desktop] › tests/a11y/states.spec.mjs:52:5 › dark theme › services/ai-adoption/
+[37/47] [a11y-desktop] › tests/a11y/states.spec.mjs:52:5 › dark theme › services/health-check/
+[38/47] [a11y-desktop] › tests/a11y/states.spec.mjs:52:5 › dark theme › work/
+[39/47] [a11y-desktop] › tests/a11y/states.spec.mjs:52:5 › dark theme › about/
+[40/47] [a11y-desktop] › tests/a11y/states.spec.mjs:52:5 › dark theme › privacy/
+[41/47] (retries) [a11y-desktop] › tests/a11y/states.spec.mjs:52:5 › dark theme › work/ (retry #1)
+[42/47] [a11y-desktop] › tests/a11y/states.spec.mjs:63:5 › other pages › services/release-acceleration/
+[43/47] [a11y-desktop] › tests/a11y/states.spec.mjs:63:5 › other pages › services/ai-adoption/
+[44/47] (retries) [a11y-desktop] › tests/a11y/states.spec.mjs:52:5 › dark theme › work/ (retry #2)
+[45/47] [a11y-desktop] › tests/a11y/states.spec.mjs:63:5 › other pages › services/health-check/
+[46/47] [a11y-desktop] › tests/a11y/states.spec.mjs:63:5 › other pages › work/
+  1) [a11y-desktop] › tests/a11y/states.spec.mjs:52:5 › dark theme › work/ ─────────────────────────
+
+    Error: axe: work/ (dark)
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "color-contrast: Elements must meet minimum color contrast ratio thresholds (.acc)",
+    + ]
+
+       at a11y/axe.mjs:39
+
+      37 |             `axe: ${label}`,
+      38 |           )
+    > 39 |           .toEqual([]);
+         |            ^
+      40 |       });
+      41 |     },
+      42 |   }),
+        at /home/runner/work/craigsworks/craigsworks/tests/a11y/axe.mjs:39:12
+        at /home/runner/work/craigsworks/craigsworks/tests/a11y/states.spec.mjs:56:7
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/states-dark-theme-work--a11y-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/states-dark-theme-work--a11y-desktop/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/states-dark-theme-work--a11y-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/states-dark-theme-work--a11y-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: axe: work/ (dark)
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "color-contrast: Elements must meet minimum color contrast ratio thresholds (.acc)",
+    + ]
+
+       at a11y/axe.mjs:39
+
+      37 |             `axe: ${label}`,
+      38 |           )
+    > 39 |           .toEqual([]);
+         |            ^
+      40 |       });
+      41 |     },
+      42 |   }),
+        at /home/runner/work/craigsworks/craigsworks/tests/a11y/axe.mjs:39:12
+        at /home/runner/work/craigsworks/craigsworks/tests/a11y/states.spec.mjs:56:7
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/states-dark-theme-work--a11y-desktop-retry1/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/states-dark-theme-work--a11y-desktop-retry1/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/states-dark-theme-work--a11y-desktop-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/states-dark-theme-work--a11y-desktop-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: axe: work/ (dark)
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "color-contrast: Elements must meet minimum color contrast ratio thresholds (.acc)",
+    + ]
+
+       at a11y/axe.mjs:39
+
+      37 |             `axe: ${label}`,
+      38 |           )
+    > 39 |           .toEqual([]);
+         |            ^
+      40 |       });
+      41 |     },
+      42 |   }),
+        at /home/runner/work/craigsworks/craigsworks/tests/a11y/axe.mjs:39:12
+        at /home/runner/work/craigsworks/craigsworks/tests/a11y/states.spec.mjs:56:7
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/states-dark-theme-work--a11y-desktop-retry2/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/states-dark-theme-work--a11y-desktop-retry2/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/states-dark-theme-work--a11y-desktop-retry2/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/states-dark-theme-work--a11y-desktop-retry2/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[47/47] [a11y-desktop] › tests/a11y/states.spec.mjs:63:5 › other pages › privacy/
+[48/47] [a11y-desktop] › tests/a11y/states.spec.mjs:63:5 › other pages › about/
+[49/47] [a11y-desktop] › tests/a11y/states.spec.mjs:72:5 › other pages › the 404 page › the 404 page
+  1 failed
+    [a11y-desktop] › tests/a11y/states.spec.mjs:52:5 › dark theme › work/ ──────────────────────────
+  46 passed (31.3s)

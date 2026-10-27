@@ -1,0 +1,29 @@
+
+> typecheck
+> astro check && tsc -p tsconfig.node.json
+
+[2m21:28:39[22m [34m[types][39m Generated [2m89ms[22m
+[2m21:28:39[22m [34m[check][39m Getting diagnostics for Astro files in /home/runner/work/craigsworks/craigsworks...
+[96msrc/scripts/motion.ts[0m:[93m7[0m:[93m10[0m - [91merror[0m[90m ts(2393): [0mDuplicate function implementation.
+
+[7m7[0m function sync(button: HTMLButtonElement) {
+[7m [0m [91m         ~~~~[0m
+[96msrc/scripts/motion.ts[0m:[93m4[0m:[93m7[0m - [91merror[0m[90m ts(2451): [0mCannot redeclare block-scoped variable 'root'.
+
+[7m4[0m const root = document.documentElement;
+[7m [0m [91m      ~~~~[0m
+
+[96msrc/scripts/theme.ts[0m:[93m17[0m:[93m10[0m - [91merror[0m[90m ts(2393): [0mDuplicate function implementation.
+
+[7m17[0m function sync() {
+[7m  [0m [91m         ~~~~[0m
+[96msrc/scripts/theme.ts[0m:[93m5[0m:[93m7[0m - [91merror[0m[90m ts(2451): [0mCannot redeclare block-scoped variable 'root'.
+
+[7m5[0m const root = document.documentElement;
+[7m [0m [91m      ~~~~[0m
+
+Result (47 files): 
+- 4 errors
+- 0 warnings
+- 0 hints
+
