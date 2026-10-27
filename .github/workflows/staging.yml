@@ -1,0 +1,86 @@
+# Staging previews: every push to a branch is built straight away (no waiting for the checks) and
+# stored under staging/<branch>/ on the pages branch; staging-deploy.yml then publishes it, at
+#   https://<where Pages serves the site>/staging/<branch>/
+# with a list of all of them at /staging/. Deleting a branch removes its preview.
+#
+# The live site is only ever updated by CI, after every check passes.
+name: Staging
+
+on:
+  push:
+    branches-ignore:
+      - pages # what Pages serves (written by the workflows)
+      - accessibility # report branches
+      - lighthouse
+      - 'bootstrap/**' # dependency and font bootstraps
+      - 'dependabot/**' # Dependabot's token can't write the pages branch
+  delete:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # Per branch, so a newer push (or deleting the branch) replaces a run that hasn't finished.
+  group: staging-${{ github.event_name == 'delete' && github.event.ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  where:
+    name: Preview folder
+    if: github.event_name != 'delete' || github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      branch: ${{ steps.slug.outputs.branch }}
+      slug: ${{ steps.slug.outputs.slug }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+      - id: slug
+        env:
+          # On a delete the workflow runs on the default branch; the deleted one is in event.ref.
+          BRANCH: ${{ github.event_name == 'delete' && github.event.ref || github.ref_name }}
+        run: |
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+          echo "slug=$(node tools/staging-index.mjs slug "$BRANCH")" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: where
+    if: github.event_name != 'delete'
+    uses: ./.github/workflows/build.yml
+    permissions:
+      contents: read
+      pages: read
+    with:
+      subpath: staging/${{ needs.where.outputs.slug }}/
+      staging: ${{ needs.where.outputs.branch }}
+
+  store:
+    name: Store the preview
+    needs: [where, build]
+    if: always() && needs.where.result == 'success' && (github.event_name == 'delete' || needs.build.result == 'success')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - if: github.event_name != 'delete'
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        with:
+          name: build
+          path: site
+      - uses: ./.github/actions/pages-store
+        with:
+          target: staging/${{ needs.where.outputs.slug }}
+          source: site
+          remove: ${{ github.event_name == 'delete' }}
+          branch: ${{ needs.where.outputs.branch }}
+          sha: ${{ github.sha }}
+      - name: Summary
+        if: github.event_name != 'delete'
+        env:
+          BASE: ${{ needs.build.outputs.base }}
+        run: echo "Preview (live in a minute or two, once staging-deploy.yml finishes): \`$BASE\`" >> "$GITHUB_STEP_SUMMARY"

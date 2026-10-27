@@ -1,0 +1,47 @@
+# Publishes a staging preview as soon as staging.yml has stored it, then links it from the commit
+# (a "Staging preview" status, so it shows in the pull request's checks).
+#
+# This is its own workflow, started when Staging finishes, because it then runs from the default
+# branch, the only branch the github-pages environment lets deploy.
+name: Staging deploy
+
+on:
+  workflow_run:
+    workflows: [Staging]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: github.event.workflow_run.conclusion == 'success'
+    uses: ./.github/workflows/pages-deploy.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+  status:
+    name: Link the preview
+    needs: deploy
+    if: github.event.workflow_run.event == 'push' && needs.deploy.outputs.page_url != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      statuses: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+          PAGE_URL: ${{ needs.deploy.outputs.page_url }}
+        run: |
+          url="${PAGE_URL%/}/staging/$(node tools/staging-index.mjs slug "$BRANCH")/"
+          gh api "repos/$GITHUB_REPOSITORY/statuses/$SHA" -f state=success -f context="Staging preview" \
+            -f description="Built before the checks; open to preview" -f target_url="$url" > /dev/null
+          echo "::notice title=Staging preview::$url"
+          echo "Staging preview: $url" >> "$GITHUB_STEP_SUMMARY"
