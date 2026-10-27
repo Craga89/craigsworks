@@ -9,7 +9,7 @@ const SPACING =
 /** @param {import('@playwright/test').Page} page */
 const sideways = (page) => page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
 
-for (const path of ['/', 'privacy/']) {
+for (const path of ['./', 'privacy/']) {
   test(`${path} at 320px: reflows, and survives text spacing`, { tag: '@mobile' }, async ({ page }) => {
     await page.goto(path);
     await settle(page);

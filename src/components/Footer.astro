@@ -1,13 +1,13 @@
 ---
 // The footer: who runs the business, the policy and profile links, and "pause animations".
-import { NAME, OWNER, LOCATION, PERSONAL_SITE, LINKEDIN, SOURCE } from '../site';
+import { NAME, OWNER, LOCATION, PERSONAL_SITE, LINKEDIN, SOURCE, url } from '../site';
 ---
 
 <footer class="ftr">
   <div class="wrap row">
     <p>{NAME} is the trading name of {OWNER}, sole trader, {LOCATION}. © {new Date().getFullYear()}</p>
     <ul>
-      <li><a href="/privacy/">Privacy</a></li>
+      <li><a href={url('privacy/')}>Privacy</a></li>
       <li><a href={PERSONAL_SITE}>craigthompson.dev</a></li>
       <li><a href={LINKEDIN}>LinkedIn</a></li>
       <li><a href={SOURCE}>Source</a></li>

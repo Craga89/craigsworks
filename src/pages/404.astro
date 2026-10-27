@@ -1,7 +1,7 @@
 ---
 // Not found: GitHub Pages serves this for any missing address.
 import Base from '../layouts/Base.astro';
-import { PERSONAL_SITE } from '../site';
+import { PERSONAL_SITE, url } from '../site';
 ---
 
 <Base title="Not found · Craig's Works" description="That address doesn't exist on craigsworks.com." path="404.html">
@@ -13,7 +13,7 @@ import { PERSONAL_SITE } from '../site';
         craigsworks.com used to be Craig's personal site. That now lives at <a href={PERSONAL_SITE}>craigthompson.dev</a
         >, and old qTip2 pages have moved to <a href="https://github.com/qTip2/qTip2">qTip2 on GitHub</a>.
       </p>
-      <a class="btn btn-primary" href="/">Go to the home page</a>
+      <a class="btn btn-primary" href={url()}>Go to the home page</a>
     </div>
   </section>
 </Base>

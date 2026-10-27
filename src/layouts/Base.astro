@@ -5,7 +5,7 @@ import '../styles/fonts.css';
 import '../styles/base.css';
 import bodyFont from '../assets/fonts/plus-jakarta-sans-latin.woff2?url';
 import monoFont from '../assets/fonts/jetbrains-mono-latin.woff2?url';
-import { SITE, NAME, CHROME, INDEXING, LOCATION, OWNER, PERSONAL_SITE, LINKEDIN, EMAIL } from '../site';
+import { SITE, NAME, CHROME, INDEXING, LOCATION, OWNER, PERSONAL_SITE, LINKEDIN, EMAIL, url as at } from '../site';
 import { BOOT } from '../scripts/inline.mjs';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -46,7 +46,7 @@ const org = {
     <link rel="canonical" href={url} />
     <meta name="color-scheme" content="light" />
     <meta name="theme-color" content={CHROME} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={at('favicon.svg')} type="image/svg+xml" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={NAME} />

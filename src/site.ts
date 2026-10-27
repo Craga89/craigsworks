@@ -11,6 +11,12 @@ export const LINKEDIN = 'https://www.linkedin.com/in/craigmichaelthompson/';
 export const SOURCE = 'https://github.com/Craga89/craigsworks';
 export const LOCATION = 'Newcastle upon Tyne';
 
+/**
+ * A path inside the site, under the base it's served from: '/' on craigsworks.com, '/craigsworks/'
+ * on GitHub Pages before the custom domain is set (see astro.config.mjs).
+ */
+export const url = (path = '') => import.meta.env.BASE_URL.replace(/\/?$/, '/') + path.replace(/^\//, '');
+
 /** Browser chrome colour (the page background). */
 export const CHROME = '#F3F4F6';
 

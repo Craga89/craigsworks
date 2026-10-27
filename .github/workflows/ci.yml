@@ -37,6 +37,9 @@ jobs:
 
   build:
     uses: ./.github/workflows/build.yml
+    permissions:
+      contents: read
+      pages: read # where Pages serves the site from, so it's built for that path
 
   unit:
     name: Types and unit tests
@@ -53,6 +56,8 @@ jobs:
     name: End-to-end (${{ matrix.project }})
     needs: build
     runs-on: ubuntu-latest
+    env:
+      SITE_BASE: ${{ needs.build.outputs.base }}
     timeout-minutes: 20
     strategy:
       fail-fast: false
@@ -78,6 +83,8 @@ jobs:
     name: WCAG 2.2 AA (${{ matrix.shard }}/2)
     needs: build
     runs-on: ubuntu-latest
+    env:
+      SITE_BASE: ${{ needs.build.outputs.base }}
     timeout-minutes: 30
     strategy:
       fail-fast: false

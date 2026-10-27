@@ -2,12 +2,13 @@
 // The site header: the name, availability and the main links. Sticky on wider screens only, so
 // on a phone it never covers what has focus.
 import Logo from './Logo.astro';
+import { url } from '../site';
 ---
 
 <header class="hdr">
   <div class="bar">
     <div class="id">
-      <a class="brand" href="/">
+      <a class="brand" href={url()}>
         <Logo />
         <span>Craig's Works</span>
       </a>
@@ -15,10 +16,10 @@ import Logo from './Logo.astro';
     </div>
     <nav aria-label="Main">
       <ul>
-        <li><a href="/#services">Services</a></li>
-        <li><a href="/#record">Track record</a></li>
-        <li><a href="/#how">How it works</a></li>
-        <li><a class="btn btn-dark" href="/#contact">Book a call</a></li>
+        <li><a href={url('#services')}>Services</a></li>
+        <li><a href={url('#record')}>Track record</a></li>
+        <li><a href={url('#how')}>How it works</a></li>
+        <li><a class="btn btn-dark" href={url('#contact')}>Book a call</a></li>
       </ul>
     </nav>
   </div>

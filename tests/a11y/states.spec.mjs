@@ -3,7 +3,7 @@ import { test, expect, settle } from './axe.mjs';
 
 test.describe('home page', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     await settle(page);
   });
 
@@ -40,7 +40,7 @@ test.describe('home page', () => {
 test.describe('without scripts', () => {
   test.use({ javaScriptEnabled: false });
   test('the home page shows every service, and no controls that need scripts', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     await expect(page.getByRole('tabpanel')).toHaveCount(3);
     for (const panel of await page.getByRole('tabpanel').all()) await expect(panel).toBeVisible();
     await expect(page.getByRole('tablist'), 'tabs that could not switch').toBeHidden();

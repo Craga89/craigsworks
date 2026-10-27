@@ -21,13 +21,13 @@ test.describe('motion', { tag: '@desktop' }, () => {
   test.describe('with reduced motion', () => {
     test.use({ contextOptions: { reducedMotion: 'reduce' } });
     test('nothing loops or moves on its own', async ({ page }) => {
-      await page.goto('/');
+      await page.goto('./');
       await expect.poll(() => page.evaluate(loops)).toEqual([]);
     });
   });
 
   test('every looping animation can be paused, and stays paused', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     expect(await page.evaluate(loops), 'something loops to begin with').not.toEqual([]);
     const toggle = page.locator('[data-motion-toggle]');
     await toggle.click();
@@ -45,7 +45,7 @@ test(
   'the tooltip: shown on hover and focus, hoverable, and Escape dismisses it',
   { tag: '@desktop' },
   async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     const button = page.locator('.tip-btn');
     const tip = page.getByRole('tooltip');
     await expect(button).toHaveAccessibleDescription(/tooltip/);
