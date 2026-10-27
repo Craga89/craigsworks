@@ -1,0 +1,36 @@
+{
+  "name": "craigsworks.com",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "serve": "node tools/lib/serve.mjs site",
+    "fonts": "node tools/fetch-fonts.mjs",
+    "lint": "oxlint",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "typecheck": "astro check && tsc -p tsconfig.node.json",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "node --test --experimental-test-coverage --test-coverage-include=\"tools/lib/**\" --test-coverage-lines=95 --test-coverage-branches=80 --test-coverage-functions=90 \"tests/unit/**/*.test.mjs\"",
+    "test:e2e": "playwright test --project=desktop --project=mobile",
+    "test:a11y": "playwright test --project=a11y-desktop --project=a11y-mobile",
+    "verify": "npm run lint && npm run format:check && npm run typecheck && npm run test:unit"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.11",
+    "@astrojs/sitemap": "3.7.4",
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1",
+    "@types/node": "22.20.5",
+    "astro": "7.4.1",
+    "axe-core": "4.14.0",
+    "oxfmt": "0.74.0",
+    "oxlint": "1.89.0",
+    "playwright": "1.64.1",
+    "typescript": "6.0.3"
+  },
+  "engines": {
+    "node": ">=22.12"
+  }
+}

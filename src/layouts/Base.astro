@@ -1,0 +1,85 @@
+---
+// The document every page shares: head (meta, social cards, structured data, fonts), the header,
+// the footer and the scripts that run on every page.
+import '../styles/fonts.css';
+import '../styles/base.css';
+import bodyFont from '../assets/fonts/plus-jakarta-sans-latin.woff2?url';
+import monoFont from '../assets/fonts/jetbrains-mono-latin.woff2?url';
+import { SITE, NAME, CHROME, INDEXING, LOCATION, OWNER, PERSONAL_SITE, LINKEDIN, EMAIL } from '../site';
+import { BOOT } from '../scripts/inline.mjs';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** The page's path from the site root, e.g. 'privacy/'. */
+  path: string;
+  /** Preload the mono font too (pages that open with it above the fold). */
+  mono?: boolean;
+  /** Structured data for the page. */
+  ld?: Record<string, unknown>;
+}
+
+const { title, description, path, ld, mono = false } = Astro.props;
+const url = SITE + '/' + path;
+const org = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: NAME,
+  url: SITE + '/',
+  email: EMAIL,
+  areaServed: 'GB',
+  address: { '@type': 'PostalAddress', addressLocality: LOCATION, addressCountry: 'GB' },
+  founder: { '@type': 'Person', name: OWNER, url: PERSONAL_SITE, sameAs: [LINKEDIN] },
+};
+---
+
+<!doctype html>
+<html lang="en-GB" data-built="__BUILD_AT__" data-commit="__BUILD_SHA__">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {!INDEXING && <meta name="robots" content="noindex, nofollow, noarchive" />}
+    <link rel="canonical" href={url} />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content={CHROME} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={NAME} />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <script type="application/ld+json" set:html={JSON.stringify(ld ?? org)} />
+
+    {/* Mark that scripts run, and apply a saved "pause animations", before anything paints. */}
+    <script is:inline set:html={BOOT} />
+
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    {mono && <link rel="preload" href={monoFont} as="font" type="font/woff2" crossorigin />}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/boot';
+    </script>
+  </body>
+</html>
+
+<style>
+  main:focus {
+    outline: none;
+  }
+</style>

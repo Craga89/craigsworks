@@ -1,0 +1,112 @@
+---
+// The site header: the name, availability and the main links. Sticky on wider screens only, so
+// on a phone it never covers what has focus.
+import Logo from './Logo.astro';
+---
+
+<header class="hdr">
+  <div class="bar">
+    <div class="id">
+      <a class="brand" href="/">
+        <Logo />
+        <span>Craig's Works</span>
+      </a>
+      <p class="status mono"><span class="dot pulse" aria-hidden="true"></span>Taking on new clients</p>
+    </div>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#record">Track record</a></li>
+        <li><a href="/#how">How it works</a></li>
+        <li><a class="btn btn-dark" href="/#contact">Book a call</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    padding: 12px 16px 0;
+    z-index: 10;
+  }
+  @media (min-width: 761px) {
+    .hdr {
+      position: sticky;
+      top: 0;
+    }
+  }
+  .bar {
+    max-width: var(--wrap);
+    margin: 0 auto;
+    padding: 8px 8px 8px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 12px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+  }
+  .id {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 14px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 1.125rem;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+  .status {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--acc);
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 24px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+  ul a:not(.btn) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-decoration: none;
+  }
+  ul a:not(.btn):hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 760px) {
+    .status {
+      display: none;
+    }
+    ul {
+      gap: 0 16px;
+    }
+  }
+</style>

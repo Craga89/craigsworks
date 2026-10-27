@@ -1,0 +1,6 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": { "allowJs": true, "checkJs": true },
+  "include": [".astro/types.d.ts", "src/**/*", "astro.config.mjs"],
+  "exclude": ["site"]
+}

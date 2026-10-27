@@ -1,0 +1,74 @@
+---
+// The call to action every "book a call" link lands on.
+import { MAILTO, EMAIL } from '../../site';
+---
+
+<section id="contact" class="section wrap" aria-labelledby="contact-title">
+  <div class="box on-dark pop">
+    <div class="copy">
+      <h2 id="contact-title">Releases slower than they should be?</h2>
+      <p>
+        A free 30-minute call. No pitch deck, just a frank look at what's in the way. Or email
+        <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+      </p>
+    </div>
+    <div class="beam ring">
+      <a class="go" href={MAILTO}>Book a free call <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: clamp(32px, 6vw, 72px);
+    border-radius: 36px;
+    background: var(--dark);
+    color: #ffffff;
+  }
+  .copy {
+    flex: 999 1 520px;
+    min-width: 0;
+  }
+  h2 {
+    margin: 0 0 14px;
+    font-weight: 800;
+    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+  }
+  p {
+    margin: 0;
+    font-size: 1.1875rem;
+    color: var(--dark-text);
+  }
+  p a {
+    color: #ffffff;
+    overflow-wrap: anywhere;
+  }
+  .ring {
+    display: inline-block;
+    padding: 2px;
+    border-radius: 18px;
+  }
+  .go {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 60px;
+    padding: 0 28px;
+    border-radius: 16px;
+    background: #ffffff;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 1.125rem;
+    text-decoration: none;
+  }
+  .go:hover {
+    color: var(--acc-ink);
+  }
+</style>

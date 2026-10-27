@@ -1,0 +1,45 @@
+# Weekly dead-link check across a fresh build of the site.
+name: Link check
+
+on:
+  schedule:
+    - cron: '29 6 * * 1' # Mondays, 06:29 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  links:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        with:
+          name: build
+          path: site
+      - name: Check links
+        id: lychee
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          fail: true
+          output: lychee/out.md
+          jobSummary: true
+          # LinkedIn refuses automated requests (HTTP 999); the site's own domain is checked by the other workflows.
+          args: >-
+            --no-progress --max-concurrency 8 --timeout 20 --max-retries 2
+            --accept 200,201,204,206,301,302,307,308,403,429
+            --exclude 'linkedin\.com' --exclude '^mailto:' --exclude 'craigsworks\.com'
+            --exclude '__BUILD_SHA__'
+            --root-dir "${{ github.workspace }}/site"
+            'site/index.html' 'site/privacy/index.html' 'site/404.html'
+      - name: List broken links
+        if: failure()
+        run: |
+          [ -f lychee/out.md ] || { echo "::error title=Link check::no report written"; exit 0; }
+          grep -E '^\s*[*-] \[' lychee/out.md | head -40 | while IFS= read -r l; do echo "::error title=Broken link::$l"; done
+          grep -qE '^\s*[*-] \[' lychee/out.md || echo "::error title=Link check::$(head -c 900 lychee/out.md | tr '\n' ' ')"

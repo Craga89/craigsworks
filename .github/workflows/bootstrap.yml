@@ -1,0 +1,60 @@
+# Writes package-lock.json, downloads the self-hosted fonts, formats the code with oxfmt and
+# applies oxlint's safe fixes.
+#   Push a `bootstrap/…` branch: installs the versions in package.json and commits the result back
+#   to that branch.
+#   Run by hand with "latest": upgrades every dev dependency to its latest version, and pushes the
+#   result to the `bootstrap` branch for review.
+name: Bootstrap dependencies, fonts and formatting
+
+on:
+  workflow_dispatch:
+    inputs:
+      latest:
+        description: Upgrade the dev dependencies to their latest versions
+        type: boolean
+        default: true
+  push:
+    branches: ['bootstrap/**']
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version-file: .node-version
+      - name: Install the latest versions
+        if: github.event_name == 'workflow_dispatch' && inputs.latest
+        run: |
+          rm -f package-lock.json
+          # Exact versions in package.json; package-lock.json pins the rest.
+          npm install --save-exact --no-audit --no-fund --save-dev \
+            @axe-core/playwright@latest @playwright/test@latest playwright@latest \
+            @types/node@22 axe-core@latest oxfmt@latest oxlint@latest typescript@6 \
+            astro@latest @astrojs/sitemap@latest @astrojs/check@latest
+      - name: Install the versions in package.json
+        if: github.event_name == 'push' || !inputs.latest
+        run: |
+          rm -f package-lock.json
+          npm install --no-audit --no-fund
+      - name: Fonts
+        run: node tools/fetch-fonts.mjs
+      - name: Format and fix
+        run: |
+          npx oxfmt --version && npx oxfmt .
+          npx oxlint --fix || true
+          npx oxlint > oxlint.txt 2>&1 || true
+          tail -80 oxlint.txt
+          git add -f oxlint.txt
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -qm "Lockfile, fonts, formatting and lint fixes (bootstrap workflow)" || { echo "Nothing changed"; exit 0; }
+          if [ "$GITHUB_EVENT_NAME" = push ]; then git push origin "HEAD:$GITHUB_REF_NAME"; else git push -f origin HEAD:bootstrap; fi

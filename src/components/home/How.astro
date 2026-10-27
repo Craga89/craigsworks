@@ -1,0 +1,42 @@
+---
+// How an engagement runs, in three steps.
+import { STEPS } from '../../data/services';
+---
+
+<section id="how" class="section wrap" aria-labelledby="how-title">
+  <h2 id="how-title" class="section-title pop">How it works</h2>
+  <ol class="bento">
+    {
+      STEPS.map((s, i) => (
+        <li class="tile pop">
+          <kbd class:list={['step', { 'step-acc': i === STEPS.length - 1 }]} aria-hidden="true">
+            {i + 1}
+          </kbd>
+          <h3>{s.title}</h3>
+          <p>{s.body}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    grid-column: span 4;
+  }
+  h3 {
+    margin: 18px 0 6px;
+    font-weight: 800;
+    font-size: 1.3125rem;
+    letter-spacing: -0.02em;
+  }
+  p {
+    margin: 0;
+    color: var(--muted);
+  }
+</style>
