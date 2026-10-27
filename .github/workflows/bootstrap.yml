@@ -17,7 +17,7 @@ jobs:
           node-version-file: .node-version
       - name: Lighthouse 13 trial
         run: |
-          mkdir -p audit/lh "$RUNNER_TEMP/lighthouse" && cd "$RUNNER_TEMP/lighthouse"
+          mkdir -p audit/lh out "$RUNNER_TEMP/lighthouse" && cd "$RUNNER_TEMP/lighthouse"
           echo '{"private":true}' > package.json
           pnpm add lighthouse@13 --config.strict-dep-builds=false > /dev/null
           cd "$GITHUB_WORKSPACE"
@@ -25,10 +25,10 @@ jobs:
           { node --version; "$L" --version; } > audit/lh/versions.txt
           for preset in mobile desktop; do
             flags=""; [ "$preset" = desktop ] && flags="--preset=desktop"
-            "$L" https://craga89.github.io/craigsworks/ $flags --quiet --output=json --output-path="out-$preset-1.json" \
+            "$L" https://craga89.github.io/craigsworks/ $flags --quiet --output=json --output-path="out/$preset-1.json" \
               --chrome-flags="--headless=new --no-sandbox" 2> "audit/lh/$preset.log" || echo "run failed" >> "audit/lh/$preset.log"
           done
-          mkdir -p out && mv out-*.json out/
+          ls -la out
           node tools/lighthouse-summary.mjs out > audit/lh/summary.json 2> audit/lh/summary.err || echo "summary exit $?" >> audit/lh/summary.err
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
