@@ -24,7 +24,19 @@ type Style = keyof typeof STYLE;
 type Row = [Style, string][];
 
 // The crate, a block per pixel: L lid, S side, D shade.
-const CRATE = ['...LL...', '.LLLLLL.', 'SSLLLLDD', 'SSSSDDDD', 'SSSSDDDD', 'SSSSDDDD', '.SSSDDD.', '...SD...'];
+const CRATE = [
+  '.....LL.....',
+  '...LLLLLL...',
+  '.LLLLLLLLLL.',
+  'SSLLLLLLLLDD',
+  'SSSSLLLLDDDD',
+  'SSSSSSDDDDDD',
+  'SSSSSSDDDDDD',
+  'SSSSSSDDDDDD',
+  '.SSSSSDDDDD.',
+  '...SSSDDD...',
+  '.....SD.....',
+];
 const PIXEL: Record<string, string> = { L: LID, S: SIDE, D: SHADE };
 
 /** The full address of a page on this site, wherever it's served from. */
