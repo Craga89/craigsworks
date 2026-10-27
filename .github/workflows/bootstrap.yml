@@ -1,24 +1,10 @@
-# Writes pnpm-lock.yaml, downloads the self-hosted fonts, formats the code with oxfmt and
-# applies oxlint's safe fixes.
-#   Push a `bootstrap/…` branch: installs from pnpm-lock.yaml (or, without one, the versions in
-#   package.json), and commits the result back to that branch.
-#   Run by hand with "latest": upgrades every dev dependency to its latest version, and pushes the
-#   result to the `bootstrap` branch for review.
+# Throwaway: a dependency audit report, committed back to this branch.
 name: Bootstrap dependencies, fonts and formatting
-
 on:
-  workflow_dispatch:
-    inputs:
-      latest:
-        description: Upgrade the dev dependencies to their latest versions
-        type: boolean
-        default: true
   push:
     branches: ['bootstrap/**']
-
 permissions:
   contents: write
-
 jobs:
   bootstrap:
     runs-on: ubuntu-latest
@@ -29,34 +15,27 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .node-version
-      - name: Install the latest versions
-        if: github.event_name == 'workflow_dispatch' && inputs.latest
+      - name: Audit
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          rm -f pnpm-lock.yaml
-          # Exact versions in package.json; pnpm-lock.yaml pins the rest.
-          pnpm add --save-exact --save-dev --config.strict-dep-builds=false \
-            @axe-core/playwright@latest @playwright/test@latest playwright@latest \
-            @types/node@22 axe-core@latest oxfmt@latest oxlint@latest typescript@6 \
-            astro@latest @astrojs/sitemap@latest @astrojs/check@latest
-      - name: Install the locked versions
-        if: github.event_name == 'push' || !inputs.latest
-        run: |
-          # Without a lockfile, write one; dependencies with unreviewed install scripts are listed in
-          # pnpm-workspace.yaml (allowBuilds) to review, rather than failing the run.
-          if [ -f pnpm-lock.yaml ]; then pnpm install --frozen-lockfile; else pnpm install --config.strict-dep-builds=false; fi
-      - name: Fonts
-        run: node tools/fetch-fonts.mjs
-      - name: Format and fix
-        run: |
-          pnpm exec oxfmt --version && pnpm exec oxfmt .
-          pnpm exec oxlint --fix || true
-          pnpm exec oxlint > oxlint.txt 2>&1 || true
-          tail -80 oxlint.txt
-          git add -f oxlint.txt
-      - name: Commit
-        run: |
+          mkdir -p audit
+          pnpm install --frozen-lockfile
+          node audit/report.mjs || echo "report failed" > audit/report.err
+          pnpm outdated --long > audit/outdated.txt 2>&1 || true
+          pnpm audit > audit/audit.txt 2>&1 || true
+          pnpm audit --json > audit/audit.json 2>&1 || true
+          pnpm list --depth Infinity --json > audit/tree.json 2>&1 || true
+          curl -fsSL https://nodejs.org/dist/index.json | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const j=JSON.parse(s);console.log(j.slice(0,40).map(r=>[r.version,r.date,r.lts||"-",r.security?"security":""].join(" ")).join("\n"))})' > audit/node.txt
+          curl -fsSL https://raw.githubusercontent.com/nodejs/Release/main/schedule.json > audit/node-schedule.json || true
+          for r in actions/checkout actions/setup-node actions/cache actions/upload-artifact actions/download-artifact actions/configure-pages actions/upload-pages-artifact actions/deploy-pages pnpm/action-setup lycheeverse/lychee-action; do
+            gh api "repos/$r/releases?per_page=6" --jq '.[] | select(.prerelease==false and .draft==false) | "\(.tag_name) \(.published_at[0:10])"' | while read -r tag date; do
+              sha=$(gh api "repos/$r/commits/$tag" --jq .sha)
+              echo "$r $tag $date $sha"
+            done
+          done > audit/actions.txt 2>&1 || true
+          gh api repos/lycheeverse/lychee/releases?per_page=4 --jq '.[] | "lychee \(.tag_name) \(.published_at[0:10])"' >> audit/actions.txt || true
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -qm "Lockfile, fonts, formatting and lint fixes (bootstrap workflow)" || { echo "Nothing changed"; exit 0; }
-          if [ "$GITHUB_EVENT_NAME" = push ]; then git push origin "HEAD:$GITHUB_REF_NAME"; else git push -f origin HEAD:bootstrap; fi
+          git add -f audit
+          git commit -qm "chore: dependency audit report (throwaway)" && git push origin "HEAD:$GITHUB_REF_NAME"
