@@ -10,7 +10,7 @@ import { SITE, NAME, CHROME, CHROME_DARK, INDEXING, LOCATION, OWNER, PERSONAL_SI
 import { BOOT } from '../scripts/inline.mjs';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import StagingBar from '../components/StagingBar.astro';
+import PreviewBar from '../components/PreviewBar.astro';
 
 interface Props {
   title: string;
@@ -77,7 +77,7 @@ const org = {
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <StagingBar />
+    <PreviewBar />
     <Header current={current} contact={contact} />
     <main id="main" tabindex="-1">
       <slot />

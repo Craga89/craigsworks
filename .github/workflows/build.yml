@@ -3,8 +3,8 @@
 #
 # The site is built for wherever GitHub Pages serves it, read from the Pages settings: under
 # /craigsworks/ on craga89.github.io until the custom domain is set, then at the root of
-# craigsworks.com. The `base` output tells the tests which path to serve it at. Staging builds add
-# a `subpath` (staging/<branch>/) under that, and show a "staging preview" bar.
+# craigsworks.com. The `base` output tells the tests which path to serve it at. Branch previews are
+# built by Craga89/standards' preview workflow instead (see preview.yml).
 name: Build
 
 on:
@@ -12,14 +12,6 @@ on:
     inputs:
       base:
         description: Build for this path instead of the one Pages serves from (e.g. '/' for the link check)
-        type: string
-        default: ''
-      subpath:
-        description: A folder under the base to build for (e.g. 'staging/my-branch/')
-        type: string
-        default: ''
-      staging:
-        description: On a staging build, the branch it previews (shown in a bar on every page)
         type: string
         default: ''
     outputs:
@@ -41,7 +33,7 @@ jobs:
       base: ${{ steps.where.outputs.base }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ./.github/actions/setup-node
+      - uses: Craga89/standards/setup-node@2683e4116e18f128c46fce9261c4bd5d1284e8ff # v1
       - name: Where Pages serves the site
         id: pages
         if: inputs.base == ''
@@ -50,13 +42,11 @@ jobs:
         id: where
         env:
           INPUT_BASE: ${{ inputs.base }}
-          SUBPATH: ${{ inputs.subpath }}
           PAGES_BASE: ${{ steps.pages.outputs.base_path }}
           PAGES_ORIGIN: ${{ steps.pages.outputs.origin }}
         run: |
           base="${INPUT_BASE:-${PAGES_BASE:-/}}"
           base="/${base#/}"; base="${base%/}/"
-          if [ -n "$SUBPATH" ]; then base="$base${SUBPATH#/}"; base="${base%/}/"; fi
           echo "base=$base" >> "$GITHUB_OUTPUT"
           echo "SITE_BASE=$base" >> "$GITHUB_ENV"
           # Pages reports http:// until HTTPS is enforced; the site is always served over https.
@@ -66,9 +56,8 @@ jobs:
       - name: Build
         run: pnpm run build
         env:
-          # The site stays out of search engines until this is true (and staging builds always do).
+          # The site stays out of search engines until this is true (and previews always do).
           ALLOW_INDEXING: 'false'
-          STAGING_BRANCH: ${{ inputs.staging }}
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: build

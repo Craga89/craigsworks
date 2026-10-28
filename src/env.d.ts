@@ -2,6 +2,6 @@
 
 interface ImportMetaEnv {
   readonly ALLOW_INDEXING?: string;
-  /** Set on staging builds: the branch being previewed. */
-  readonly STAGING_BRANCH?: string;
+  /** Set on branch previews: the branch being previewed. */
+  readonly PREVIEW_BRANCH?: string;
 }
