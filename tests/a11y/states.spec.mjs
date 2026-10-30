@@ -34,7 +34,9 @@ test.describe('home page', () => {
 // half-working without scripts.
 test.describe('without scripts', () => {
   test.use({ javaScriptEnabled: false });
-  test('the home page works: questions still open, the terminals show their runs, and no controls that need scripts', async ({ page }) => {
+  test('the home page works: questions still open, the terminals show their runs, and no controls that need scripts', async ({
+    page,
+  }) => {
     await page.goto('./');
     const second = page.locator('#faq details').nth(1);
     await second.locator('summary').click();
