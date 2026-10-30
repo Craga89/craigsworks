@@ -1,75 +1,298 @@
 ---
-// The three services, each leading to its own page.
-import SectionHead from '../ui/SectionHead.astro';
-import Flow from '../ui/Flow.astro';
-import { service } from '../../data/services';
+// The three services, each with a small moving picture and a link to its own page, then the six
+// areas the health check covers, with what I've done in each.
+import Icon from '../ui/Icon.astro';
+import type { IconName } from '../ui/icons';
+import { service, AREAS } from '../../data/services';
 import { url } from '../../site';
 
 const rel = service('release-acceleration');
 const ai = service('ai-adoption');
 const hc = service('health-check');
 const href = (slug: string) => url(`services/${slug}/`);
+const ICONS: Record<string, IconName> = {
+  delivery: 'pulse',
+  codebase: 'code',
+  cloud: 'cloud',
+  security: 'shield',
+  ai: 'spark',
+  team: 'team',
+};
 ---
 
 <section id="services" class="section wrap" aria-labelledby="services-title">
-  <SectionHead
-    id="services"
-    kicker="how i can help"
-    title="Three ways to work together"
-    sub="Most teams start with a health check, then pick the one or two things that would make the biggest difference."
-  />
-  <div class="bento">
-    <article class="tile c7 main pop">
-      <p class="label">{rel.name.toLowerCase()}</p>
-      <h3 class="lead">Get merged work to customers quickly, without a release day</h3>
-      <p class="muted">{rel.summary}</p>
-      <Flow
-        label="How a change gets to customers"
-        steps={['merge', 'what changed', 'build that', 'checks', { text: 'preview', tone: 'acc' }, { text: 'live', tone: 'ok' }]}
-      />
-      <ul class="ticks">
-        <li>Builds that only rebuild what a change touched</li>
-        <li>A preview of every change before it merges</li>
-        <li>Deploys that check they're healthy, and roll back if not</li>
-      </ul>
+  <div class="head center">
+    <p class="eyebrow">How I can help</p>
+    <h2 id="services-title" class="section-title">Everything a calmer team needs, <em>from someone who's built it</em></h2>
+    <p class="sub">Three ways to work together. Most teams start with a health check, and you can stop whenever you like.</p>
+  </div>
+  <div class="cards">
+    <article class="panel card pop">
+      <div class="vis" aria-hidden="true">
+        <div class="pipe">
+          <span>merge</span><span>checks</span><span>preview</span><span class="live">live</span>
+          <i></i><i></i><i></i>
+        </div>
+      </div>
+      <h3>{rel.name}</h3>
+      <p>{rel.summary}</p>
       <a class="more" href={href(rel.slug)}>How release acceleration works <span aria-hidden="true">→</span></a>
     </article>
-    <div class="c5 side">
-      <article class="tile tone-soft pop">
-        <p class="label">{ai.name.toLowerCase()}</p>
-        <h3>AI coding and review, with the standards that keep quality high</h3>
-        <p class="small">{ai.summary}</p>
-        <a class="more" href={href(ai.slug)}>How AI adoption works <span aria-hidden="true">→</span></a>
-      </article>
-      <article class="tile tone-acc pop">
-        <p class="label">{hc.name.toLowerCase()}</p>
-        <h3>A clear look at where you are, and a ranked plan you keep</h3>
-        <p class="small">{hc.summary}</p>
-        <a class="more" href={href(hc.slug)}>What the health check covers <span aria-hidden="true">→</span></a>
-      </article>
-    </div>
+    <article class="panel card pop delay-1">
+      <div class="vis" aria-hidden="true">
+        <ul class="prs">
+          <li><span class="n mono">#482</span><span class="t">Copy changes on the invite email</span><span class="pill pill-ok">low risk</span></li>
+          <li><span class="n mono">#483</span><span class="t">Add an index to the reports query</span><span class="pill pill-ok">low risk</span></li>
+          <li><span class="n mono">#484</span><span class="t">Change how SSO sessions expire</span><span class="pill pill-acc">look closely</span></li>
+        </ul>
+      </div>
+      <h3>{ai.name}</h3>
+      <p>{ai.summary}</p>
+      <a class="more" href={href(ai.slug)}>How AI adoption works <span aria-hidden="true">→</span></a>
+    </article>
+    <article class="panel card pop delay-2">
+      <div class="vis" aria-hidden="true">
+        <ul class="areas-vis">
+          {
+            AREAS.map((a) => (
+              <li>
+                <span class="tick">✓</span>
+                {a.title.split(' and ')[0]}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <h3>{hc.name}</h3>
+      <p>{hc.summary}</p>
+      <a class="more" href={href(hc.slug)}>What the health check covers <span aria-hidden="true">→</span></a>
+    </article>
   </div>
+  <h3 class="visually-hidden">The six areas of a health check, and what I've done in each</h3>
+  <ul class="areas">
+    {
+      AREAS.map((a) => (
+        <li class="panel area pop">
+          <span class="badge">
+            <Icon name={ICONS[a.key] ?? 'check'} />
+          </span>
+          <strong>{a.title}</strong>
+          <span class="body">{a.body}</span>
+          <span class="done mono">{a.done}</span>
+        </li>
+      ))
+    }
+  </ul>
 </section>
 
 <style>
-  .main,
-  .side .tile {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+  .sub {
+    margin: 0;
+    max-width: 40rem;
+    color: var(--text);
   }
-  .main .more {
-    margin-top: auto;
-  }
-  .lead {
-    font-size: clamp(1.5rem, 2.6vw, 1.875rem);
-    letter-spacing: -0.025em;
-  }
-  .side {
+  .cards {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
     gap: 16px;
   }
-  .tone-acc .more {
-    color: var(--on-acc);
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 14px 24px;
+    transition:
+      border-color 0.3s,
+      transform 0.3s var(--ease);
+  }
+  .card:hover {
+    border-color: var(--line2);
+    transform: translateY(-3px);
+  }
+  .card > h3,
+  .card > p,
+  .card > a {
+    margin: 0 10px;
+  }
+  .card > h3 {
+    font-size: 1.25rem;
+  }
+  .card > p {
+    color: var(--text);
+    font-size: 0.9375rem;
+  }
+  .card > a {
+    margin-top: auto;
+  }
+  .more {
+    font-weight: 700;
+    color: var(--acc-ink);
+  }
+  .vis {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 168px;
+    margin-bottom: 8px;
+    padding: 16px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--bg);
+  }
+
+  /* A change going down the pipeline. */
+  .pipe {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .pipe::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 50%;
+    height: 2px;
+    background: var(--line2);
+  }
+  .pipe span {
+    position: relative;
+    z-index: 1;
+    padding: 6px 9px;
+    border: 1px solid var(--line2);
+    border-radius: 8px;
+    background: var(--tile);
+    font: 600 0.75rem var(--f-mono);
+    color: var(--text);
+  }
+  .pipe .live {
+    border-color: transparent;
+    background: var(--ok-soft);
+    color: var(--ok-ink);
+  }
+  .pipe i {
+    position: absolute;
+    z-index: 2;
+    top: calc(50% - 4px);
+    left: 4%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--acc-mid);
+    box-shadow: 0 0 10px var(--acc);
+    opacity: 0;
+    animation: run 3.6s linear infinite;
+  }
+  .pipe i:nth-of-type(2) {
+    animation-delay: -1.2s;
+  }
+  .pipe i:nth-of-type(3) {
+    animation-delay: -2.4s;
+  }
+  @keyframes run {
+    0% {
+      left: 4%;
+      opacity: 0;
+    }
+    8%,
+    92% {
+      opacity: 1;
+    }
+    100% {
+      left: 95%;
+      opacity: 0;
+    }
+  }
+
+  /* Pull requests, rated by an AI review. */
+  .prs,
+  .areas-vis {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+  }
+  .prs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .prs li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--tile);
+    font-size: 0.8125rem;
+    animation: fade-up 0.6s var(--ease) backwards;
+  }
+  .prs li:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .prs li:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  .n {
+    color: var(--muted);
+  }
+  .t {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* The health check's areas, ticked off. */
+  .areas-vis {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .areas-vis li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--tile);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+  .tick {
+    color: var(--ok);
+  }
+
+  .areas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: 16px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .area {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 22px;
+  }
+  .area .badge {
+    margin-bottom: 6px;
+  }
+  .body {
+    font-size: 0.875rem;
+    color: var(--text);
+  }
+  .done {
+    font-size: 0.75rem;
+    color: var(--acc-ink);
   }
 </style>

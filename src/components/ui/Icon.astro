@@ -1,0 +1,26 @@
+---
+// A small stroke icon, decorative (hidden from assistive tech): the words beside it carry the meaning.
+import { PATHS, type IconName } from './icons';
+
+interface Props {
+  name: IconName;
+  size?: number;
+}
+const { name, size = 18 } = Astro.props;
+---
+
+<svg
+  class="icon"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {PATHS[name].map((d) => <path d={d} />)}
+</svg>

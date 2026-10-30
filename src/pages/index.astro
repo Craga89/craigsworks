@@ -1,13 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/home/Hero.astro';
-import Problems from '../components/home/Problems.astro';
+import UsedBy from '../components/home/UsedBy.astro';
+import Results from '../components/home/Results.astro';
 import Services from '../components/home/Services.astro';
-import Outcomes from '../components/home/Outcomes.astro';
-import Record from '../components/home/Record.astro';
-import Notes from '../components/home/Notes.astro';
-import How from '../components/home/How.astro';
-import AboutBrief from '../components/home/AboutBrief.astro';
+import Monorepo from '../components/home/Monorepo.astro';
+import Enterprise from '../components/home/Enterprise.astro';
+import Quotes from '../components/home/Quotes.astro';
+import Together from '../components/home/Together.astro';
 import Faq from '../components/ui/Faq.astro';
 import Contact from '../components/Contact.astro';
 import { FAQ } from '../data/home';
@@ -16,13 +16,16 @@ import { HOME_TITLE, HOME_DESC } from '../site';
 
 <Base title={HOME_TITLE} description={HOME_DESC} path="" mono>
   <Hero />
-  <Problems />
+  <UsedBy />
+  <Results />
   <Services />
-  <Outcomes />
-  <Record />
-  <Notes />
-  <How />
-  <AboutBrief />
+  <Monorepo />
+  <Enterprise />
+  <Quotes />
+  <Together />
   <Faq id="faq" title="Things people ask" items={FAQ} />
-  <Contact />
+  <Contact
+    title="Want to see where your releases are stuck?"
+    body="Walk me through how a change gets to production today on a free 30-minute call. I'll tell you honestly where I think the time goes."
+  />
 </Base>

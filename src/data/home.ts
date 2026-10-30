@@ -1,67 +1,5 @@
-// The home page's words: the problems people bring, what working together leads to, the track
-// record and the questions people ask.
-
-export const PROBLEMS = [
-  {
-    title: 'Releases are an event',
-    body: 'Changes wait for a release day, and someone has to sit with each deploy in case it goes wrong.',
-    before:
-      'At Hive we stopped having a release train in 2022. Merged work reaches customers by itself, and a bad deploy rolls itself back.',
-  },
-  {
-    title: 'CI is the slowest part of the day',
-    body: 'Every change rebuilds everything, and flaky tests get re-run until they pass.',
-    before:
-      'Builds that work out what a change touched and build only that, and a test suite moved to Playwright for speed and stability.',
-  },
-  {
-    title: "You've tried AI, with mixed results",
-    body: "Some of the team swear by it, some don't trust it, and nobody agrees what good AI-written code looks like.",
-    before:
-      'Coding guidelines kept in the repo, followed by people and models alike, and an AI review that rates every pull request before a person opens it.',
-  },
-  {
-    title: 'The codebase has drifted',
-    body: 'Old tooling, half-finished migrations, and several repos that really should be one.',
-    before:
-      '18 repositories merged into one with their history intact, then nine repo-wide migrations, each landed as a single reviewed change.',
-  },
-  {
-    title: 'Bigger customers ask harder questions',
-    body: 'Security questionnaires, single sign-on, pen tests, ISO 27001. Each deal brings a new list.',
-    before:
-      'A platform taken to enterprise-ready: SAML SSO, 2FA per organisation, a yearly pen test, and ISO 27001 and GDPR audits every year.',
-  },
-  {
-    title: 'The cloud bill keeps creeping up',
-    body: "It's grown with the product, and nobody is quite sure what's driving it.",
-    before:
-      'Measure first, then cut: about $1.3k a month from the first three changes, each with the evidence in its pull request.',
-  },
-];
-
-export const OUTCOMES = [
-  {
-    label: 'your pipeline',
-    title: 'One your team trusts',
-    body: 'Merge, checks, preview, deploy. Quick enough that nobody waits on it, and safe enough that nobody fears it.',
-  },
-  {
-    label: 'your use of ai',
-    title: 'The whole team working the same way',
-    body: 'Standards written down where the models can read them, review that flags the risky changes, and the routine chores turned into one command.',
-  },
-  {
-    label: 'your next steps',
-    title: 'A plan in order of what matters',
-    body: 'Ranked by impact and effort, with the reasoning, so you can act on it with or without me.',
-  },
-  {
-    label: 'your team',
-    title: 'Able to run and change all of it',
-    body: "Runbooks, docs and a walkthrough, so the knowledge stays with you. I'd rather be called back because it went well than because nobody else understands it.",
-  },
-];
+// The home page's words: the demo runs, the results, the enterprise checklist, the track record
+// and the questions people ask. Every figure is from real work (see the case notes, data/notes.ts).
 
 /** Track record lines, shown as a terminal. */
 export const RECORD = [
@@ -111,3 +49,90 @@ export const FAQ = [
     a: 'Yes, remote by default, from Newcastle upon Tyne in the UK.',
   },
 ];
+
+/** A line in a terminal: a mark, the item and a note. Tones: ok (done), warn (a finding), acc (the result), dim. */
+export interface TermLine {
+  tone: 'ok' | 'warn' | 'acc' | 'dim';
+  item: string;
+  note?: string;
+}
+
+/** The hero's health check run: illustrative, matching the sample plan on the health check page. */
+export const HERO_RUN: TermLine[] = [
+  { tone: 'dim', item: 'reading the pipeline, code, cloud, security, ai and team' },
+  { tone: 'warn', item: 'pipeline and releases', note: '2 high-impact changes' },
+  { tone: 'ok', item: 'code and tooling', note: 'in good shape' },
+  { tone: 'warn', item: 'architecture and cost', note: 'services idling under 5% CPU' },
+  { tone: 'warn', item: 'security', note: 'secrets in .env files' },
+  { tone: 'warn', item: 'ai readiness', note: 'no shared guidelines yet' },
+  { tone: 'ok', item: 'team and process', note: 'in good shape' },
+  { tone: 'acc', item: 'plan.md', note: '5 changes, ranked by impact' },
+];
+
+/** Results from the case notes, as before-and-after bars (each value a percentage of the longer bar). */
+export const RESULTS = [
+  { title: 'Typechecks', detail: '9,700+ files, on TypeScript 7', pill: '~10× faster', after: 10, before: 100 },
+  { title: 'Report ceiling', detail: 'the flagship report, at scale', pill: '10× higher', after: 100, before: 10 },
+  {
+    title: 'Repositories',
+    detail: 'merged, history intact',
+    pill: '18 → 1',
+    after: 6,
+    before: 100,
+    labels: ['1 monorepo', '18 repos'],
+  },
+] as const;
+
+/** The enterprise checklist at Hive HR, as run in the terminal and the cards beside it. */
+export const ENTERPRISE_RUN: TermLine[] = [
+  { tone: 'ok', item: 'saml single sign-on', note: 'per organisation' },
+  { tone: 'ok', item: 'two-factor', note: 'enforced per organisation' },
+  { tone: 'ok', item: 'penetration test', note: 'every year' },
+  { tone: 'ok', item: 'iso 27001 + gdpr', note: 'audited every year' },
+  { tone: 'ok', item: 'public surface', note: 'the cdn, nothing else' },
+  { tone: 'ok', item: 'ssh', note: 'port 22 closed everywhere' },
+];
+
+export const ENTERPRISE = [
+  {
+    icon: 'key',
+    title: 'Single sign-on with SAML',
+    pill: 'per organisation',
+    body: 'Enterprise customers sign in their own way, and two-factor can be required per organisation.',
+    note: 'auth',
+  },
+  {
+    icon: 'search',
+    title: 'A penetration test',
+    pill: 'every year',
+    body: 'Arranged every year with outside testers, and the findings fixed and tracked to closure.',
+    note: 'sec',
+  },
+  {
+    icon: 'shield',
+    title: 'ISO 27001 and GDPR',
+    pill: 'audited yearly',
+    body: 'Technical liaison for both, alongside the InfoSec manager, through every annual audit.',
+  },
+  {
+    icon: 'lock',
+    title: 'Nothing public but the CDN',
+    pill: 'port 22 closed',
+    body: 'CloudFront and WAF the only way in, no servers to patch, and admin access through SSO only.',
+    note: 'aws',
+  },
+] as const;
+
+/**
+ * The monorepo graph: illustrative changes, each the package it touched and the packages that
+ * depend on it (indexes into a 12 × 9 grid). Only these get built.
+ */
+export const GRAPH = {
+  packages: 108,
+  changes: [
+    { name: 'packages/reports', hit: 17, deps: [18, 29, 30, 41, 53] },
+    { name: 'packages/translations', hit: 62, deps: [50, 61, 63, 74, 86, 87, 98] },
+    { name: 'packages/auth', hit: 33, deps: [21, 34, 45] },
+    { name: 'packages/surveys', hit: 90, deps: [78, 79, 91, 102] },
+  ],
+};

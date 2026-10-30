@@ -1,0 +1,199 @@
+---
+// How releases worked at Hive: one monorepo, and each merge building only what it touched. The
+// graph is an illustration (scripts/graph.ts merges another change every few seconds).
+import { GRAPH } from '../../data/home';
+
+const first = GRAPH.changes[0];
+const cells = Array.from({ length: GRAPH.packages }, (_, n) =>
+  n === first.hit ? 'hit' : (first.deps as readonly number[]).includes(n) ? 'dep' : '',
+);
+---
+
+<section class="band" aria-labelledby="mono-title">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <div class="head">
+          <p class="eyebrow">How it worked at Hive</p>
+          <h2 id="mono-title" class="section-title">One monorepo, <em>built only where it changed</em></h2>
+          <p class="sub">Eighteen repositories became one, with 100+ packages. Each merge builds only what it touched, and ships itself.</p>
+        </div>
+        <ul class="dots">
+          <li>
+            <strong>Build only what changed</strong>
+            <span>The pipeline works out which packages a change affects, and builds those rather than everything.</span>
+          </li>
+          <li>
+            <strong>Every merge ships itself</strong>
+            <span>No release train since 2022. Merged work reaches customers on its own.</span>
+          </li>
+          <li>
+            <strong>A bad deploy rolls itself back</strong>
+            <span>Every deploy checks it's healthy, so nobody has to sit with it.</span>
+          </li>
+          <li>
+            <strong>Reviewed by AI and people</strong>
+            <span>Every pull request rated for risk before a person opens it.</span>
+          </li>
+        </ul>
+      </div>
+      <figure class="panel graph pop" data-graph>
+        <figcaption class="visually-hidden">
+          An illustration: a grid of 108 packages, where a merged change lights up the package it touched and the few
+          that depend on it. Only those are built.
+        </figcaption>
+        <div aria-hidden="true">
+          <p class="top mono">
+            <span>an illustration · {GRAPH.packages} packages</span>
+            <span class="key"><span class="k hit">changed</span><span class="k dep">depends on it</span></span>
+          </p>
+          <p class="change mono"><span class="dot"></span>merged <b data-graph-name>{first.name}</b></p>
+          <div class="pkgs">
+            {cells.map((c) => <i data-pkg={c} />)}
+          </div>
+          <p class="foot mono">
+            <span>built <b><span data-graph-built>{first.deps.length + 1}</span> of {GRAPH.packages}</b> packages</span>
+            <span>the rest untouched</span>
+          </p>
+        </div>
+      </figure>
+    </div>
+    <dl class="stats">
+      <div><dt>release days since 2022</dt><dd>0</dd></div>
+      <div><dt>repositories, history intact</dt><dd>18 → 1</dd></div>
+      <div><dt>interface languages, in step on every build</dt><dd>36</dd></div>
+    </dl>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+    gap: 56px;
+    align-items: start;
+  }
+  .head {
+    margin-bottom: 28px;
+  }
+  .sub {
+    margin: 0;
+    color: var(--text);
+  }
+  .graph {
+    margin: 0;
+    padding: 18px;
+  }
+  .top,
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 12px;
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .top {
+    margin-bottom: 14px;
+  }
+  .foot {
+    margin-top: 14px;
+  }
+  .foot b {
+    color: var(--ok-ink);
+  }
+  .key {
+    display: flex;
+    gap: 14px;
+  }
+  .k::before {
+    content: '';
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin-right: 6px;
+    border-radius: 2px;
+  }
+  .k.hit::before {
+    background: var(--acc);
+  }
+  .k.dep::before {
+    background: var(--acc-soft);
+    outline: 1px solid var(--acc-mid);
+  }
+  .change {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--acc-mid);
+    border-radius: 10px;
+    background: var(--acc-soft);
+    font-size: 0.75rem;
+    color: var(--acc-ink);
+  }
+  .change b {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--acc-mid);
+  }
+  .pkgs {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 5px;
+  }
+  .pkgs i {
+    aspect-ratio: 1;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--bg);
+    transition:
+      background 0.4s,
+      border-color 0.4s,
+      box-shadow 0.4s;
+  }
+  .pkgs i[data-pkg='hit'] {
+    border-color: var(--acc);
+    background: var(--acc);
+    box-shadow: 0 0 14px var(--glow);
+  }
+  .pkgs i[data-pkg='dep'] {
+    border-color: var(--acc-mid);
+    background: var(--acc-soft);
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    margin: 56px 0 0;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--tile);
+    overflow: hidden;
+  }
+  .stats div {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 24px 28px;
+    border-left: 1px solid var(--line);
+    margin-left: -1px;
+  }
+  .stats dt {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .stats dd {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--acc-ink);
+  }
+</style>

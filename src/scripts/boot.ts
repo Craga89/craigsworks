@@ -3,3 +3,6 @@ import './motion';
 import './theme';
 import './console';
 import './tips';
+import './terminal';
+import './copy';
+import './graph';

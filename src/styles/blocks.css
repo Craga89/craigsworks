@@ -363,3 +363,105 @@
   border-top: 1px dashed var(--line2);
   font-size: 0.875rem;
 }
+
+/* ---------- The home page's newer pieces, shared so other pages can use them too ---------- */
+
+/* A small uppercase label over a heading. */
+.eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--acc-ink);
+}
+/* A heading's second half, in the kraft colour. */
+.section-title em,
+.page-title em {
+  font-style: normal;
+  color: var(--acc-ink);
+}
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 44px;
+}
+.head .section-title {
+  margin: 0;
+}
+.head.center {
+  align-items: center;
+  text-align: center;
+}
+
+/* A flat card: tiles' quieter sibling. */
+.panel {
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+/* A section on a warm band, edge to edge. */
+.band {
+  margin-top: 104px;
+  padding: 96px 0;
+  background: var(--band);
+  border-block: 1px solid var(--band-edge);
+}
+
+.pill-acc {
+  background: var(--pill-acc);
+  color: var(--pill-acc-ink);
+}
+.pill-ok {
+  background: var(--ok-soft);
+  color: var(--ok-ink);
+}
+
+/* A list with a kraft dot per item. */
+.dots {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 18px;
+}
+.dots li {
+  position: relative;
+  padding-left: 22px;
+}
+.dots li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--acc-mid);
+}
+.dots strong {
+  display: block;
+}
+.dots span {
+  color: var(--text);
+  font-size: 0.9375rem;
+}
+
+/* A square icon badge. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--acc-soft);
+  color: var(--acc-ink);
+}
+.badge-ok {
+  background: var(--ok-soft);
+  color: var(--ok-ink);
+}

@@ -3,6 +3,10 @@
 
 const root = document.documentElement;
 const off = () => root.dataset.motion === 'off';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+
+/** Whether things should stay still: reduced motion, or animations paused. Scripted motion checks this. */
+export const still = () => off() || reduced.matches;
 
 function sync(button: HTMLButtonElement) {
   button.setAttribute('aria-pressed', String(off()));

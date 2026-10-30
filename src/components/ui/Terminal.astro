@@ -1,0 +1,198 @@
+---
+// A terminal window: a command and its output. All of it is in the page as text; with scripts
+// (scripts/terminal.ts) it types itself out when it comes into view, with a Replay button. With
+// reduced motion or animations paused, it simply shows the finished run.
+import type { TermLine } from '../../data/home';
+
+interface Props {
+  /** The folder shown in the title bar. */
+  path: string;
+  /** The command, typed after the prompt. */
+  cmd: string;
+  lines: TermLine[];
+  /** What the run is, for the Replay button's accessible name. */
+  name: string;
+}
+const { path, cmd, lines, name } = Astro.props;
+const MARK = { ok: '✓', warn: '▲', acc: '→', dim: '·' } as const;
+---
+
+<div class="term-wrap" data-term>
+  <div class="term">
+    <div class="top">
+      <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="path mono">{path}</span>
+      <button type="button" class="replay mono" data-term-replay hidden>
+        <span aria-hidden="true">↻</span> Replay<span class="visually-hidden"> the {name}</span>
+      </button>
+    </div>
+    <div class="body mono">
+      <p class="cmd">
+        <span class="prompt" aria-hidden="true">❯</span>
+        <span data-term-cmd>{cmd}</span><span class="caret" aria-hidden="true"></span>
+      </p>
+      <ul class="lines">
+        {
+          lines.map((l) => (
+            <li class:list={['line', l.tone]} data-term-line>
+              <span class="mark" aria-hidden="true">
+                {MARK[l.tone]}
+              </span>
+              <span class="item">{l.item}</span>
+              {l.note && <span class="note">{l.note}</span>}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <slot />
+</div>
+
+<style>
+  .term-wrap {
+    position: relative;
+  }
+  /* A terminal is dark on both themes. */
+  .term {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid #433a30;
+    background: #1a1613;
+    color: #d8cdbe;
+    box-shadow: 0 40px 80px -36px rgba(14, 12, 10, 0.75);
+    --focus: #f3ebdd;
+  }
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px 8px 14px;
+    border-bottom: 1px solid #2f2821;
+    font-size: 0.75rem;
+    color: #ada08e;
+  }
+  .lights {
+    display: flex;
+    gap: 6px;
+  }
+  .lights i {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4a4036;
+  }
+  .lights i:first-child {
+    background: #e9bc7c;
+  }
+  .path {
+    flex: 1;
+    text-align: center;
+  }
+  .replay {
+    min-height: 32px;
+    padding: 0 10px;
+    border: 1px solid #433a30;
+    border-radius: 8px;
+    background: transparent;
+    color: #d8cdbe;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .replay:hover {
+    border-color: #e9bc7c;
+    color: #f2c98c;
+  }
+  .replay[hidden] {
+    display: none;
+  }
+  .body {
+    padding: 18px 18px 22px;
+    font-size: 0.8125rem;
+    line-height: 1.9;
+  }
+  .cmd {
+    margin: 0;
+    color: #ffffff;
+  }
+  .prompt {
+    margin-right: 0.6em;
+    color: #e9bc7c;
+  }
+  .caret {
+    display: none;
+    width: 8px;
+    height: 15px;
+    margin-left: 2px;
+    vertical-align: -3px;
+    background: #e9bc7c;
+    animation: blink 1s steps(1) infinite;
+  }
+  :global(.typing) .caret {
+    display: inline-block;
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  .lines {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .line {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 13em) minmax(0, 1fr);
+    gap: 4px;
+  }
+  .line.dim {
+    grid-template-columns: 20px minmax(0, 1fr);
+  }
+  .mark {
+    color: #ada08e;
+  }
+  .ok .mark {
+    color: #7fd6a8;
+  }
+  .warn .mark,
+  .acc .mark {
+    color: #e9bc7c;
+  }
+  .note,
+  .dim .item {
+    color: #b5a897;
+  }
+  .acc .item,
+  .acc .note {
+    color: #ffffff;
+    font-weight: 700;
+  }
+  /* While typing: lines not yet printed take their space but don't show. */
+  :global(.typing) .line[data-pending] {
+    visibility: hidden;
+  }
+  .line:not([data-pending]) {
+    animation: line 0.3s ease-out backwards;
+  }
+  @keyframes line {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+  @media (max-width: 560px) {
+    .line {
+      grid-template-columns: 20px minmax(0, 1fr);
+    }
+    .note {
+      grid-column: 2;
+    }
+    .body {
+      font-size: 0.75rem;
+    }
+  }
+</style>

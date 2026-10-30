@@ -1,0 +1,101 @@
+---
+// Recommendations, quoted as written (from LinkedIn; … marks a cut).
+import { QUOTES } from '../../data/about';
+
+const initials = (name: string) =>
+  name
+    .split(' ')
+    .filter((_, i, all) => i === 0 || i === all.length - 1)
+    .map((w) => w[0])
+    .join('');
+---
+
+<section class="section wrap" aria-labelledby="quotes-title">
+  <div class="head center">
+    <p class="eyebrow">Recommendations</p>
+    <h2 id="quotes-title" class="section-title">What people I've worked with say</h2>
+  </div>
+  <div class="quotes">
+    {
+      QUOTES.map((q) => (
+        <figure class="panel quote pop">
+          <blockquote>
+            <p>{q.quote}</p>
+          </blockquote>
+          <figcaption>
+            <span class="av" aria-hidden="true">
+              {initials(q.who)}
+            </span>
+            <span>
+              <strong>{q.who}</strong>
+              <span>
+                {q.role} · {q.when}
+              </span>
+            </span>
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .quotes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    gap: 16px;
+  }
+  .quote {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 0;
+    padding: 26px;
+  }
+  blockquote {
+    margin: 0;
+  }
+  blockquote::before {
+    content: '“';
+    display: block;
+    margin-bottom: 4px;
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 0.8;
+    color: var(--acc-mid);
+  }
+  blockquote p {
+    margin: 0;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  figcaption {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .av {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--acc-soft);
+    color: var(--acc-ink);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+  figcaption strong,
+  figcaption span span {
+    display: block;
+  }
+  figcaption span span {
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+</style>

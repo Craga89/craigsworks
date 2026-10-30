@@ -4,7 +4,7 @@ export const SITE = 'https://craigsworks.com';
 export const NAME = 'craigsworks';
 export const OWNER = 'Craig Thompson';
 /** Where enquiries go. Swap for a craigsworks.com address once one is set up. */
-export const EMAIL = 'craga89@gmail.com';
+export const EMAIL = 'craig@craigsworks.com';
 export const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent('craigsworks: free 30-minute call')}`;
 export const PERSONAL_SITE = 'https://craigthompson.dev';
 export const LINKEDIN = 'https://www.linkedin.com/in/craigmichaelthompson/';

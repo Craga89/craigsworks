@@ -1,0 +1,179 @@
+---
+// The sites my open-source tooltips ran on, scrolling past; qTip2 itself gets a tooltip, naturally.
+// With reduced motion or animations paused, the names sit still in rows.
+import { USED_BY } from '../../data/home';
+---
+
+<section id="used-by" class="used" aria-labelledby="used-by-title">
+  <div class="wrap">
+    <h2 id="used-by-title" class="eyebrow label">
+      <span class="tip-wrap" data-tip>
+        <button type="button" class="tip-btn" aria-describedby="qtip-demo">qTip2</button>
+        <span id="qtip-demo" role="tooltip" class="tip">Yes, a tooltip. I wrote the library, so it seemed only fair. Escape hides it.</span>
+      </span>, my open-source tooltip library, ran on sites for
+    </h2>
+  </div>
+  <div class="mask">
+    <div class="track">
+      <ul>
+        {USED_BY.map((n) => <li>{n}</li>)}
+      </ul>
+      <ul class="again" aria-hidden="true">
+        {USED_BY.map((n) => <li>{n}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .used {
+    padding: 28px 0 36px;
+    border-bottom: 1px solid var(--line);
+  }
+  .label {
+    margin-bottom: 18px;
+    line-height: 2.2;
+    color: var(--muted);
+    text-align: center;
+  }
+  .mask {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+  .track {
+    display: flex;
+    width: max-content;
+    animation: slide 40s linear infinite;
+  }
+  .mask:hover .track {
+    animation-play-state: paused;
+  }
+  ul {
+    display: flex;
+    gap: 52px;
+    margin: 0;
+    padding: 0 26px;
+    list-style: none;
+  }
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  li::before {
+    content: '';
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    background: var(--line2);
+    transform: rotate(45deg);
+  }
+  @keyframes slide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  /* Still: one copy of the names, wrapped into rows. */
+  @media (prefers-reduced-motion: reduce) {
+    .mask {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .track {
+      width: auto;
+      justify-content: center;
+    }
+    ul {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 32px;
+    }
+    .again {
+      display: none;
+    }
+  }
+  :global([data-motion='off']) .mask {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  :global([data-motion='off']) .track {
+    width: auto;
+    justify-content: center;
+  }
+  :global([data-motion='off']) ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 32px;
+  }
+  :global([data-motion='off']) .again {
+    display: none;
+  }
+
+  .tip-wrap {
+    position: relative;
+    display: inline-block;
+    margin-right: 2px;
+  }
+  .tip-btn {
+    min-height: 44px;
+    padding: 0 12px;
+    border: 1px dashed var(--acc-mid);
+    border-radius: 10px;
+    background: var(--acc-soft);
+    color: var(--ink);
+    font: inherit;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    cursor: help;
+  }
+  /* Centred on its button, which sits in the middle of the page. */
+  .tip {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    z-index: 5;
+    width: max-content;
+    max-width: min(280px, 80vw);
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--solid);
+    color: var(--on-solid);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0;
+    text-align: left;
+    text-transform: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 6px);
+    transition:
+      opacity 0.2s,
+      transform 0.2s,
+      visibility 0.2s;
+  }
+  .tip::after {
+    content: '';
+    position: absolute;
+    left: calc(50% - 7px);
+    top: 100%;
+    border: 7px solid transparent;
+    border-top-color: var(--solid);
+  }
+  .tip-wrap:hover .tip,
+  .tip-wrap:focus-within .tip {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+  .tip-wrap[data-dismissed] .tip {
+    opacity: 0;
+    visibility: hidden;
+  }
+</style>

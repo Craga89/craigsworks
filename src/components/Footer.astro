@@ -1,63 +1,123 @@
 ---
-// The footer: who runs the business, the policy and profile links, and "pause animations".
+// The footer: what the business is, the pages, the profiles and policy, who runs it, and "pause
+// animations".
+import Logo from './Logo.astro';
+import { SERVICES } from '../data/services';
 import { NAME, OWNER, LOCATION, PERSONAL_SITE, LINKEDIN, SOURCE, url } from '../site';
 ---
 
 <footer class="ftr">
-  <div class="wrap row">
-    <p>{NAME} is the trading name of {OWNER}, sole trader, {LOCATION}. © {new Date().getFullYear()}</p>
-    <ul>
-      <li><a href={url('privacy/')}>Privacy</a></li>
-      <li><a href={PERSONAL_SITE}>craigthompson.dev</a></li>
-      <li><a href={LINKEDIN}>LinkedIn</a></li>
-      <li><a href={SOURCE}>Source</a></li>
-      <li>
-        <button type="button" class="motion" data-motion-toggle aria-pressed="false" hidden>Pause animations</button>
-      </li>
-    </ul>
+  <div class="wrap">
+    <div class="cols">
+      <div class="about">
+        <a class="brand" href={url()}><Logo /><span class="visually-hidden">{NAME}, home</span></a>
+        <p>Engineering consultancy from {LOCATION}. Faster, calmer releases, and AI your team can trust.</p>
+      </div>
+      <nav aria-labelledby="ftr-services">
+        <h2 id="ftr-services">Services</h2>
+        <ul>
+          {
+            SERVICES.map((s) => (
+              <li>
+                <a href={url(`services/${s.slug}/`)}>{s.name}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <nav aria-labelledby="ftr-work">
+        <h2 id="ftr-work">Work</h2>
+        <ul>
+          <li><a href={url('work/')}>Case notes</a></li>
+          <li><a href={url('about/')}>About</a></li>
+          <li><a href={PERSONAL_SITE}>craigthompson.dev</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="ftr-else">
+        <h2 id="ftr-else">Elsewhere</h2>
+        <ul>
+          <li><a href={LINKEDIN}>LinkedIn</a></li>
+          <li><a href={SOURCE}>Source</a></li>
+          <li><a href={url('privacy/')}>Privacy</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="base">
+      <p>{NAME} is the trading name of {OWNER}, sole trader, {LOCATION}. © {new Date().getFullYear()}</p>
+      <button type="button" class="motion" data-motion-toggle aria-pressed="false" hidden>Pause animations</button>
+    </div>
   </div>
 </footer>
 
 <style>
   .ftr {
-    padding: 24px 0 40px;
+    margin-top: 104px;
+    padding: 56px 0 32px;
+    border-top: 1px solid var(--band-edge);
+    background: var(--band);
     font-size: 0.875rem;
     color: var(--muted);
   }
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px 24px;
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+    gap: 32px;
   }
-  p {
-    margin: 0;
+  .about {
+    grid-column: span 2;
+  }
+  .about p {
+    max-width: 22rem;
+    margin: 12px 0 0;
+  }
+  .brand {
+    display: inline-flex;
+    color: var(--ink);
+  }
+  h2 {
+    margin: 0 0 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
   ul {
     margin: 0;
     padding: 0;
     list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0 20px;
   }
   a,
   .motion {
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
-    color: var(--muted);
+    min-height: 40px;
+    color: var(--text);
+    text-decoration: none;
   }
-  a:hover {
+  ul a:hover {
     color: var(--ink);
+    text-decoration: underline;
+  }
+  .base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px 24px;
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--band-edge);
+  }
+  .base p {
+    margin: 0;
   }
   .motion {
     padding: 0;
     border: 0;
     background: none;
     font: inherit;
+    color: var(--muted);
     text-decoration: underline;
     text-underline-offset: 0.18em;
     cursor: pointer;
@@ -67,5 +127,10 @@ import { NAME, OWNER, LOCATION, PERSONAL_SITE, LINKEDIN, SOURCE, url } from '../
   }
   .motion[hidden] {
     display: none;
+  }
+  @media (max-width: 560px) {
+    .about {
+      grid-column: auto;
+    }
   }
 </style>

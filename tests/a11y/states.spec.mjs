@@ -20,7 +20,7 @@ test.describe('home page', () => {
   test('the qTip2 tooltip, open', async ({ page, axe }) => {
     await page.locator('.tip-btn').focus();
     await expect(page.getByRole('tooltip')).toBeVisible();
-    await axe('tooltip open', '#record');
+    await axe('tooltip open', '#used-by');
   });
 
   test('with animations paused', async ({ page, axe }) => {
@@ -34,7 +34,9 @@ test.describe('home page', () => {
 // half-working without scripts.
 test.describe('without scripts', () => {
   test.use({ javaScriptEnabled: false });
-  test('the home page works: questions still open, and no controls that need scripts', async ({ page }) => {
+  test('the home page works: questions still open, the terminals show their runs, and no controls that need scripts', async ({
+    page,
+  }) => {
     await page.goto('./');
     const second = page.locator('#faq details').nth(1);
     await second.locator('summary').click();
@@ -42,6 +44,9 @@ test.describe('without scripts', () => {
     await expect(page.locator('[data-motion-toggle]'), 'a pause switch that could not work').toBeHidden();
     await expect(page.locator('[data-theme-toggle]'), 'a theme switch that could not work').toBeHidden();
     await expect(page.locator('#services').getByRole('link')).toHaveCount(3);
+    await expect(page.locator('[data-term-line]:visible'), 'every line of both terminal runs').toHaveCount(14);
+    await expect(page.locator('[data-term-replay]'), 'both terminals in the page').toHaveCount(2);
+    for (const b of await page.locator('[data-term-replay], [data-copy]').all()) await expect(b).toBeHidden();
   });
 });
 

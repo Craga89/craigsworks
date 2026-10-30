@@ -228,13 +228,13 @@ test.describe('themes', () => {
     await expect(page.locator('html'), 'not overridden by the system').toHaveAttribute('data-theme', 'dark');
   });
 
-  test('focus rings stay dark on the kraft tiles, on both themes', async ({ page }) => {
+  test('focus rings stay light on the terminals, which are dark on both themes', async ({ page }) => {
     for (const colorScheme of /** @type {const} */ (['light', 'dark'])) {
       await page.emulateMedia({ colorScheme });
       await page.goto('./');
-      const link = page.locator('#services .tone-acc a');
-      await link.focus();
-      expect(await link.evaluate((el) => getComputedStyle(el).outlineColor), colorScheme).toBe('rgb(30, 26, 22)');
+      const replay = page.getByRole('button', { name: 'Replay the health check' });
+      await replay.focus();
+      expect(await replay.evaluate((el) => getComputedStyle(el).outlineColor), colorScheme).toBe('rgb(243, 235, 221)');
     }
   });
 
@@ -262,4 +262,60 @@ test('the console says hello, once, with the overview and working links', async 
   }
   // The site's own links are full addresses on wherever it's being served from.
   expect(hello[0]).toContain(new URL('work/', page.url().replace(/services\/ai-adoption\/$/, '')).href);
+});
+
+test.describe('the terminals', () => {
+  test('type their run out, and Replay runs it again', async ({ page }) => {
+    await page.goto('./');
+    const hero = page.locator('.hero [data-term]');
+    const lines = hero.locator('[data-term-line]');
+    await expect(lines).toHaveCount(8);
+    await expect(hero.locator('[data-term-line][data-pending]'), 'finished typing').toHaveCount(0, { timeout: 15_000 });
+    await expect(lines.last()).toBeVisible();
+    await page.getByRole('button', { name: 'Replay the health check' }).click();
+    await expect(hero, 'typing again').toHaveClass(/typing/);
+    await expect(hero.locator('[data-term-line][data-pending]')).toHaveCount(0, { timeout: 15_000 });
+    await expect(hero).not.toHaveClass(/typing/);
+  });
+
+  test('show the whole run at once when animations are paused', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('motion', 'off'));
+    await page.goto('./');
+    await expect(page.locator('.hero [data-term]')).not.toHaveClass(/typing/);
+    await expect(page.locator('[data-term-line][data-pending]')).toHaveCount(0);
+    await expect(page.locator('[data-term-cmd]').first()).toHaveText('craigsworks health-check');
+  });
+});
+
+test('the copy buttons copy the email address', async ({ page }) => {
+  // A stand-in clipboard: headless browsers' real one depends on focus and permissions.
+  await page.addInitScript(() => {
+    /** @type {string[]} */
+    const copied = [];
+    Object.defineProperty(window, '__copied', { value: copied });
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: async (/** @type {string} */ t) => copied.push(t) },
+    });
+  });
+  await page.goto('./');
+  // Found by its attribute: its name changes to "Copied …" once clicked.
+  const copy = page.locator('.hero [data-copy]');
+  await expect(copy).toHaveAccessibleName('Copy the email address');
+  await copy.click();
+  await expect(copy).toContainText('Copied');
+  expect(await page.evaluate(() => /** @type {any} */ (window).__copied)).toEqual([
+    expect.stringMatching(/^[^@\s]+@[^@\s]+$/),
+  ]);
+  await expect(page.getByRole('status')).toHaveText('Copied to the clipboard.');
+});
+
+test('the monorepo graph merges another change every few seconds, unless animations are paused', async ({ page }) => {
+  await page.goto('./');
+  const name = page.locator('[data-graph-name]');
+  await expect(name).toHaveText('packages/reports');
+  await expect(name).not.toHaveText('packages/reports', { timeout: 8_000 });
+  await page.locator('[data-motion-toggle]').click();
+  const now = await name.textContent();
+  await page.waitForTimeout(3_000);
+  await expect(name).toHaveText(now || '');
 });
