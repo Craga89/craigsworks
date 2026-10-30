@@ -293,7 +293,9 @@ test('the copy buttons copy the email address', async ({ page }) => {
     /** @type {string[]} */
     const copied = [];
     Object.defineProperty(window, '__copied', { value: copied });
-    Object.defineProperty(navigator, 'clipboard', { value: { writeText: async (/** @type {string} */ t) => copied.push(t) } });
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: async (/** @type {string} */ t) => copied.push(t) },
+    });
   });
   await page.goto('./');
   const copy = page.locator('.hero').getByRole('button', { name: 'Copy the email address' });

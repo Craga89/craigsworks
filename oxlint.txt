@@ -1,0 +1,2 @@
+Found 0 warnings and 0 errors.
+Finished in 104ms on 66 files with 121 rules using 4 threads.
