@@ -106,6 +106,13 @@ export const PRINCIPLES = [
 export const QUOTES = [
   {
     quote:
+      "Craig's passion towards getting the best solution in place is unmatched. He cares about both the smaller details and bigger picture.",
+    who: 'Lloyd Rodrigues Powell',
+    role: 'Head of Software Development at Northumbria Healthcare NHS Foundation Trust',
+    when: 'LinkedIn, 2021',
+  },
+  {
+    quote:
       'Craig is a very able developer, who is capable of putting together high-quality front-end solutions at lightning speed.',
     who: 'Joe Forster',
     role: 'Senior AI Programmer at Ubisoft Reflections',
