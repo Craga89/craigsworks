@@ -1,0 +1,58 @@
+$ astro check && tsc -p tsconfig.node.json
+[2m16:38:47[22m [34m[types][39m Generated [2m77ms[22m
+[2m16:38:47[22m [34m[check][39m Getting diagnostics for Astro files in /home/runner/work/craigsworks/craigsworks...
+[96msrc/scripts/copy.ts[0m:[93m21[0m:[93m12[0m - [91merror[0m[90m ts(2339): [0mProperty 'textContent' does not exist on type 'string'.
+
+[7m21[0m     status.textContent = 'Copied to the clipboard.';
+[7m  [0m [91m           ~~~~~~~~~~~[0m
+[96msrc/scripts/copy.ts[0m:[93m18[0m:[93m14[0m - [91merror[0m[90m ts(2339): [0mProperty 'textContent' does not exist on type 'string'.
+
+[7m18[0m       status.textContent = 'Copying failed: select the text instead.';
+[7m  [0m [91m             ~~~~~~~~~~~[0m
+[96msrc/scripts/copy.ts[0m:[93m13[0m:[93m15[0m - [91merror[0m[90m ts(2339): [0mProperty 'isConnected' does not exist on type 'string'.
+
+[7m13[0m   if (!status.isConnected) document.body.append(status);
+[7m  [0m [91m              ~~~~~~~~~~~[0m
+[96msrc/scripts/copy.ts[0m:[93m6[0m:[93m8[0m - [91merror[0m[90m ts(2339): [0mProperty 'setAttribute' does not exist on type 'string'.
+
+[7m6[0m status.setAttribute('role', 'status');
+[7m [0m [91m       ~~~~~~~~~~~~[0m
+[96msrc/scripts/copy.ts[0m:[93m5[0m:[93m8[0m - [91merror[0m[90m ts(2339): [0mProperty 'className' does not exist on type 'string'.
+
+[7m5[0m status.className = 'visually-hidden';
+[7m [0m [91m       ~~~~~~~~~[0m
+[96msrc/scripts/copy.ts[0m:[93m4[0m:[93m7[0m - [91merror[0m[90m ts(2451): [0mCannot redeclare block-scoped variable 'status'.
+
+[7m4[0m const status = document.createElement('p');
+[7m [0m [91m      ~~~~~~[0m
+[96msrc/scripts/copy.ts[0m:[93m21[0m:[93m5[0m - [93mwarning[0m[90m ts(6385): [0m'status' is deprecated.
+
+[7m21[0m     status.textContent = 'Copied to the clipboard.';
+[7m  [0m [93m    ~~~~~~[0m
+[96msrc/scripts/copy.ts[0m:[93m18[0m:[93m7[0m - [93mwarning[0m[90m ts(6385): [0m'status' is deprecated.
+
+[7m18[0m       status.textContent = 'Copying failed: select the text instead.';
+[7m  [0m [93m      ~~~~~~[0m
+[96msrc/scripts/copy.ts[0m:[93m13[0m:[93m49[0m - [93mwarning[0m[90m ts(6385): [0m'status' is deprecated.
+
+[7m13[0m   if (!status.isConnected) document.body.append(status);
+[7m  [0m [93m                                                ~~~~~~[0m
+[96msrc/scripts/copy.ts[0m:[93m13[0m:[93m8[0m - [93mwarning[0m[90m ts(6385): [0m'status' is deprecated.
+
+[7m13[0m   if (!status.isConnected) document.body.append(status);
+[7m  [0m [93m       ~~~~~~[0m
+[96msrc/scripts/copy.ts[0m:[93m6[0m:[93m1[0m - [93mwarning[0m[90m ts(6385): [0m'status' is deprecated.
+
+[7m6[0m status.setAttribute('role', 'status');
+[7m [0m [93m~~~~~~[0m
+[96msrc/scripts/copy.ts[0m:[93m5[0m:[93m1[0m - [93mwarning[0m[90m ts(6385): [0m'status' is deprecated.
+
+[7m5[0m status.className = 'visually-hidden';
+[7m [0m [93m~~~~~~[0m
+
+Result (53 files): 
+- 6 errors
+- 0 warnings
+- 6 hints
+
+[ELIFECYCLE] Command failed with exit code 1.

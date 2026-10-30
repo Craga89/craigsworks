@@ -1,0 +1,29 @@
+$ astro build
+[33m[1m16:38:49[22m [WARN] [config][39m Shiki syntax highlighting uses inline styles that are not compatible with Content Security Policy (CSP). Consider using Prism syntax highlighting instead, or disable CSP if Shiki is required.
+[2m16:38:49[22m [34m[types][39m Generated [2m31ms[22m
+[2m16:38:49[22m [34m[build][39m output: [34m"static"[39m
+[2m16:38:49[22m [34m[build][39m mode: [34m"static"[39m
+[2m16:38:49[22m [34m[build][39m directory: [34m/home/runner/work/craigsworks/craigsworks/site/[39m
+[2m16:38:49[22m [34m[build][39m Collecting build info...
+[2m16:38:49[22m [34m[build][39m [32m✓ Completed in 67ms.[39m
+[2m16:38:49[22m [34m[build][39m Building static entrypoints...
+[2m16:38:50[22m [34m[vite][39m [32m✓ built in 233ms[39m
+[2m16:38:50[22m [34m[vite][39m [32m✓ built in 16ms[39m
+[2m16:38:50[22m [34m[build][39m Rearranging server assets...
+
+[42m[30m generating static routes [39m[49m
+[2m16:38:50[22m   [34m├─[39m [2m/404.html[22m [2m(+8ms)[22m 
+[2m16:38:50[22m   [34m├─[39m [2m/about/index.html[22m [2m(+4ms)[22m 
+[2m16:38:50[22m   [34m├─[39m [2m/privacy/index.html[22m [2m(+2ms)[22m 
+[2m16:38:50[22m   [34m├─[39m [2m/robots.txt[22m [2m(+1ms)[22m 
+[2m16:38:50[22m   [34m├─[39m [2m/services/ai-adoption/index.html[22m [2m(+4ms)[22m 
+[2m16:38:50[22m   [34m├─[39m [2m/services/health-check/index.html[22m [2m(+2ms)[22m 
+[2m16:38:50[22m   [34m├─[39m [2m/services/release-acceleration/index.html[22m [2m(+2ms)[22m 
+[2m16:38:50[22m   [34m├─[39m [2m/work/index.html[22m [2m(+3ms)[22m 
+[2m16:38:50[22m   [34m├─[39m [2m/index.html[22m [2m(+4ms)[22m 
+[2m16:38:50[22m [32m✓ Completed in 43ms.
+[39m
+[2m16:38:50[22m [34m[build][39m [32m✓ Completed in 322ms.[39m
+[2m16:38:50[22m [34m[@astrojs/sitemap][39m `sitemap-index.xml` created at `site`
+[2m16:38:50[22m [34m[build][39m 8 page(s) built in [1m399ms[22m
+[2m16:38:50[22m [34m[build][39m [1mComplete![22m
