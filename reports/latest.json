@@ -1,0 +1,11 @@
+{
+  "url": "the built site",
+  "at": "2026-10-30T23:56:41.049Z",
+  "axe": "4.14.0",
+  "standard": "WCAG 2.2 AA",
+  "tests": 62,
+  "axeRuns": 36,
+  "violations": [],
+  "failures": [],
+  "pass": true
+}
