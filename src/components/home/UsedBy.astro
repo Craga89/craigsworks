@@ -10,8 +10,7 @@ import { USED_BY } from '../../data/home';
       <span class="tip-wrap" data-tip>
         <button type="button" class="tip-btn" aria-describedby="qtip-demo">qTip2</button>
         <span id="qtip-demo" role="tooltip" class="tip">Yes, a tooltip. I wrote the library, so it seemed only fair. Escape hides it.</span>
-      </span>
-      <span>, my open-source tooltip library, ran on sites for</span>
+      </span>, my open-source tooltip library, ran on sites for
     </h2>
   </div>
   <div class="mask">
@@ -32,11 +31,8 @@ import { USED_BY } from '../../data/home';
     border-bottom: 1px solid var(--line);
   }
   .label {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
     margin-bottom: 18px;
+    line-height: 2.2;
     color: var(--muted);
     text-align: center;
   }
@@ -136,13 +132,14 @@ import { USED_BY } from '../../data/home';
     text-transform: none;
     cursor: help;
   }
+  /* Centred on its button, which sits in the middle of the page. */
   .tip {
     position: absolute;
-    left: 0;
+    left: 50%;
     bottom: calc(100% + 10px);
     z-index: 5;
     width: max-content;
-    max-width: min(280px, 70vw);
+    max-width: min(280px, 80vw);
     padding: 10px 12px;
     border-radius: 12px;
     background: var(--solid);
@@ -155,7 +152,7 @@ import { USED_BY } from '../../data/home';
     text-transform: none;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(6px);
+    transform: translate(-50%, 6px);
     transition:
       opacity 0.2s,
       transform 0.2s,
@@ -164,7 +161,7 @@ import { USED_BY } from '../../data/home';
   .tip::after {
     content: '';
     position: absolute;
-    left: 22px;
+    left: calc(50% - 7px);
     top: 100%;
     border: 7px solid transparent;
     border-top-color: var(--solid);
@@ -173,7 +170,7 @@ import { USED_BY } from '../../data/home';
   .tip-wrap:focus-within .tip {
     opacity: 1;
     visibility: visible;
-    transform: none;
+    transform: translate(-50%, 0);
   }
   .tip-wrap[data-dismissed] .tip {
     opacity: 0;

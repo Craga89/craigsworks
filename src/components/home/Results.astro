@@ -16,7 +16,7 @@ import { url } from '../../site';
           them before anything changes.
         </p>
       </div>
-      <dl class="big">
+      <dl class="figures">
         <div><dt>faster typechecks</dt><dd>~10<em>×</em></dd></div>
         <div><dt>a month off the AWS bill, from the first three changes</dt><dd>$1.3k</dd></div>
       </dl>
@@ -78,7 +78,7 @@ import { url } from '../../site';
     margin: 0;
     color: var(--text);
   }
-  .big {
+  .figures {
     display: flex;
     flex-wrap: wrap;
     gap: 24px 48px;
@@ -86,23 +86,23 @@ import { url } from '../../site';
     padding-top: 28px;
     border-top: 1px solid var(--line);
   }
-  .big div {
+  .figures div {
     display: flex;
     flex-direction: column-reverse;
     max-width: 14rem;
   }
-  .big dt {
+  .figures dt {
     font-size: 0.8125rem;
     color: var(--muted);
   }
-  .big dd {
+  .figures dd {
     margin: 0;
     font-size: 3.25rem;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.05em;
   }
-  .big em {
+  .figures em {
     font-style: normal;
     color: var(--acc-ink);
   }
