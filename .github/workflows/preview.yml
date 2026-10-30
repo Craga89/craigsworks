@@ -10,6 +10,7 @@ name: Preview
 on:
   push:
     branches-ignore:
+      - master # the live site (CI publishes it once every check passes)
       - pages # what Pages serves (written by the workflows)
       - accessibility # report branches
       - lighthouse
