@@ -298,7 +298,9 @@ test('the copy buttons copy the email address', async ({ page }) => {
     });
   });
   await page.goto('./');
-  const copy = page.locator('.hero').getByRole('button', { name: 'Copy the email address' });
+  // Found by its attribute: its name changes to "Copied …" once clicked.
+  const copy = page.locator('.hero [data-copy]');
+  await expect(copy).toHaveAccessibleName('Copy the email address');
   await copy.click();
   await expect(copy).toContainText('Copied');
   expect(await page.evaluate(() => /** @type {any} */ (window).__copied)).toEqual([
