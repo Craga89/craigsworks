@@ -100,12 +100,12 @@ jobs:
           mkdir -p report/reports && cp out/summary.json report/reports/summary.json
           for f in out/mobile-2.json out/desktop-2.json; do [ -f "$f" ] && cp "$f" report/reports/; done
       - if: env.SKIP != '1'
-        uses: Craga89/standards/report-meta@2683e4116e18f128c46fce9261c4bd5d1284e8ff # v1
+        uses: Craga89/standards/report-meta@0c41b52a17c2687d2fe3c3b95f838b653a4e4e1b # v1
         with:
           dir: report/reports
           sha: ${{ env.LIVE_COMMIT }}
       - if: env.SKIP != '1'
-        uses: Craga89/standards/publish-branch@2683e4116e18f128c46fce9261c4bd5d1284e8ff # v1
+        uses: Craga89/standards/publish-branch@0c41b52a17c2687d2fe3c3b95f838b653a4e4e1b # v1
         with:
           branch: lighthouse
           source: report
