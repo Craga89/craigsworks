@@ -1,0 +1,103 @@
+---
+// How an engagement runs, beside the free call that starts it.
+import { STEPS } from '../../data/services';
+import { MAILTO } from '../../site';
+---
+
+<section class="section wrap" aria-labelledby="together-title">
+  <div class="head center">
+    <p class="eyebrow">Working together</p>
+    <h2 id="together-title" class="section-title">Four steps, <em>stop after any of them</em></h2>
+  </div>
+  <div class="grid">
+    <div class="panel call pop">
+      <p class="big">30<span> min</span></p>
+      <p>A free call to talk through what's slowing you down. If I can't help, I'll say so.</p>
+      <a class="btn btn-primary" href={MAILTO}>Email to book it <span aria-hidden="true">→</span></a>
+    </div>
+    <ol class="steps-list">
+      {
+        STEPS.map((s) => (
+          <li>
+            <strong>{s.title}</strong>
+            <span>{s.body}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+    gap: 24px 48px;
+    align-items: center;
+  }
+  .call {
+    position: relative;
+    overflow: hidden;
+    padding: 32px;
+  }
+  .call::before {
+    content: '';
+    position: absolute;
+    width: 420px;
+    height: 320px;
+    right: -160px;
+    top: -160px;
+    background: radial-gradient(closest-side, var(--glow), transparent);
+    pointer-events: none;
+  }
+  .call > * {
+    position: relative;
+  }
+  .big {
+    margin: 0;
+    font-size: 6rem;
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+  }
+  .big span {
+    font-size: 2.5rem;
+    letter-spacing: -0.03em;
+    color: var(--acc-ink);
+  }
+  .call p:not(.big) {
+    margin: 12px 0 22px;
+    color: var(--text);
+  }
+  .steps-list {
+    display: grid;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: s;
+  }
+  .steps-list li {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    column-gap: 16px;
+    counter-increment: s;
+  }
+  .steps-list li::before {
+    content: counter(s);
+    grid-row: span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--line2);
+    border-radius: 50%;
+    font: 700 0.8125rem var(--f-mono);
+    color: var(--acc-ink);
+  }
+  .steps-list span {
+    color: var(--text);
+    font-size: 0.9375rem;
+  }
+</style>

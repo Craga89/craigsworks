@@ -1,0 +1,110 @@
+---
+// The questions bigger customers ask, and what was in place at Hive: a checklist run in a terminal,
+// and a card for each, linking to its case note.
+import Terminal from '../ui/Terminal.astro';
+import Icon from '../ui/Icon.astro';
+import { ENTERPRISE, ENTERPRISE_RUN } from '../../data/home';
+import { note } from '../../data/notes';
+---
+
+<section class="section wrap" aria-labelledby="ent-title">
+  <div class="head center">
+    <p class="eyebrow">Enterprise-ready</p>
+    <h2 id="ent-title" class="section-title">Ready for the harder questions</h2>
+    <p class="sub">
+      Security questionnaires, single sign-on, pen tests, ISO 27001: every bigger customer brings a new list. I've answered
+      them, and built what they asked for.
+    </p>
+  </div>
+  <div class="grid">
+    <div class="run">
+      <Terminal path="~/hive" cmd="checklist --enterprise" lines={ENTERPRISE_RUN} name="enterprise checklist" />
+      <p class="tally"><strong>6 of 6</strong> in place at Hive HR, audited every year</p>
+    </div>
+    <ul class="checks">
+      {
+        ENTERPRISE.map((c) => {
+          const n = 'note' in c ? note(c.note) : undefined;
+          return (
+            <li class="panel check pop">
+              <span class="badge badge-ok">
+                <Icon name={c.icon} />
+              </span>
+              <div>
+                <p class="check-head">
+                  <strong>{c.title}</strong>
+                  <span class="pill pill-ok">{c.pill}</span>
+                </p>
+                <p class="body">{c.body}</p>
+                {n && (
+                  <a href={n.href}>
+                    Read the case note<span class="visually-hidden">: {n.title}</span> <span aria-hidden="true">→</span>
+                  </a>
+                )}
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .sub {
+    margin: 0;
+    max-width: 40rem;
+    color: var(--text);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+    gap: 24px;
+    align-items: center;
+  }
+  .run {
+    min-width: 0;
+  }
+  .tally {
+    margin: 16px 0 0;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .tally strong {
+    color: var(--ok-ink);
+  }
+  .checks {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .check {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 14px;
+    padding: 16px 18px;
+  }
+  .check-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    margin: 0;
+  }
+  .check .pill {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .body {
+    margin: 4px 0 6px;
+    font-size: 0.875rem;
+    color: var(--text);
+  }
+  a {
+    font: 600 0.8125rem var(--f-mono);
+    color: var(--acc-ink);
+  }
+</style>

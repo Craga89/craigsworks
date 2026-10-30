@@ -1,6 +1,7 @@
 ---
 // The call to action at the end of every page; every "book a call" link lands here.
-import { MAILTO, EMAIL } from '../site';
+import Icon from './ui/Icon.astro';
+import { MAILTO, EMAIL, LINKEDIN, url } from '../site';
 
 interface Props {
   title?: string;
@@ -10,74 +11,149 @@ const {
   title = 'Got something slowing you down?',
   body = "Tell me about it on a free 30-minute call. If I can help, I'll say how; if I can't, I'll say that too, and point you somewhere better if I know of somewhere.",
 } = Astro.props;
+const linkedin = LINKEDIN.replace(/^https:\/\/(www\.)?/, '').replace(/\/$/, '');
 ---
 
 <section id="contact" class="section wrap" aria-labelledby="contact-title">
-  <div class="box on-dark pop">
+  <div class="box pop">
     <div class="copy">
       <h2 id="contact-title">{title}</h2>
-      <p>
-        {body} Or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
-      </p>
+      <p>{body}</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href={MAILTO}>Book a free call <span aria-hidden="true">→</span></a>
+        <a class="btn btn-secondary" href={url('work/')}>Read the case notes</a>
+      </div>
     </div>
-    <div class="beam ring">
-      <a class="go" href={MAILTO}>Book a free call <span aria-hidden="true">→</span></a>
+    <div class="term mono">
+      <p class="top" aria-hidden="true"><span></span><span></span><span></span></p>
+      <p class="row">
+        <span class="p" aria-hidden="true">$</span>
+        <span class="v">mail <a href={`mailto:${EMAIL}`}>{EMAIL}</a></span>
+        <button type="button" class="copy-btn" data-copy={EMAIL} hidden>
+          <Icon name="copy" size={14} /><span data-copy-label>Copy</span><span class="visually-hidden"> the email address</span>
+        </button>
+      </p>
+      <p class="row">
+        <span class="p" aria-hidden="true">$</span>
+        <span class="v">open <a href={LINKEDIN}>{linkedin}</a></span>
+      </p>
     </div>
   </div>
 </section>
 
 <style>
   .box {
-    display: flex;
-    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr));
+    gap: 40px;
     align-items: center;
-    justify-content: space-between;
-    gap: 32px;
-    padding: clamp(32px, 6vw, 72px);
-    border-radius: 36px;
-    border: 1px solid var(--dark-edge);
-    background: var(--dark);
-    color: #ffffff;
+    padding: clamp(28px, 5vw, 56px);
+    border: 1px solid var(--line2);
+    border-radius: 24px;
+    background: var(--tile);
+    box-shadow: 0 40px 90px -50px var(--acc-mid);
   }
-  .copy {
-    flex: 999 1 520px;
+  .box::before {
+    content: '';
+    position: absolute;
+    width: 760px;
+    height: 520px;
+    right: -200px;
+    top: -260px;
+    background: radial-gradient(closest-side, var(--glow), transparent);
+    pointer-events: none;
+  }
+  .box > * {
+    position: relative;
     min-width: 0;
   }
   h2 {
     margin: 0 0 14px;
     font-weight: 700;
-    font-size: clamp(2.25rem, 5vw, 3.5rem);
-    line-height: 0.98;
-    letter-spacing: -0.05em;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.045em;
   }
-  p {
-    margin: 0;
-    font-size: 1.1875rem;
-    color: var(--dark-text);
+  .copy p {
+    margin: 0 0 26px;
+    max-width: 32rem;
+    font-size: 1.0625rem;
+    color: var(--text);
   }
-  p a {
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  /* A terminal is dark on both themes. */
+  .term {
+    overflow: hidden;
+    border: 1px solid #433a30;
+    border-radius: 14px;
+    background: #1a1613;
     color: #ffffff;
-    overflow-wrap: anywhere;
+    font-size: 0.875rem;
+    --focus: #f3ebdd;
   }
-  .ring {
-    display: inline-block;
-    padding: 2px;
-    border-radius: 18px;
+  .top {
+    display: flex;
+    gap: 6px;
+    margin: 0;
+    padding: 11px 14px;
+    border-bottom: 1px solid #2f2821;
   }
-  .go {
-    display: inline-flex;
+  .top span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4a4036;
+  }
+  .top span:first-child {
+    background: #e9bc7c;
+  }
+  .row {
+    display: flex;
     align-items: center;
     gap: 10px;
-    min-height: 60px;
-    padding: 0 28px;
-    border-radius: 16px;
-    background: #ffffff;
-    color: #1e1a16;
-    font-weight: 700;
-    font-size: 1.125rem;
-    text-decoration: none;
+    margin: 0;
+    min-height: 56px;
+    padding: 8px 10px 8px 16px;
   }
-  .go:hover {
-    color: #8a5a22;
+  .row + .row {
+    border-top: 1px solid #2f2821;
+  }
+  .p {
+    color: #e9bc7c;
+  }
+  .v {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    color: #d8cdbe;
+  }
+  .v a {
+    color: #f2c98c;
+  }
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 0 12px;
+    border: 1px solid #433a30;
+    border-radius: 8px;
+    background: #231e18;
+    color: #d8cdbe;
+    font: 600 0.75rem var(--f-mono);
+    cursor: pointer;
+  }
+  .copy-btn:hover {
+    border-color: #e9bc7c;
+    color: #ffffff;
+  }
+  .copy-btn[hidden] {
+    display: none;
   }
 </style>

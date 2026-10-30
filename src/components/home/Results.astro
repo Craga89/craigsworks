@@ -1,0 +1,234 @@
+---
+// Results from real work, as before-and-after bars that grow into view.
+import { RESULTS } from '../../data/home';
+import { NOTES } from '../../data/notes';
+import { url } from '../../site';
+---
+
+<section id="results" class="section wrap" aria-labelledby="results-title">
+  <div class="grid">
+    <div>
+      <div class="head">
+        <p class="eyebrow">Results</p>
+        <h2 id="results-title" class="section-title">Up to 10× faster, <em>measured at Hive</em></h2>
+        <p class="sub">
+          From the case notes, on a real product with real customers. Yours will be your own: the health check measures
+          them before anything changes.
+        </p>
+      </div>
+      <dl class="big">
+        <div><dt>faster typechecks</dt><dd>~10<em>×</em></dd></div>
+        <div><dt>a month off the AWS bill, from the first three changes</dt><dd>$1.3k</dd></div>
+      </dl>
+      <a class="more" href={url('work/')}>Read all {NOTES.length} case notes <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="panel card pop">
+      <p class="card-top mono">
+        <span class="live">hive-hr</span>
+        <span class="legend" aria-hidden="true"><span class="k after">after</span><span class="k before">before</span></span>
+      </p>
+      <ul>
+        {
+          RESULTS.map((r) => (
+            <li class="row">
+              <p class="row-head">
+                <strong>{r.title}</strong>
+                <span class="detail">{r.detail}</span>
+                <span class="pill pill-acc">{r.pill}</span>
+              </p>
+              <div class="bars" aria-hidden="true">
+                <span class="track">
+                  <span class="fill after" data-w={r.after} />
+                </span>
+                <span class="track">
+                  <span class="fill" data-w={r.before} />
+                </span>
+                <span class="ends mono">
+                  <span class="hi">{'labels' in r ? r.labels[0] : 'after'}</span>
+                  <span>{'labels' in r ? r.labels[1] : 'before'}</span>
+                </span>
+              </div>
+            </li>
+          ))
+        }
+        <li class="row">
+          <p class="row-head">
+            <strong>Releases</strong>
+            <span class="detail">since 2022</span>
+            <span class="pill pill-ok">every merge</span>
+          </p>
+          <p class="say">No release train and no release day. A bad deploy rolls itself back.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+    gap: 56px;
+    align-items: center;
+  }
+  .head {
+    margin-bottom: 0;
+  }
+  .sub {
+    margin: 0;
+    color: var(--text);
+  }
+  .big {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 48px;
+    margin: 28px 0;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+  .big div {
+    display: flex;
+    flex-direction: column-reverse;
+    max-width: 14rem;
+  }
+  .big dt {
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  .big dd {
+    margin: 0;
+    font-size: 3.25rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+  .big em {
+    font-style: normal;
+    color: var(--acc-ink);
+  }
+  .more {
+    font-weight: 700;
+    color: var(--acc-ink);
+  }
+  .card {
+    padding: 18px 22px 6px;
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 4px;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .live {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .live::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ok);
+  }
+  .legend {
+    display: flex;
+    gap: 14px;
+  }
+  .k::before {
+    content: '';
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin-right: 6px;
+    border-radius: 2px;
+    background: var(--line2);
+  }
+  .k.after::before {
+    background: var(--acc-mid);
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .row {
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+  .row:first-child {
+    border-top: 0;
+  }
+  .row-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+    margin: 0 0 10px;
+  }
+  .detail {
+    flex: 1;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  .bars {
+    display: grid;
+    gap: 5px;
+  }
+  .track {
+    display: block;
+    height: 7px;
+    border-radius: 4px;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .fill {
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    background: var(--line2);
+    animation: grow 1.3s var(--ease) backwards;
+  }
+  .fill.after {
+    background: linear-gradient(90deg, var(--acc-mid), var(--acc));
+    animation-delay: 0.25s;
+  }
+  .fill[data-w='6'] {
+    width: 6%;
+  }
+  .fill[data-w='10'] {
+    width: 10%;
+  }
+  .fill[data-w='100'] {
+    width: 100%;
+  }
+  @keyframes grow {
+    from {
+      width: 0;
+    }
+  }
+  @supports (animation-timeline: view()) {
+    .fill {
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+      animation-delay: 0s;
+    }
+  }
+  .ends {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6875rem;
+    color: var(--muted);
+  }
+  .ends .hi {
+    color: var(--acc-ink);
+  }
+  .say {
+    margin: 0 0 8px;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+</style>
