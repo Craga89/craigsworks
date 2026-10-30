@@ -33,7 +33,7 @@ jobs:
       base: ${{ steps.where.outputs.base }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: Craga89/standards/setup-node@0c41b52a17c2687d2fe3c3b95f838b653a4e4e1b # v1
+      - uses: Craga89/standards/github/actions/setup-node@b8f7b51e18400dff89a9fcb8f296334c5e269e38 # v1
       - name: Where Pages serves the site
         id: pages
         if: inputs.base == ''
