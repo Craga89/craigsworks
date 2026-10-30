@@ -287,13 +287,21 @@ test.describe('the terminals', () => {
   });
 });
 
-test('the copy buttons copy the email address', { tag: '@desktop' }, async ({ page, context }) => {
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+test('the copy buttons copy the email address', async ({ page }) => {
+  // A stand-in clipboard: headless browsers' real one depends on focus and permissions.
+  await page.addInitScript(() => {
+    /** @type {string[]} */
+    const copied = [];
+    Object.defineProperty(window, '__copied', { value: copied });
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText: async (/** @type {string} */ t) => copied.push(t) } });
+  });
   await page.goto('./');
   const copy = page.locator('.hero').getByRole('button', { name: 'Copy the email address' });
   await copy.click();
   await expect(copy).toContainText('Copied');
-  expect(await page.evaluate(() => navigator.clipboard.readText())).toMatch(/^[^@\s]+@[^@\s]+$/);
+  expect(await page.evaluate(() => /** @type {any} */ (window).__copied)).toEqual([
+    expect.stringMatching(/^[^@\s]+@[^@\s]+$/),
+  ]);
   await expect(page.getByRole('status')).toHaveText('Copied to the clipboard.');
 });
 
