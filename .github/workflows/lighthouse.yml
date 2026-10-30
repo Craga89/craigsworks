@@ -1,8 +1,8 @@
 # Runs Lighthouse (mobile and desktop) against the live site and saves a summary to the
 # `lighthouse` branch (reports/summary.json + full reports), so results can be read back later.
 #
-# After a deploy it runs when either CI or Staging deploy finishes, because either can be the one
-# that publishes a new live site (a staging deploy can replace CI's waiting one, and publishes the
+# After a deploy it runs when either CI or Preview deploy finishes, because either can be the one
+# that publishes a new live site (a preview deploy can replace CI's waiting one, and publishes the
 # live site CI stored). It audits only when the live site has changed since the last audit.
 name: Lighthouse audit
 
@@ -13,7 +13,7 @@ on:
         description: Page to audit (blank = the first address that's serving this site)
         default: ''
   workflow_run:
-    workflows: [CI, Staging deploy]
+    workflows: [CI, Preview deploy]
     types: [completed]
   schedule:
     - cron: '43 5 * * 1' # Mondays, 05:43 UTC
@@ -99,11 +99,13 @@ jobs:
         run: |
           mkdir -p report/reports && cp out/summary.json report/reports/summary.json
           for f in out/mobile-2.json out/desktop-2.json; do [ -f "$f" ] && cp "$f" report/reports/; done
-          echo "$LIVE_COMMIT" > report/reports/commit.txt
-          echo "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" > report/reports/run.txt
-          date -u +%FT%TZ > report/reports/at.txt
       - if: env.SKIP != '1'
-        uses: ./.github/actions/publish-branch
+        uses: Craga89/standards/github/actions/report-meta@b8f7b51e18400dff89a9fcb8f296334c5e269e38 # v1
+        with:
+          dir: report/reports
+          sha: ${{ env.LIVE_COMMIT }}
+      - if: env.SKIP != '1'
+        uses: Craga89/standards/github/actions/publish-branch@b8f7b51e18400dff89a9fcb8f296334c5e269e38 # v1
         with:
           branch: lighthouse
           source: report

@@ -24,8 +24,8 @@ export const CHROME_DARK = '#17140F';
 /** Search engines stay out until the content is finished (ALLOW_INDEXING=true opens it up). */
 export const INDEXING = import.meta.env.ALLOW_INDEXING === 'true';
 
-/** On a staging build (staging/<branch>/), the branch it previews; empty on the live site. */
-export const STAGING = import.meta.env.STAGING_BRANCH ?? '';
+/** On a branch preview (preview/<branch>/), the branch it previews; empty on the live site. */
+export const PREVIEW = import.meta.env.PREVIEW_BRANCH ?? '';
 
 export const HOME_TITLE = "craigsworks · Ship faster and calmer, with help from someone who's done it";
 export const HOME_DESC =
