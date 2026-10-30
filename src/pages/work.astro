@@ -9,7 +9,9 @@ import { NOTES, AREAS, note } from '../data/notes';
 import { url } from '../site';
 
 const featured = note('ci');
-const groups = AREAS.map((a) => ({ ...a, notes: NOTES.filter((n) => n.area === a.key) })).filter((g) => g.notes.length);
+const groups = AREAS.map((area) => ({ area, notes: NOTES.filter((n) => n.area === area.key) })).filter(
+  (g) => g.notes.length,
+);
 ---
 
 <Base
@@ -29,8 +31,8 @@ const groups = AREAS.map((a) => ({ ...a, notes: NOTES.filter((n) => n.area === a
       {
         groups.map((g) => (
           <li>
-            <a class="chip" href={`#${g.key}`}>
-              {g.label}
+            <a class="chip" href={`#${g.area.key}`}>
+              {g.area.label}
             </a>
           </li>
         ))
@@ -89,10 +91,10 @@ const groups = AREAS.map((a) => ({ ...a, notes: NOTES.filter((n) => n.area === a
 
   {
     groups.map((g) => (
-      <section id={g.key} class="section wrap" aria-labelledby={`${g.key}-title`}>
+      <section id={g.area.key} class="section wrap" aria-labelledby={`${g.area.key}-title`}>
         <div class="shead pop">
-          <h2 id={`${g.key}-title`} class="section-title group">
-            {g.label}
+          <h2 id={`${g.area.key}-title`} class="section-title group">
+            {g.area.label}
           </h2>
         </div>
         <div class="bento">
