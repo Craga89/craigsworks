@@ -33,3 +33,11 @@ fix(a11y): keep focus visible behind the sticky header
 ci(preview): publish a preview of every branch under preview/
 build(deps): bump astro to 7.5.0
 ```
+
+## Review
+
+Before opening a pull request: `pnpm verify`, the end-to-end and accessibility suites when a page changes, then
+`/code-review` (and `/security-review` for workflows, the CSP or dependencies). Fill in the PR template's Testing, Risk
+and How to revert, and check the branch preview. When reviewing, follow `REVIEW.md`. Every review finding, from Copilot
+or the security review, gets an answer before merging: a fix, or a reply saying why not. See
+[code-review.md](https://github.com/Craga89/standards/blob/main/guidelines/code-review.md).
