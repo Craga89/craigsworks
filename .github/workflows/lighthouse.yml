@@ -37,11 +37,13 @@ jobs:
       - name: Where the live site is, and whether it's new
         run: |
           # Use the first address that serves the site (the domain, then the Worker's own until the domain moves).
-          # A domain only counts if it serves this site (the home page carries its build stamp, data-built), not a redirect elsewhere.
+          # An address only counts if it serves this site itself: it mustn't redirect to another address
+          # (craigsworks.com redirects to craigthompson.dev, whose pages carry a build stamp too), and
+          # its home page must carry this site's build stamp (data-built).
           if [ -z "$URL" ]; then
             for u in https://craigsworks.com/ https://craigsworks.craga89.workers.dev/; do
               final=$(curl -sfL -m 20 -o page.html -w '%{url_effective}' "$u" || true)
-              if grep -q "data-built=" page.html 2>/dev/null; then URL="$final"; break; fi
+              if [ "${final%%\?*}" = "$u" ] && grep -q "data-built=" page.html 2>/dev/null; then URL="$final"; break; fi
               echo "::warning title=Lighthouse::$u isn't serving this site yet (ended up at ${final:-no response})"
             done
           else
