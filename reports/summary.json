@@ -1,0 +1,265 @@
+{
+  "mobile": {
+    "runs": 3,
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 66,
+      "agentic-browsing": 100
+    },
+    "metrics": {
+      "first-contentful-paint": 941,
+      "largest-contentful-paint": 1024,
+      "total-blocking-time": 2,
+      "cumulative-layout-shift": 0,
+      "speed-index": 941,
+      "interactive": 1250
+    },
+    "totalBytes": 87622,
+    "failing": [
+      {
+        "category": "performance",
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0,
+        "display": "",
+        "items": [
+          {
+            "value": {
+              "type": "network-tree",
+              "chains": {
+                "89507AD1C46D5FB9145ABAB92F10CEAE": {
+                  "url": "https://craigsworks.craga89.workers.dev/",
+                  "navStartToEndTime": 109,
+                  "transferSize": 13266,
+                  "isLongest": true,
+                  "children": {
+                    "2811.5": {
+                      "url": "https://craigsworks.craga89.workers.dev/assets/index.DWB9_jtt.css",
+                      "navStartToEndTime": 166,
+                      "transferSize": 5398,
+                      "isLongest": true,
+                      "children": {}
+                    },
+                    "2811.4": {
+                      "url": "https://craigsworks.craga89.workers.dev/assets/Base.DNn6AVn8.css",
+                      "navStartToEndTime": 165,
+                      "transferSize": 5756,
+                      "children": {}
+                    },
+                    "2811.7": {
+                      "url": "https://craigsworks.craga89.workers.dev/assets/Contact.DQ6BP0Sm.css",
+                      "navStartToEndTime": 163,
+                      "transferSize": 1372,
+                      "children": {}
+                    },
+                    "2811.6": {
+                      "url": "https://craigsworks.craga89.workers.dev/assets/Faq.axz5JcYM.css",
+                      "navStartToEndTime": 162,
+                      "transferSize": 925,
+                      "children": {}
+                    },
+                    "2811.8": {
+                      "url": "https://craigsworks.craga89.workers.dev/assets/Base.astro_astro_type_script_index_0_lang.BHKEUp0t.js",
+                      "navStartToEndTime": 161,
+                      "transferSize": 5341,
+                      "children": {}
+                    }
+                  }
+                }
+              },
+              "longestChain": {
+                "duration": 166
+              }
+            }
+          },
+          {
+            "description": "[preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints help the browser establish a connection earlier in the page load, saving time when the first request for that origin is made. The following are the origins that the page preconnected to.",
+            "value": {
+              "type": "text",
+              "value": "No origins were preconnected"
+            }
+          },
+          {
+            "description": "Add [preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints to your most important origins, but try to use no more than 4",
+            "value": {
+              "type": "text",
+              "value": "No additional origins are good candidates for preconnecting"
+            }
+          }
+        ]
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-insight",
+        "title": "Render-blocking requests",
+        "score": 0.5,
+        "display": "",
+        "items": [
+          {
+            "url": "https://craigsworks.craga89.workers.dev/assets/index.DWB9_jtt.css",
+            "totalBytes": 5398
+          },
+          {
+            "url": "https://craigsworks.craga89.workers.dev/assets/Base.DNn6AVn8.css",
+            "wastedMs": 150,
+            "totalBytes": 5756
+          },
+          {
+            "url": "https://craigsworks.craga89.workers.dev/assets/Contact.DQ6BP0Sm.css",
+            "totalBytes": 1372
+          },
+          {
+            "url": "https://craigsworks.craga89.workers.dev/assets/Faq.axz5JcYM.css",
+            "totalBytes": 925
+          }
+        ]
+      },
+      {
+        "category": "seo",
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "score": 0,
+        "display": "",
+        "items": [
+          {},
+          {
+            "source": "https://craigsworks.craga89.workers.dev/robots.txt"
+          }
+        ]
+      }
+    ]
+  },
+  "desktop": {
+    "runs": 3,
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 66,
+      "agentic-browsing": 100
+    },
+    "metrics": {
+      "first-contentful-paint": 263,
+      "largest-contentful-paint": 311,
+      "total-blocking-time": 0,
+      "cumulative-layout-shift": 0.01,
+      "speed-index": 320,
+      "interactive": 311
+    },
+    "totalBytes": 87634,
+    "failing": [
+      {
+        "category": "performance",
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0,
+        "display": "",
+        "items": [
+          {
+            "value": {
+              "type": "network-tree",
+              "chains": {
+                "A0C5724C9E3334BAFF29DE9E926A15C2": {
+                  "url": "https://craigsworks.craga89.workers.dev/",
+                  "navStartToEndTime": 78,
+                  "transferSize": 13254,
+                  "isLongest": true,
+                  "children": {
+                    "3439.8": {
+                      "url": "https://craigsworks.craga89.workers.dev/assets/Base.astro_astro_type_script_index_0_lang.BHKEUp0t.js",
+                      "navStartToEndTime": 178,
+                      "transferSize": 5388,
+                      "isLongest": true,
+                      "children": {}
+                    },
+                    "3439.7": {
+                      "url": "https://craigsworks.craga89.workers.dev/assets/Contact.DQ6BP0Sm.css",
+                      "navStartToEndTime": 116,
+                      "transferSize": 1370,
+                      "children": {}
+                    },
+                    "3439.5": {
+                      "url": "https://craigsworks.craga89.workers.dev/assets/index.DWB9_jtt.css",
+                      "navStartToEndTime": 112,
+                      "transferSize": 5393,
+                      "children": {}
+                    },
+                    "3439.4": {
+                      "url": "https://craigsworks.craga89.workers.dev/assets/Base.DNn6AVn8.css",
+                      "navStartToEndTime": 102,
+                      "transferSize": 5754,
+                      "children": {}
+                    },
+                    "3439.6": {
+                      "url": "https://craigsworks.craga89.workers.dev/assets/Faq.axz5JcYM.css",
+                      "navStartToEndTime": 99,
+                      "transferSize": 920,
+                      "children": {}
+                    }
+                  }
+                }
+              },
+              "longestChain": {
+                "duration": 178
+              }
+            }
+          },
+          {
+            "description": "[preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints help the browser establish a connection earlier in the page load, saving time when the first request for that origin is made. The following are the origins that the page preconnected to.",
+            "value": {
+              "type": "text",
+              "value": "No origins were preconnected"
+            }
+          },
+          {
+            "description": "Add [preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints to your most important origins, but try to use no more than 4",
+            "value": {
+              "type": "text",
+              "value": "No additional origins are good candidates for preconnecting"
+            }
+          }
+        ]
+      },
+      {
+        "category": "performance",
+        "id": "render-blocking-insight",
+        "title": "Render-blocking requests",
+        "score": 0.5,
+        "display": "",
+        "items": [
+          {
+            "url": "https://craigsworks.craga89.workers.dev/assets/Contact.DQ6BP0Sm.css",
+            "totalBytes": 1370
+          },
+          {
+            "url": "https://craigsworks.craga89.workers.dev/assets/index.DWB9_jtt.css",
+            "totalBytes": 5393
+          },
+          {
+            "url": "https://craigsworks.craga89.workers.dev/assets/Base.DNn6AVn8.css",
+            "totalBytes": 5754
+          },
+          {
+            "url": "https://craigsworks.craga89.workers.dev/assets/Faq.axz5JcYM.css",
+            "totalBytes": 920
+          }
+        ]
+      },
+      {
+        "category": "seo",
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "score": 0,
+        "display": "",
+        "items": [
+          {},
+          {
+            "source": "https://craigsworks.craga89.workers.dev/robots.txt"
+          }
+        ]
+      }
+    ]
+  }
+}
