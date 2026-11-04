@@ -186,7 +186,7 @@ jobs:
       - uses: Craga89/standards/github/actions/setup-node@b8f7b51e18400dff89a9fcb8f296334c5e269e38 # v1
       - name: Deploy to Cloudflare
         id: cloudflare
-        uses: Craga89/standards/github/actions/cloudflare-deploy@677d5b4e11d33c8a827132d81b4048490c5de5f5 # v1
+        uses: Craga89/standards/github/actions/cloudflare-deploy@ed7edea1970776e239f2b6635dd9d64d9886089f # v1
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
