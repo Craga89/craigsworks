@@ -12,8 +12,8 @@ export const SOURCE = 'https://github.com/Craga89/craigsworks';
 export const LOCATION = 'Newcastle upon Tyne';
 
 /**
- * A path inside the site, under the base it's served from: '/' on craigsworks.com, '/craigsworks/'
- * on GitHub Pages before the custom domain is set (see astro.config.mjs).
+ * A path inside the site, under the base it's served from: always '/' on Cloudflare (SITE_BASE in
+ * astro.config.mjs builds it for another path).
  */
 export const url = (path = '') => import.meta.env.BASE_URL.replace(/\/?$/, '/') + path.replace(/^\//, '');
 
@@ -24,8 +24,14 @@ export const CHROME_DARK = '#17140F';
 /** Search engines stay out until the content is finished (ALLOW_INDEXING=true opens it up). */
 export const INDEXING = import.meta.env.ALLOW_INDEXING === 'true';
 
-/** On a branch preview (preview/<branch>/), the branch it previews; empty on the live site. */
+/** On a branch Preview, the branch it previews; empty on the live site. */
 export const PREVIEW = import.meta.env.PREVIEW_BRANCH ?? '';
+
+/**
+ * Where the live site is served: the Worker's workers.dev address until craigsworks.com moves to it
+ * (cloudflare/wrangler.jsonc), then SITE.
+ */
+export const LIVE = 'https://craigsworks.craga89.workers.dev/';
 
 export const HOME_TITLE = "craigsworks · Ship faster and calmer, with help from someone who's done it";
 export const HOME_DESC =

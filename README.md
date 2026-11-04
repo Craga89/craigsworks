@@ -1,6 +1,6 @@
 # craigsworks.com
 
-The website of craigsworks, Craig Thompson's engineering consultancy, served by GitHub Pages at <https://craigsworks.com>. Craig's personal site and CV are at <https://craigthompson.dev> ([Craga89/portfolio](https://github.com/Craga89/portfolio)), and this repo follows the same setup.
+The website of craigsworks, Craig Thompson's engineering consultancy, served by Cloudflare at <https://craigsworks.craga89.workers.dev/> until <https://craigsworks.com> moves to it. Craig's personal site and CV are at <https://craigthompson.dev> ([Craga89/portfolio](https://github.com/Craga89/portfolio)), and this repo follows the same setup.
 
 ## Layout
 
@@ -51,7 +51,7 @@ The site targets WCAG 2.2 AA, and `tests/a11y/` checks it on every change:
 
 - **lint** (oxlint, oxfmt) and **build** (`build.yml`, reusable, uploads `site/` as the `build` artifact), side by side;
 - on that build: **types and unit tests**, **end-to-end** tests on each project, and the **WCAG suite** in two shards, merged into one report (saved to the `accessibility` branch from the default branch);
-- on the default branch, once lint, unit, end-to-end and WCAG pass: **publish** the build as the live site (the root of the `pages` branch, with the commit stamped into the pages) and **deploy** that branch to GitHub Pages (`pages-deploy.yml` from [Craga89/standards](https://github.com/Craga89/standards)).
+- on the default branch, once lint, unit, end-to-end and WCAG pass: **deploy** the build, with its commit stamped into the pages, to the `craigsworks` Cloudflare Worker (`cloudflare-deploy` from [Craga89/standards](https://github.com/Craga89/standards)), then check the live site serves it (`tools/cloudflare-check.sh`).
 
 After each deploy, `.github/workflows/lighthouse.yml` runs Lighthouse (3 runs each, mobile and desktop) against the live site, saves a summary to the `lighthouse` branch, and fails if performance drops under 95, or accessibility or best practices under 100 (SEO under 100 too, once the site is open to search engines). `.github/workflows/accessibility.yml` runs the WCAG suite against the live site weekly, and `links.yml` checks for dead links weekly.
 
@@ -61,26 +61,27 @@ The actions and the preview and deploy workflows come from [Craga89/standards](h
 
 The site has a light and a dark theme (`:root[data-theme='dark']` in `styles/base.css`). A first visit follows the system setting; the switch in the header saves a choice, which the inline boot script applies before the page paints, so there's no flash of the other theme. Without scripts the system setting still applies, through `prefers-color-scheme`. Colours that should flip go through tokens (`--solid` for solid buttons and the tooltip, `--crate-*` for the logo's crate), and both themes are held to WCAG 2.2 AA by the axe runs.
 
+### Hosting
+
+The site is a Cloudflare Worker with no code, serving the build (Workers static assets; see Craga89/standards [guidelines/hosting.md](https://github.com/Craga89/standards/blob/main/guidelines/hosting.md)). `cloudflare/wrangler.jsonc` is its config: unknown paths get `404.html` with a 404, and `/path` redirects to `/path/`. `cloudflare/_headers` sets its response headers, copied into the build at deploy. The Content-Security-Policy stays in each page's `<meta>`, where Astro writes its hashes. Deploys need two repository secrets: `CLOUDFLARE_API_TOKEN` (an account API token with **Workers Scripts: Edit**) and `CLOUDFLARE_ACCOUNT_ID`. They only reach the `wrangler` steps, never a job that builds or tests a branch.
+
+The site is served from the root, so the base path is always `/`. Links still go through `url()` in `src/site.ts`, and `SITE_BASE` (in `astro.config.mjs` and `playwright.config.mjs`) still builds and tests it under another path.
+
 ### Branch previews
 
-Every push to a branch is built straight away and published under `preview/<branch>-<hash>/` (the branch name lowercased, with `/` and other symbols as `-`, then six characters of a hash of the exact name, so branches that read alike never share a folder), without waiting for the checks, so a change can be looked at within a couple of minutes:
+Every push to a branch is built straight away, without waiting for the checks, and served as a Cloudflare Worker Preview of its own (`preview.yml`, calling Craga89/standards' `cloudflare-preview.yml`):
 
-- <https://craga89.github.io/craigsworks/preview/> (or `https://craigsworks.com/preview/` once the domain is live) lists every preview, newest first, with its commit;
-- each preview has a dark bar across the top saying which branch it is, linking back to the list and to the live site;
-- the commit gets a **Preview** status in the pull request's checks (pending while it builds, then the address in its description and behind its **Details** link once it's live), and the pull request gets one comment with the link (posted once, by `preview.yml`, or by `preview-comment.yml` when the pull request is opened after the branch was pushed; the address never changes, so it isn't posted again);
-- deleting the branch removes its preview. Previews are never indexed (`noindex`, and `robots.txt` disallows `/preview/` once the site is open to search engines).
+- the address is `https://<branch>-<hash>-craigsworks.craga89.workers.dev/`: the branch name lowercased, with `/` and other symbols as `-`, then six characters of a hash of the exact name, so branches that read alike never share a Preview;
+- each Preview has a dark bar across the top saying which branch it is, linking to the live site;
+- the commit gets a **Preview** status, linking to the Preview once it's up and checked (`tools/cloudflare-check.sh`), and the pull request gets one comment with the link;
+- deleting the branch deletes its Preview. Previews are never indexed (`X-Robots-Tag: noindex`, and the `noindex` meta tag while `ALLOW_INDEXING` is off).
 
-How: GitHub Pages serves one artifact per site, so everything it serves lives on the `pages` branch, the live site at the root and the previews under `preview/` (one commit, no history; don't edit it by hand). `preview.yml` builds a branch for its folder and stores it there (Craga89/standards' `preview.yml` and `pages-store`, which also prune previews whose branch is gone); `preview-deploy.yml`, started when that finishes, deploys the branch (it runs from the default branch, the only one the `github-pages` environment lets deploy). CI stores the live site at the root the same way, but only after every check passes. Deploys queue one at a time and each publishes whatever the `pages` branch holds by then, so a waiting deploy can be replaced by a newer one; if that happens to CI's, its run shows the deploy as cancelled although the newer deploy published the live site too. Lighthouse runs after either workflow and audits whenever the live site's commit has changed since its last audit, so the live site is audited either way. A run cancelled by a newer push or a deleted branch stores nothing. `master` (the live site), bootstrap, Dependabot and report branches don't get previews.
-
-### Where it's served from
-
-Until the custom domain is set, GitHub Pages serves the site under a path: <https://craga89.github.io/craigsworks/>. `build.yml` reads where Pages serves from (`actions/configure-pages`) and builds for it (`SITE_BASE`, `SITE_ORIGIN` in `astro.config.mjs`), so links in pages go through `url()` in `src/site.ts`, never a bare `/`. The tests serve the build at that same path (`SITE_BASE` in `playwright.config.mjs`), and an end-to-end test fails if any link or asset points outside it. Once the custom domain is set, the next build moves to the root by itself.
+The branch is built in a job without the Cloudflare token. `wrangler` then uploads the built files from a checkout of `master`, so a branch's own code never sees the token. `master` (the live site), bootstrap, Dependabot and report branches don't get Previews.
 
 ### Going live
 
-1. **Pages:** Settings → Pages → Source: **GitHub Actions**, custom domain `craigsworks.com`, enforce HTTPS.
-2. **DNS:** point `craigsworks.com` at GitHub Pages (apex `A`/`AAAA` records and a `www` `CNAME` to `craga89.github.io`).
-3. **Search engines:** the site sends `noindex` until the build's `ALLOW_INDEXING` (in `build.yml`) is `'true'`.
+1. **The domain:** attach `craigsworks.com` to the Worker and redirect `www`, then list the domain in `cloudflare/wrangler.jsonc` (`routes`, `"workers_dev": false`) and point `LIVE` in `src/site.ts` at it. Follow the hosting guideline's "Moving the domain". `craigsworks.com` currently redirects to craigthompson.dev (Craga89/portfolio's `redirects/old-domains.json`), so that redirect goes too.
+2. **Search engines:** the site sends `noindex` until the build's `ALLOW_INDEXING` (in `build.yml`) is `'true'`.
 
 ## Performance
 

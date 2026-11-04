@@ -9,3 +9,5 @@ blob-report/
 coverage/
 a11y.json
 .astro/
+# wrangler dev's local state.
+.wrangler/

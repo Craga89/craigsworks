@@ -7,9 +7,9 @@ served from. Style is the formatter's and linter's job, not review's. See
 
 ## What failure looks like here
 
-- **A link or asset that ignores the base path.** The site is served from `/`, from Pages'
-  `/craigsworks/` and from `/preview/<branch>-<hash>/`; a hard-coded `/…` works locally and 404s
-  on a preview. Every internal URL goes through `url()` in `site.ts`.
+- **A link or asset that ignores the base path.** Cloudflare serves the site and its Previews from
+  `/`, but the tests can build it under another path (`SITE_BASE`), where a hard-coded `/…`
+  breaks. Every internal URL goes through `url()` in `site.ts`.
 - **Breaking the Content-Security-Policy.** There's no `unsafe-inline`: an inline `style=` or
   `<script>`, or a new third-party origin, is blocked in production. The one inline script is
   `scripts/inline.mjs`, hashed into the CSP.

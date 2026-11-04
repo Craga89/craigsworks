@@ -1,0 +1,26 @@
+// The site on Cloudflare Workers static assets (Craga89/standards guidelines/hosting.md): a Worker
+// with no code, serving the build. ci.yml deploys master to it once every check passes;
+// .github/workflows/preview.yml gives every other branch a Preview of its own.
+//
+// Served at craigsworks.craga89.workers.dev until craigsworks.com moves to it (see the guideline's
+// "Moving the domain"). Paths are relative to this file.
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  // Named after the repository.
+  "name": "craigsworks",
+  "compatibility_date": "2026-10-13",
+  // The live site's address until the domain moves. When it does, list the domain in "routes" and
+  // set this to false (each deploy replaces the Worker's routes with the config's).
+  "workers_dev": true,
+  // Branch Previews, each at an address of its own.
+  "preview_urls": true,
+  "previews": {},
+  "assets": {
+    // The build output (pnpm run build), with cloudflare/_headers copied in by the workflows.
+    "directory": "../site",
+    // Astro writes every page as <path>/index.html; /path redirects to /path/.
+    "html_handling": "auto-trailing-slash",
+    // Unknown paths get site/404.html with a 404.
+    "not_found_handling": "404-page",
+  },
+}
