@@ -39,7 +39,7 @@ jobs:
       (github.event_name != 'pull_request' ||
         (!startsWith(github.head_ref, 'dependabot/') && !startsWith(github.head_ref, 'bootstrap/') &&
          github.event.pull_request.head.repo.full_name == github.repository))
-    uses: Craga89/standards/.github/workflows/cloudflare-preview.yml@ab3025a46168d28c3fe442b0ecf3ea22d39d1107 # v1
+    uses: Craga89/standards/.github/workflows/cloudflare-preview.yml@118ae2dac67218985916f2f95e069ec5e9394c7b # v1
     permissions:
       contents: read
       statuses: write # the "Preview" status on the commit
@@ -53,3 +53,6 @@ jobs:
     secrets:
       cloudflare-api-token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       cloudflare-account-id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      # Previews are behind Cloudflare Access: CI's check signs in with this service token.
+      access-client-id: ${{ secrets.CLOUDFLARE_ACCESS_CLIENT_ID }}
+      access-client-secret: ${{ secrets.CLOUDFLARE_ACCESS_CLIENT_SECRET }}

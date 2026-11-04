@@ -74,6 +74,7 @@ Every push to a branch is built straight away, without waiting for the checks, a
 - the address is `https://<branch>-<hash>-craigsworks.craga89.workers.dev/`: the branch name lowercased, with `/` and other symbols as `-`, then six characters of a hash of the exact name, so branches that read alike never share a Preview;
 - each Preview has a dark bar across the top saying which branch it is, linking to the live site;
 - the commit gets a **Preview** status, linking to the Preview once it's up and checked (`tools/cloudflare-check.sh`), and the pull request gets one comment with the link;
+- Previews are behind Cloudflare Access: only signed-in people can see them, and CI's check signs in with a service token (`CLOUDFLARE_ACCESS_CLIENT_ID`, `CLOUDFLARE_ACCESS_CLIENT_SECRET`);
 - deleting the branch deletes its Preview. Previews are never indexed (`X-Robots-Tag: noindex`, and the `noindex` meta tag while `ALLOW_INDEXING` is off).
 
 The branch is built in a job without the Cloudflare token. `wrangler` then uploads the built files from a checkout of `master`, so a branch's own code never sees the token. `master` (the live site), bootstrap, Dependabot and report branches don't get Previews.
