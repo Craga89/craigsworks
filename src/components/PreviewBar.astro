@@ -1,12 +1,7 @@
 ---
-// On branch previews only: a bar across the top saying this is a preview of a branch, not the live
-// site, with links to the other previews and to the live site.
-import { PREVIEW } from '../site';
-
-// The previews live at <pages base>/preview/<branch>/: the list of them is one level up, and the
-// live site (wherever Pages serves it) two.
-const previews = import.meta.env.BASE_URL.replace(/\/?$/, '/').replace(/[^/]+\/$/, '');
-const live = previews.replace(/[^/]+\/$/, '');
+// On branch Previews only: a bar across the top saying this is a preview of a branch, not the live
+// site, with a link to the live site. Each Preview has an address of its own (no list of them).
+import { LIVE, PREVIEW } from '../site';
 ---
 
 {
@@ -14,7 +9,7 @@ const live = previews.replace(/[^/]+\/$/, '');
     <aside class="preview" aria-label="Branch preview">
       <p>
         <strong>Branch preview</strong> of <code>{PREVIEW}</code>, built before the checks run.
-        <a href={previews}>All previews</a> · <a href={live}>Live site</a>
+        <a href={LIVE}>Live site</a>
       </p>
     </aside>
   )

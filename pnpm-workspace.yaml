@@ -7,7 +7,11 @@ bootConfig:
   minimumReleaseAgeExclude:
     - '@craga89/standards'
 # Dependencies' install scripts only run when they're allowed here, and pnpm fails the install if
-# one hasn't been reviewed. None of the current dependencies needs one.
-allowBuilds: {}
+# one hasn't been reviewed.
+allowBuilds:
+  # wrangler's: both ship their binaries as platform packages, so their install scripts (which only
+  # check or speed up the binary) aren't needed.
+  esbuild: false
+  workerd: false
 configDependencies:
   '@craga89/standards': 1.0.1+sha512-pijyQCZhFjjTSsWxJ9wVZgTV5PZ60iLQ4cw+X/tEfwSqbFmBGgar3kDhaVHQK8nQNXSNp+xZq2AdgMKLm/Xirw==
