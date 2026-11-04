@@ -39,7 +39,7 @@ jobs:
       (github.event_name != 'pull_request' ||
         (!startsWith(github.head_ref, 'dependabot/') && !startsWith(github.head_ref, 'bootstrap/') &&
          github.event.pull_request.head.repo.full_name == github.repository))
-    uses: Craga89/standards/.github/workflows/cloudflare-preview.yml@ed7edea1970776e239f2b6635dd9d64d9886089f # v1
+    uses: Craga89/standards/.github/workflows/cloudflare-preview.yml@ab3025a46168d28c3fe442b0ecf3ea22d39d1107 # v1
     permissions:
       contents: read
       statuses: write # the "Preview" status on the commit
