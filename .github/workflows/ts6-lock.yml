@@ -1,0 +1,25 @@
+# Temporary: regenerates the lockfile for PR #27 with TypeScript kept at 6 (astro check doesn't
+# support 7 yet). Uploads package.json and pnpm-lock.yaml as an artifact; delete this branch after.
+name: TypeScript 6 lockfile
+on:
+  push:
+    branches: ['deps/ts6-lock']
+permissions:
+  contents: read
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: Craga89/standards/github/actions/setup-node@b8f7b51e18400dff89a9fcb8f296334c5e269e38 # v1
+      - run: pnpm add -D --save-exact typescript@6.0.3 && pnpm run typecheck
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: lock
+          path: |
+            package.json
+            pnpm-lock.yaml
