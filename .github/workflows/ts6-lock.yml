@@ -17,12 +17,10 @@ jobs:
       - uses: Craga89/standards/github/actions/setup-node@b8f7b51e18400dff89a9fcb8f296334c5e269e38 # v1
       - run: |
           sed -i 's/"typescript": "7.0.2"/"typescript": "6.0.3"/' package.json
-          pnpm install --no-frozen-lockfile
-          ls node_modules/@astrojs
-          node -e "import('@astrojs/check').then(()=>console.log('check loads')).catch(e=>{console.log(e.stack)})"
-          node -e "import('typescript').then(t=>console.log('ts', t.version ?? t.default?.version)).catch(e=>{console.log(e.stack)})"
-          grep -rn "astrojs/check" node_modules/astro/dist/cli/check/index.js | head -5 || true
+          pnpm add -D --save-exact @emnapi/runtime@1.11.3
+          grep -n "emnapi/runtime@2" pnpm-lock.yaml | head -20 || true
           pnpm run typecheck
+          pnpm run build
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
