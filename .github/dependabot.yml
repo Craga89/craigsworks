@@ -9,6 +9,16 @@ updates:
     groups:
       dev-dependencies:
         patterns: ['*']
+    ignore:
+      # astro check doesn't support TypeScript 7 yet. Remove when it does (or when moving to
+      # @astrojs/ts-content-mapper).
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+      # Pinned in package.json so astro check's WebAssembly parser gets the runtime it was built for:
+      # left to pnpm, it took rolldown's 2.0 beta, which crashes it. Remove both when astro check
+      # supports emnapi 2.
+      - dependency-name: '@emnapi/runtime'
+        update-types: ['version-update:semver-major']
   - package-ecosystem: github-actions
     directory: /
     schedule:
