@@ -6,6 +6,10 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # A week after a release, so a compromised one is usually found and pulled first, before it
+    # can merge itself.
+    cooldown:
+      default-days: 7
     groups:
       dev-dependencies:
         patterns: ['*']
@@ -23,6 +27,10 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # A week after a release, so a compromised one is usually found and pulled first, before it
+    # can merge itself.
+    cooldown:
+      default-days: 7
     groups:
       actions:
         patterns: ['*']
