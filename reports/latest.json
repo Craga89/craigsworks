@@ -1,0 +1,982 @@
+{
+  "url": "https://craigsworks.com/",
+  "at": "2026-11-16T15:53:32.022Z",
+  "axe": "4.14.0",
+  "standard": "WCAG 2.2 AA",
+  "tests": 62,
+  "axeRuns": 16,
+  "violations": [
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": "h1 > small",
+      "html": "<small>Newcastle Upon Tyne, United Kingdom</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 13.6pt (18.2px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": "#about > .container > header > h3 > small",
+      "html": "<small>me</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 11.6pt (15.47px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": ".btn-success > span:nth-child(2)",
+      "html": "<span>Download CV</span>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 3.74 (foreground color: #ffffff, background color: #0c9928, font size: 8.9pt (11.9px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": "#skills > .container > header > h3 > small",
+      "html": "<small>&amp; Experience </small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 11.6pt (15.47px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": ".row:nth-child(2) > .col-sm-6:nth-child(1) > article > header > h4 > small",
+      "html": "<small>&amp; Libraries</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 9.8pt (13.125px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": ".row:nth-child(2) > .col-sm-6:nth-child(2) > article > header > h4 > small",
+      "html": "<small>&amp; Styling</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 9.8pt (13.125px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": "#skills > .container > .row:nth-child(3) > .col-sm-6:nth-child(1) > article > header > h4 > small",
+      "html": "<small>&amp; Build tools</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 9.8pt (13.125px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": "#skills > .container > .row:nth-child(3) > .col-sm-6:nth-child(2) > article > header > h4 > small",
+      "html": "<small>&amp; Software</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 9.8pt (13.125px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": "#github > .container > .row:nth-child(3) > .col-sm-6:nth-child(1) > article > header > h4 > small",
+      "html": "<small>Pretty Powerful Tooltips</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 9.8pt (13.125px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": "#github > .container > .row:nth-child(3) > .col-sm-6:nth-child(2) > article > header > h4 > small",
+      "html": "<small>jQuery UI</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 9.8pt (13.125px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": ".row:nth-child(4) > .col-sm-6:nth-child(1) > article > header > h4 > small",
+      "html": "<small>Aurelia Addon</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 9.8pt (13.125px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": ".row:nth-child(4) > .col-sm-6:nth-child(2) > article > header > h4 > small",
+      "html": "<small>Simple jQuery tooltips</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 9.8pt (13.125px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": "#who > .container > header > h3 > small",
+      "html": "<small>has used my work?</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 11.6pt (15.47px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": "#contact > .container > header > h3 > small",
+      "html": "<small>me</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 11.6pt (15.47px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": "a[href=\"mailto:craig@craigsworks.com\"] > .text-muted",
+      "html": "<small class=\"text-muted\">craig@craigsworks.com</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 8.9pt (11.9px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": "a[href=\"tel:+447878062458\"] > .text-muted:nth-child(4)",
+      "html": "<small class=\"text-muted\">+(44) 7878 062 458</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 8.9pt (11.9px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": ".btn-block.btn-default[href$=\"craigsworks\"] > .text-muted",
+      "html": "<small class=\"text-muted\">@craigsworks</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 8.9pt (11.9px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": "a[href=\"gtalk:craig@craigsworks.com\"] > .text-muted",
+      "html": "<small class=\"text-muted\">craig@craigsworks.com</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 8.9pt (11.9px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+      "wcag": [
+        "wcag2aa",
+        "wcag143"
+      ],
+      "target": ".text-muted > small",
+      "html": "<small>* Available 09:00am - 6:00pm Monday - Friday</small>",
+      "summary": "Fix any of the following:   Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 8.9pt (11.9px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "html-has-lang",
+      "impact": "serious",
+      "help": "<html> element must have a lang attribute",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/html-has-lang?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag311"
+      ],
+      "target": "#page-home",
+      "html": "<html id=\"page-home\" class=\"page-home no-js\">",
+      "summary": "Fix any of the following:   The <html> element does not have a lang attribute",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-in-text-block",
+      "impact": "serious",
+      "help": "Links must be distinguishable without relying on color",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-in-text-block?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag141"
+      ],
+      "target": ".col-sm-6:nth-child(1) > article > p > a[href$=\"jquery.com\"][target=\"_blank\"]",
+      "html": "<a href=\"//jquery.com\" target=\"_blank\">jQuery</a>",
+      "summary": "Fix any of the following:   The link has insufficient color contrast of 1.17:1 with the surrounding text. (Minimum contrast is 3:1, link text: #0d60ae, surrounding text: #555555)   The link has no styling (such as underline) to distinguish it from the surrounding text",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-in-text-block",
+      "impact": "serious",
+      "help": "Links must be distinguishable without relying on color",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-in-text-block?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag141"
+      ],
+      "target": "p > a[href$=\"jqueryui.com\"][target=\"_blank\"]",
+      "html": "<a href=\"//jqueryui.com\" target=\"_blank\">jQuery UI</a>",
+      "summary": "Fix any of the following:   The link has insufficient color contrast of 1.17:1 with the surrounding text. (Minimum contrast is 3:1, link text: #0d60ae, surrounding text: #555555)   The link has no styling (such as underline) to distinguish it from the surrounding text",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-in-text-block",
+      "impact": "serious",
+      "help": "Links must be distinguishable without relying on color",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-in-text-block?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag141"
+      ],
+      "target": "p > a[href$=\"aurelia.io\"][target=\"_blank\"]",
+      "html": "<a href=\"//aurelia.io\" target=\"_blank\">Aurelia</a>",
+      "summary": "Fix any of the following:   The link has insufficient color contrast of 1.17:1 with the surrounding text. (Minimum contrast is 3:1, link text: #0d60ae, surrounding text: #555555)   The link has no styling (such as underline) to distinguish it from the surrounding text",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-in-text-block",
+      "impact": "serious",
+      "help": "Links must be distinguishable without relying on color",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-in-text-block?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag141"
+      ],
+      "target": "a[href$=\"jadelang.com\"]",
+      "html": "<a href=\"//jadelang.com\" target=\"_blank\">Jade</a>",
+      "summary": "Fix any of the following:   The link has insufficient color contrast of 1.17:1 with the surrounding text. (Minimum contrast is 3:1, link text: #0d60ae, surrounding text: #555555)   The link has no styling (such as underline) to distinguish it from the surrounding text",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-in-text-block",
+      "impact": "serious",
+      "help": "Links must be distinguishable without relying on color",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-in-text-block?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag141"
+      ],
+      "target": "a[href$=\"systemjs\"]",
+      "html": "<a href=\"//github.com/systemjs/systemjs\" target=\"_blank\">SystemJS</a>",
+      "summary": "Fix any of the following:   The link has insufficient color contrast of 1.17:1 with the surrounding text. (Minimum contrast is 3:1, link text: #0d60ae, surrounding text: #555555)   The link has no styling (such as underline) to distinguish it from the surrounding text",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-in-text-block",
+      "impact": "serious",
+      "help": "Links must be distinguishable without relying on color",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-in-text-block?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag141"
+      ],
+      "target": ".col-sm-6:nth-child(2) > article > p > a[href$=\"jquery.com\"][target=\"_blank\"]",
+      "html": "<a href=\"//jquery.com\" target=\"_blank\">jQuery</a>",
+      "summary": "Fix any of the following:   The link has insufficient color contrast of 1.17:1 with the surrounding text. (Minimum contrast is 3:1, link text: #0d60ae, surrounding text: #555555)   The link has no styling (such as underline) to distinguish it from the surrounding text",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-in-text-block",
+      "impact": "serious",
+      "help": "Links must be distinguishable without relying on color",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-in-text-block?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag141"
+      ],
+      "target": "a[href$=\"qtip1.com\"]",
+      "html": "<a href=\"//qtip1.com\" target=\"_blank\">qTip</a>",
+      "summary": "Fix any of the following:   The link has insufficient color contrast of 1.17:1 with the surrounding text. (Minimum contrast is 3:1, link text: #0d60ae, surrounding text: #555555)   The link has no styling (such as underline) to distinguish it from the surrounding text",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-in-text-block",
+      "impact": "serious",
+      "help": "Links must be distinguishable without relying on color",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-in-text-block?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag141"
+      ],
+      "target": ".copyright > a[target=\"_blank\"]",
+      "html": "<a href=\"http://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">CC Attribution 3.0 license</a>",
+      "summary": "Fix any of the following:   The link has insufficient color contrast of 1.17:1 with the surrounding text. (Minimum contrast is 3:1, link text: #0d60ae, surrounding text: #555555)   The link has no styling (such as underline) to distinguish it from the surrounding text",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-name",
+      "impact": "serious",
+      "help": "Links must have discernible text",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-name?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag244",
+        "wcag412"
+      ],
+      "target": ".fa-newspaper-o",
+      "html": "<a href=\"#about\" class=\"fa-prefix fa fa-newspaper-o fa-fw\"></a>",
+      "summary": "Fix all of the following:   Element is in tab order and does not have accessible text ",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-name",
+      "impact": "serious",
+      "help": "Links must have discernible text",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-name?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag244",
+        "wcag412"
+      ],
+      "target": ".fa-pie-chart",
+      "html": "<a href=\"#skills\" class=\"fa-prefix fa fa-pie-chart fa-fw\"></a>",
+      "summary": "Fix all of the following:   Element is in tab order and does not have accessible text ",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-name",
+      "impact": "serious",
+      "help": "Links must have discernible text",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-name?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag244",
+        "wcag412"
+      ],
+      "target": "a[href$=\"#github\"]",
+      "html": "<a href=\"#github\" class=\"fa fa-prefix fa-github fa-fw\"></a>",
+      "summary": "Fix all of the following:   Element is in tab order and does not have accessible text ",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-name",
+      "impact": "serious",
+      "help": "Links must have discernible text",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-name?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag244",
+        "wcag412"
+      ],
+      "target": ".fa-users",
+      "html": "<a href=\"#who\" class=\"fa-prefix fa fa-users fa-fw\"></a>",
+      "summary": "Fix all of the following:   Element is in tab order and does not have accessible text ",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "link-name",
+      "impact": "serious",
+      "help": "Links must have discernible text",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/link-name?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag244",
+        "wcag412"
+      ],
+      "target": ".fa-share-alt",
+      "html": "<a href=\"#contact\" class=\"fa fa-prefix fa-share-alt fa-fw\"></a>",
+      "summary": "Fix all of the following:   Element is in tab order and does not have accessible text ",
+      "states": [
+        "home (desktop)",
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "html-has-lang",
+      "impact": "serious",
+      "help": "<html> element must have a lang attribute",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/html-has-lang?application=playwright",
+      "wcag": [
+        "wcag2a",
+        "wcag311"
+      ],
+      "target": "html",
+      "html": "<html>",
+      "summary": "Fix any of the following:   The <html> element does not have a lang attribute",
+      "states": [
+        "services/release-acceleration/ (desktop)",
+        "services/ai-adoption/ (desktop)",
+        "services/health-check/ (desktop)",
+        "work/ (desktop)",
+        "about/ (desktop)",
+        "privacy/ (desktop)",
+        "404 page (desktop)",
+        "services/release-acceleration/ (mobile)",
+        "services/health-check/ (mobile)",
+        "work/ (mobile)",
+        "about/ (mobile)",
+        "privacy/ (mobile)",
+        "404 page (mobile)",
+        "services/ai-adoption/ (mobile)"
+      ]
+    },
+    {
+      "rule": "target-size",
+      "impact": "serious",
+      "help": "All touch targets must be 24px large, or leave sufficient space",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/target-size?application=playwright",
+      "wcag": [
+        "wcag22aa",
+        "wcag258"
+      ],
+      "target": "a[title=\"Github\"]",
+      "html": "<a href=\"//github.com/Craga89\" target=\"_blank\" title=\"Github\" rel=\"github\" class=\"btn btn-default btn-sm\"><span class=\"fa fa-github\"></span><span class=\"hidden-xs\">Github</span></a>",
+      "summary": "Fix any of the following:   Target has insufficient size (22px by 12px, should be at least 24px by 24px)   Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 18px instead of at least 24px.",
+      "states": [
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "target-size",
+      "impact": "serious",
+      "help": "All touch targets must be 24px large, or leave sufficient space",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/target-size?application=playwright",
+      "wcag": [
+        "wcag22aa",
+        "wcag258"
+      ],
+      "target": "a[title=\"LinkedIn\"]",
+      "html": "<a href=\"//linkedin.com/in/craigmichaelthompson\" target=\"_blank\" title=\"LinkedIn\" rel=\"linkedin\" class=\"btn btn-default btn-sm\"><span class=\"fa fa-linkedin\"></span><span class=\"hidden-xs\">LinkedIn</span></a>",
+      "summary": "Fix any of the following:   Target has insufficient size (22px by 12px, should be at least 24px by 24px)   Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 18px instead of at least 24px.",
+      "states": [
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "target-size",
+      "impact": "serious",
+      "help": "All touch targets must be 24px large, or leave sufficient space",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/target-size?application=playwright",
+      "wcag": [
+        "wcag22aa",
+        "wcag258"
+      ],
+      "target": "a[href$=\"blog.craigsworks.com\"]",
+      "html": "<a href=\"//blog.craigsworks.com\" target=\"_blank\" title=\"Blog\" rel=\"blog\" class=\"btn btn-default btn-sm\"><span class=\"fa fa-globe\"></span><span class=\"hidden-xs\">Blog</span></a>",
+      "summary": "Fix any of the following:   Target has insufficient size (22px by 12px, should be at least 24px by 24px)   Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 18px instead of at least 24px.",
+      "states": [
+        "home (mobile)"
+      ]
+    },
+    {
+      "rule": "target-size",
+      "impact": "serious",
+      "help": "All touch targets must be 24px large, or leave sufficient space",
+      "url": "https://dequeuniversity.com/rules/axe/4.14/target-size?application=playwright",
+      "wcag": [
+        "wcag22aa",
+        "wcag258"
+      ],
+      "target": "a[title=\"Twitter\"]",
+      "html": "<a href=\"//twitter.com/craigsworks\" target=\"_blank\" title=\"Twitter\" rel=\"twitter\" class=\"btn btn-default btn-sm\"><span class=\"fa fa-twitter\"></span><span class=\"hidden-xs\">Twitter</span></a>",
+      "summary": "Fix any of the following:   Target has insufficient size (22px by 12px, should be at least 24px by 24px)   Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 19px instead of at least 24px.",
+      "states": [
+        "home (mobile)"
+      ]
+    }
+  ],
+  "failures": [
+    {
+      "check": "services/release-acceleration/: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "desktop",
+      "what": "Error: focus stops in a lap"
+    },
+    {
+      "check": "services/ai-adoption/: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "desktop",
+      "what": "Error: focus stops in a lap"
+    },
+    {
+      "check": "services/health-check/: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "desktop",
+      "what": "Error: focus stops in a lap"
+    },
+    {
+      "check": "work/: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "desktop",
+      "what": "Error: focus stops in a lap"
+    },
+    {
+      "check": "privacy/: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "desktop",
+      "what": "Error: focus stops in a lap"
+    },
+    {
+      "check": "about/: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "desktop",
+      "what": "Error: focus stops in a lap"
+    },
+    {
+      "check": "nothing loops or moves on its own",
+      "state": "desktop",
+      "what": "Error: errors on the page"
+    },
+    {
+      "check": "every looping animation can be paused, and stays paused",
+      "state": "desktop",
+      "what": "Error: something loops to begin with"
+    },
+    {
+      "check": "./: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "desktop",
+      "what": "Error: 2.4.11: focused but off screen"
+    },
+    {
+      "check": "the whole page",
+      "state": "desktop",
+      "what": "Error: axe: home"
+    },
+    {
+      "check": "every question open",
+      "state": "desktop",
+      "what": "Error: frame.evaluate: Error: No elements found for include in page Context"
+    },
+    {
+      "check": "the tooltip: shown on hover and focus, hoverable, and Escape dismisses it",
+      "state": "desktop",
+      "what": "Error: expect(locator).toHaveAccessibleDescription(expected) failed"
+    },
+    {
+      "check": "./",
+      "state": "desktop",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "services/release-acceleration/",
+      "state": "desktop",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "services/ai-adoption/",
+      "state": "desktop",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "services/health-check/",
+      "state": "desktop",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "the qTip2 tooltip, open",
+      "state": "desktop",
+      "what": "Test timeout of 60000ms exceeded."
+    },
+    {
+      "check": "with animations paused",
+      "state": "desktop",
+      "what": "Test timeout of 60000ms exceeded."
+    },
+    {
+      "check": "the home page works: questions still open, the terminals show their runs, and no controls that need scripts",
+      "state": "desktop",
+      "what": "Test timeout of 60000ms exceeded."
+    },
+    {
+      "check": "services/release-acceleration/",
+      "state": "desktop",
+      "what": "Error: axe: services/release-acceleration/"
+    },
+    {
+      "check": "work/",
+      "state": "desktop",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "services/ai-adoption/",
+      "state": "desktop",
+      "what": "Error: axe: services/ai-adoption/"
+    },
+    {
+      "check": "services/health-check/",
+      "state": "desktop",
+      "what": "Error: axe: services/health-check/"
+    },
+    {
+      "check": "work/",
+      "state": "desktop",
+      "what": "Error: axe: work/"
+    },
+    {
+      "check": "about/",
+      "state": "desktop",
+      "what": "Error: axe: about/"
+    },
+    {
+      "check": "privacy/",
+      "state": "desktop",
+      "what": "Error: axe: privacy/"
+    },
+    {
+      "check": "the 404 page",
+      "state": "desktop",
+      "what": "Error: axe: 404 page"
+    },
+    {
+      "check": "services/release-acceleration/: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "mobile",
+      "what": "Error: focus stops in a lap"
+    },
+    {
+      "check": "about/",
+      "state": "desktop",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "privacy/",
+      "state": "desktop",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "services/ai-adoption/: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "mobile",
+      "what": "Error: focus stops in a lap"
+    },
+    {
+      "check": "services/health-check/: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "mobile",
+      "what": "Error: focus stops in a lap"
+    },
+    {
+      "check": "work/: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "mobile",
+      "what": "Error: focus stops in a lap"
+    },
+    {
+      "check": "./ at 320px: reflows, and survives text spacing",
+      "state": "mobile",
+      "what": "Error: errors on the page"
+    },
+    {
+      "check": "about/: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "mobile",
+      "what": "Error: focus stops in a lap"
+    },
+    {
+      "check": "services/release-acceleration/ at 320px: reflows, and survives text spacing",
+      "state": "mobile",
+      "what": "Error: errors on the page"
+    },
+    {
+      "check": "privacy/: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "mobile",
+      "what": "Error: focus stops in a lap"
+    },
+    {
+      "check": "services/ai-adoption/ at 320px: reflows, and survives text spacing",
+      "state": "mobile",
+      "what": "Error: errors on the page"
+    },
+    {
+      "check": "services/health-check/ at 320px: reflows, and survives text spacing",
+      "state": "mobile",
+      "what": "Error: errors on the page"
+    },
+    {
+      "check": "./: a full lap with Tab, every stop visibly focused and not hidden",
+      "state": "mobile",
+      "what": "Error: 2.4.11: focused but off screen"
+    },
+    {
+      "check": "work/ at 320px: reflows, and survives text spacing",
+      "state": "mobile",
+      "what": "Error: errors on the page"
+    },
+    {
+      "check": "about/ at 320px: reflows, and survives text spacing",
+      "state": "mobile",
+      "what": "Error: errors on the page"
+    },
+    {
+      "check": "privacy/ at 320px: reflows, and survives text spacing",
+      "state": "mobile",
+      "what": "Error: errors on the page"
+    },
+    {
+      "check": "the whole page",
+      "state": "mobile",
+      "what": "Error: axe: home"
+    },
+    {
+      "check": "every question open",
+      "state": "mobile",
+      "what": "Error: frame.evaluate: Error: No elements found for include in page Context"
+    },
+    {
+      "check": "./",
+      "state": "mobile",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "services/release-acceleration/",
+      "state": "mobile",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "services/ai-adoption/",
+      "state": "mobile",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "services/health-check/",
+      "state": "mobile",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "the qTip2 tooltip, open",
+      "state": "mobile",
+      "what": "Test timeout of 60000ms exceeded."
+    },
+    {
+      "check": "with animations paused",
+      "state": "mobile",
+      "what": "Test timeout of 60000ms exceeded."
+    },
+    {
+      "check": "the home page works: questions still open, the terminals show their runs, and no controls that need scripts",
+      "state": "mobile",
+      "what": "Test timeout of 60000ms exceeded."
+    },
+    {
+      "check": "work/",
+      "state": "mobile",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "about/",
+      "state": "mobile",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "services/release-acceleration/",
+      "state": "mobile",
+      "what": "Error: axe: services/release-acceleration/"
+    },
+    {
+      "check": "services/health-check/",
+      "state": "mobile",
+      "what": "Error: axe: services/health-check/"
+    },
+    {
+      "check": "work/",
+      "state": "mobile",
+      "what": "Error: axe: work/"
+    },
+    {
+      "check": "about/",
+      "state": "mobile",
+      "what": "Error: axe: about/"
+    },
+    {
+      "check": "privacy/",
+      "state": "mobile",
+      "what": "Error: axe: privacy/"
+    },
+    {
+      "check": "the 404 page",
+      "state": "mobile",
+      "what": "Error: axe: 404 page"
+    },
+    {
+      "check": "privacy/",
+      "state": "mobile",
+      "what": "Error: expect(locator).toHaveAttribute(expected) failed"
+    },
+    {
+      "check": "services/ai-adoption/",
+      "state": "mobile",
+      "what": "Error: axe: services/ai-adoption/"
+    }
+  ],
+  "pass": false
+}
